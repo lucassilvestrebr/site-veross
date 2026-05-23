@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Veross — Arquitetura Comercial B2B</title>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── BRANDING BOOK VEROSS 2026 ── */
+:root {
+  --azul:   #060923;
+  --dou:    #AE8A56;
+  --dou-lt: #C9A97A;
+  --amen:   #ECD7B4;
+  --plat:   #CDCDD0;
+  --branco: #FCFCFC;
+  /* light site backgrounds */
+  --bg:     #FCFCFC;
+  --bg-w:   #F7F1E6;   /* amêndoa ~8% sobre branco */
+  --card:   #FFFFFF;
+  /* texto */
+  --tx:     #060923;
+  --tx-m:   #4A3D2E;
+  --tx-s:   #9A8C78;
+  /* bordas */
+  --bd:     rgba(174,138,86,0.18);
+  --bd2:    rgba(6,9,35,0.08);
+  /* radius */
+  --R: 28px;
+  --r: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+body {
+  background: var(--bg);
+  color: var(--tx);
+  font-family: 'Mulish', sans-serif;
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ── TIPO ── */
+.fd { font-family:'League Spartan',sans-serif; font-weight:900; letter-spacing:-0.03em; line-height:.95; }
+.fh { font-family:'League Spartan',sans-serif; font-weight:700; letter-spacing:-0.02em; line-height:1.1; }
+.fm { font-family:'DM Mono',monospace; letter-spacing:.1em; text-transform:uppercase; }
+.wrap { max-width:1120px; margin:0 auto; padding:0 52px; }
+
+/* ── EYEBROW ── */
+.ey {
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.16em; text-transform:uppercase;
+  color:var(--dou); margin-bottom:20px;
+}
+.ey::before { content:''; width:20px; height:1px; background:var(--dou); opacity:.5; }
+
+/* ── BOTÕES ── */
+.btn-p {
+  background:var(--azul); color:var(--branco); border:none;
+  padding:13px 26px; border-radius:100px;
+  font-family:'League Spartan',sans-serif; font-size:13px;
+  font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  cursor:pointer; transition:background .2s;
+}
+.btn-p:hover { background:var(--dou); }
+.btn-s {
+  background:transparent; color:var(--tx-m); border:1.5px solid var(--bd2);
+  padding:12px 24px; border-radius:100px;
+  font-size:13px; font-weight:500; cursor:pointer;
+  transition:border-color .2s, color .2s;
+}
+.btn-s:hover { border-color:var(--dou); color:var(--dou); }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:1000;
+  background:rgba(252,252,252,.92); backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--bd2);
+}
+.nav-i {
+  max-width:1120px; margin:0 auto; padding:0 52px;
+  height:64px; display:flex; align-items:center; justify-content:space-between;
+}
+.logo { font-family:'League Spartan',sans-serif; font-size:22px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--azul); }
+.logo span { color:var(--dou); }
+.nav-links { display:flex; gap:28px; list-style:none; }
+.nav-links a { font-size:13px; font-weight:500; color:var(--tx-m); text-decoration:none; transition:color .2s; }
+.nav-links a:hover { color:var(--dou); }
+.nav-cta { background:var(--azul); color:var(--branco); border:none; padding:9px 20px; border-radius:100px; font-family:'League Spartan',sans-serif; font-size:12px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; cursor:pointer; transition:background .2s; }
+.nav-cta:hover { background:var(--dou); }
+.ham { display:none; flex-direction:column; gap:5px; width:36px; height:36px; background:transparent; border:1px solid var(--bd2); border-radius:var(--r); padding:9px; cursor:pointer; }
+.ham span { display:block; height:1.5px; background:var(--azul); border-radius:2px; transition:transform .3s,opacity .3s; }
+.ham.open span:nth-child(1) { transform:translateY(6.5px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity:0; }
+.ham.open span:nth-child(3) { transform:translateY(-6.5px) rotate(-45deg); }
+.mob {
+  display:none; position:fixed; top:64px; left:0; right:0; bottom:0;
+  background:rgba(252,252,252,.97); backdrop-filter:blur(24px);
+  z-index:900; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.mob.open { opacity:1; pointer-events:all; }
+.mob a { font-family:'League Spartan',sans-serif; font-size:clamp(26px,7vw,40px); font-weight:800; color:rgba(6,9,35,.4); text-decoration:none; transition:color .2s; padding:6px 0; }
+.mob a:hover { color:var(--dou); }
+.mob-cta { margin-top:24px; background:var(--azul); color:var(--branco); border:none; padding:13px 30px; border-radius:100px; font-family:'League Spartan',sans-serif; font-size:14px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; cursor:pointer; }
+
+/* ── SECTIONS — fluxo normal ── */
+.sc { padding: 84px 0; }
+.sc-white { background: var(--card); }
+.sc-warm  { background: var(--bg-w); }
+.sc-dark  { background: var(--azul); }
+
+/* ── HERO ── */
+#hero {
+  min-height: 100vh;
+  padding: 130px 52px 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--bg);
+}
+.hero-deco {
+  position:absolute; inset:0; pointer-events:none; overflow:hidden;
+}
+.hero-cnt {
+  text-align:center; position:relative; z-index:2;
+  max-width:840px;
+}
+.hero-badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(174,138,86,.08); border:1px solid var(--bd);
+  border-radius:100px; padding:5px 14px;
+  font-family:'DM Mono',monospace; font-size:10px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--dou);
+  margin-bottom:28px;
+}
+.hero-dot { width:5px; height:5px; border-radius:50%; background:var(--dou); }
+.hero-h1 { font-size:clamp(44px,7.5vw,92px); color:var(--azul); margin-bottom:20px; }
+.hero-h1 em { font-style:normal; color:var(--dou); }
+.hero-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--tx-s); margin-bottom:18px; }
+.hero-sub { font-size:17px; font-weight:300; color:var(--tx-m); line-height:1.75; max-width:560px; margin:0 auto 40px; }
+.hero-ctas { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:60px; }
+.hero-stats {
+  display:flex; border-top:1px solid var(--bd2);
+  width:100%; max-width:840px;
+}
+.hs { flex:1; padding:24px 0; border-right:1px solid var(--bd2); text-align:center; }
+.hs:last-child { border-right:none; }
+.hs-n { font-family:'League Spartan',sans-serif; font-size:28px; font-weight:800; color:var(--dou); line-height:1; margin-bottom:4px; }
+.hs-l { font-size:11px; color:var(--tx-s); line-height:1.4; }
+
+/* hero illustration strip */
+.hero-illo { width:100%; max-width:900px; margin:0 auto; position:relative; z-index:2; }
+
+/* ── REFRAME ── */
+.rg { display:grid; grid-template-columns:1fr 1fr; gap:72px; align-items:start; }
+.sh { font-size:clamp(26px,3.5vw,42px); color:var(--azul); margin-bottom:18px; }
+.sh em { font-style:normal; color:var(--dou); }
+.bp { font-size:15px; font-weight:300; color:var(--tx-m); line-height:1.8; margin-bottom:14px; }
+.callout {
+  margin-top:26px; padding:20px 24px;
+  background:rgba(174,138,86,.06); border-left:2px solid var(--dou);
+  border-radius:0 var(--r) var(--r) 0;
+}
+.callout p { font-family:'League Spartan',sans-serif; font-size:16px; font-weight:600; color:var(--azul); line-height:1.45; }
+.pain-hdr { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:var(--tx-s); margin-bottom:14px; }
+.pain-list { list-style:none; display:flex; flex-direction:column; gap:8px; }
+.pain-list li {
+  display:flex; align-items:flex-start; gap:12px;
+  padding:13px 15px; background:var(--bg-w);
+  border:1px solid var(--bd2); border-radius:var(--r);
+  font-size:14px; font-style:italic; color:var(--tx-m); line-height:1.5;
+  transition:border-color .2s;
+}
+.pain-list li:hover { border-color:var(--bd); }
+.pain-list li::before { content:'"'; font-family:'League Spartan',sans-serif; font-size:26px; font-weight:900; color:var(--dou); opacity:.4; line-height:1; flex-shrink:0; margin-top:-2px; }
+.pain-close { margin-top:14px; font-size:13px; font-weight:600; color:var(--dou); }
+
+/* ── ICP ── */
+.icp-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:44px; }
+.icp-card { border-radius:16px; padding:30px; border:1.5px solid var(--bd2); }
+.icp-card.fit { border-color:rgba(174,138,86,.3); }
+.icp-card.no  { border-color:rgba(160,50,50,.15); }
+.icp-ttl { font-family:'League Spartan',sans-serif; font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; margin-bottom:18px; padding-bottom:14px; border-bottom:1px solid var(--bd2); }
+.icp-card.fit .icp-ttl { color:var(--dou); }
+.icp-card.no  .icp-ttl { color:rgba(160,50,50,.7); }
+.icp-it { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.icp-it li { font-size:13.5px; color:var(--tx-m); display:flex; gap:10px; align-items:flex-start; }
+.icp-card.fit .icp-it li::before { content:'—'; color:var(--dou); flex-shrink:0; }
+.icp-card.no  .icp-it li::before { content:'—'; color:rgba(160,50,50,.5); flex-shrink:0; }
+
+/* ═══════════════════════════════════════
+   MHMA — OUTER: position RELATIVE (não sticky!)
+             INNER: position sticky top:0
+   Separar os dois evita o conflito que
+   quebrava o scroll horizontal dos slides.
+═══════════════════════════════════════ */
+.mhma-outer {
+  position: relative;   /* NUNCA sticky */
+  height: 500vh;
+  background: var(--azul);
+  border-radius: var(--R) var(--R) 0 0;
+}
+.mhma-inner {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  border-radius: var(--R) var(--R) 0 0;
+}
+.mhma-hdr {
+  position:absolute; top:38px; left:52px; right:52px;
+  display:flex; align-items:center; justify-content:space-between;
+  z-index:20; pointer-events:none;
+}
+.mhma-ey { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(174,138,86,.5); }
+.mhma-ct { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; color:rgba(174,138,86,.4); }
+.mhma-track { position:relative; width:100%; height:100%; }
+.mhma-slide {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  display:grid; grid-template-columns:1fr 1fr; align-items:center;
+  will-change:transform;
+}
+.mhma-illo { display:flex; align-items:center; justify-content:center; padding:60px 40px 60px 52px; }
+.mhma-txt { padding:60px 52px 60px 40px; position:relative; }
+.mhma-num { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.15em; text-transform:uppercase; color:rgba(174,138,86,.4); margin-bottom:16px; }
+.mhma-ln { width:32px; height:1px; background:var(--dou); opacity:.5; margin-bottom:20px; }
+.mhma-name { font-family:'League Spartan',sans-serif; font-size:clamp(30px,4.5vw,50px); font-weight:800; color:var(--branco); letter-spacing:-.02em; line-height:1.05; margin-bottom:20px; }
+.mhma-desc { font-size:16px; font-weight:300; color:rgba(255,255,255,.42); line-height:1.8; max-width:400px; }
+.mhma-desc em { font-style:normal; color:var(--amen); font-weight:500; }
+.mhma-bg-ltr { position:absolute; right:44px; bottom:36px; font-family:'League Spartan',sans-serif; font-size:clamp(80px,15vw,160px); font-weight:900; line-height:.85; color:rgba(174,138,86,.06); letter-spacing:-.05em; user-select:none; pointer-events:none; }
+.mhma-dots { position:absolute; bottom:34px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:20; }
+.mhma-dot { width:22px; height:2px; border-radius:1px; background:rgba(174,138,86,.2); transition:background .3s,width .3s; }
+.mhma-dot.on { background:var(--dou); width:38px; }
+.mhma-hint { position:absolute; bottom:34px; right:52px; font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:rgba(174,138,86,.3); z-index:20; transition:opacity .4s; }
+.mhma-hint.off { opacity:0; }
+
+/* ── 2EOGM ── */
+.eogm-intro { max-width:520px; margin-bottom:48px; }
+.eogm-grid { display:flex; border:1.5px solid var(--bd2); border-radius:14px; overflow:hidden; }
+.eogm-s { flex:1; padding:30px 22px; border-right:1px solid var(--bd2); transition:background .25s,flex .35s; cursor:default; overflow:hidden; }
+.eogm-s:last-child { border-right:none; }
+.eogm-s:hover { background:rgba(174,138,86,.05); flex:1.7; }
+.eogm-n { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; color:var(--tx-s); margin-bottom:14px; }
+.eogm-l { font-family:'League Spartan',sans-serif; font-size:42px; font-weight:900; color:rgba(174,138,86,.12); line-height:1; margin-bottom:12px; transition:color .25s; }
+.eogm-s:hover .eogm-l { color:rgba(174,138,86,.4); }
+.eogm-nm { font-family:'League Spartan',sans-serif; font-size:14px; font-weight:700; color:var(--azul); margin-bottom:8px; }
+.eogm-dc { font-size:12px; font-weight:300; color:var(--tx-s); line-height:1.7; max-height:0; overflow:hidden; opacity:0; transition:max-height .35s ease,opacity .3s ease .05s; }
+.eogm-s:hover .eogm-dc { max-height:120px; opacity:1; }
+.eogm-rs { margin-top:22px; display:flex; align-items:center; justify-content:space-between; padding:16px 22px; background:var(--bg-w); border:1px solid var(--bd2); border-radius:var(--r); }
+.eogm-rs p { font-family:'DM Mono',monospace; font-size:10px; color:var(--tx-s); letter-spacing:.06em; }
+.rs-wrap { display:flex; gap:8px; flex-wrap:wrap; }
+.rs-tag { padding:5px 13px; border-radius:100px; border:1px solid var(--bd); font-family:'DM Mono',monospace; font-size:10px; color:var(--dou); letter-spacing:.04em; }
+
+/* ── CASES ── */
+.cases-hdr { display:flex; align-items:flex-end; justify-content:space-between; margin-bottom:44px; gap:20px; }
+.cases-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.cc { background:var(--card); border:1.5px solid var(--bd2); border-radius:14px; padding:30px; display:flex; flex-direction:column; gap:14px; transition:border-color .25s; }
+.cc:hover { border-color:var(--bd); }
+.cc-tag { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--tx-s); }
+.cc-n { font-family:'League Spartan',sans-serif; font-size:42px; font-weight:800; color:var(--dou); line-height:1; }
+.cc-l { font-size:12px; color:var(--tx-s); margin-top:2px; }
+.cc-d { font-size:13px; font-weight:300; color:var(--tx-m); line-height:1.7; }
+.cc hr { border:none; border-top:1px solid var(--bd2); }
+.depo-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
+.depo { background:var(--card); border:1.5px solid var(--bd2); border-radius:14px; padding:28px; }
+.depo-q { font-size:15px; font-style:italic; font-weight:300; color:var(--tx-m); line-height:1.75; margin-bottom:20px; padding-left:14px; border-left:2px solid var(--dou); }
+.depo-name { font-family:'League Spartan',sans-serif; font-size:13px; font-weight:700; color:var(--dou); }
+.depo-role { font-family:'DM Mono',monospace; font-size:10px; color:var(--tx-s); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+
+/* ── ECO ── */
+.eco-intro { max-width:540px; margin-bottom:44px; }
+.eco-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
+.eco-g { background:var(--bg-w); border:1px solid var(--bd2); border-radius:var(--r); padding:20px; }
+.eco-g h4 { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; color:var(--dou); margin-bottom:12px; padding-bottom:10px; border-bottom:1px solid var(--bd2); }
+.eco-tools { list-style:none; display:flex; flex-direction:column; gap:7px; }
+.eco-tools li { font-size:13px; color:var(--tx-m); padding:5px 0; border-bottom:1px solid rgba(6,9,35,.05); display:flex; gap:8px; align-items:center; }
+.eco-tools li:last-child { border-bottom:none; }
+.eco-tools li::before { content:''; width:3px; height:3px; border-radius:50%; background:var(--dou); opacity:.5; flex-shrink:0; }
+.eco-note { margin-top:28px; text-align:center; font-size:13px; }
+.eco-note a { color:var(--dou); text-decoration:none; }
+
+/* ── FAQ ── */
+.faq-list { margin-top:44px; border-top:1px solid var(--bd2); }
+.faq-item { border-bottom:1px solid var(--bd2); }
+.faq-q { display:flex; justify-content:space-between; align-items:center; padding:20px 0; gap:20px; cursor:pointer; }
+.faq-qt { font-family:'League Spartan',sans-serif; font-size:16px; font-weight:600; color:var(--tx-m); line-height:1.35; transition:color .2s; }
+.faq-item.on .faq-qt { color:var(--dou); }
+.faq-ic { width:26px; height:26px; flex-shrink:0; border:1px solid var(--bd2); border-radius:50%; display:grid; place-items:center; font-size:16px; color:var(--dou); transition:transform .25s,background .2s; }
+.faq-item.on .faq-ic { transform:rotate(45deg); background:var(--dou); color:#fff; border-color:var(--dou); }
+.faq-body { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+.faq-item.on .faq-body { max-height:200px; }
+.faq-body-i { padding-bottom:20px; font-size:14px; font-weight:300; color:var(--tx-m); line-height:1.8; max-width:680px; }
+
+/* ── CTA ── */
+.cta-deco { position:absolute; inset:0; pointer-events:none; }
+.cta-h2 { font-size:clamp(28px,4.2vw,50px); color:var(--branco); max-width:680px; margin:0 auto 14px; }
+.cta-h2 em { font-style:normal; color:var(--dou-lt); }
+.cta-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,.38); max-width:460px; margin:0 auto 48px; line-height:1.75; }
+.cta-form { display:grid; grid-template-columns:1fr 1fr; gap:10px; max-width:520px; margin:0 auto 12px; }
+.cta-form input { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1); border-radius:var(--r); padding:13px 16px; color:var(--branco); font-family:'Mulish',sans-serif; font-size:14px; outline:none; transition:border-color .2s; width:100%; }
+.cta-form input::placeholder { color:rgba(255,255,255,.22); }
+.cta-form input:focus { border-color:rgba(174,138,86,.5); }
+.cta-form .full { grid-column:1/-1; }
+.cta-btn { display:block; width:100%; max-width:520px; margin:0 auto; background:var(--dou); color:var(--azul); border:none; padding:15px; border-radius:100px; font-family:'League Spartan',sans-serif; font-size:14px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; cursor:pointer; transition:background .2s; }
+.cta-btn:hover { background:var(--dou-lt); }
+.cta-alt { margin-top:14px; font-size:13px; color:rgba(255,255,255,.28); }
+.cta-alt a { color:var(--dou-lt); text-decoration:none; }
+.cta-sign { margin-top:48px; font-family:'League Spartan',sans-serif; font-size:11px; font-weight:500; letter-spacing:.22em; text-transform:uppercase; color:rgba(174,138,86,.28); }
+
+/* ── FOOTER ── */
+footer { background:var(--azul); padding:36px 0; border-top:1px solid rgba(255,255,255,.06); }
+.fi { max-width:1120px; margin:0 auto; padding:0 52px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; }
+.fl { font-family:'League Spartan',sans-serif; font-size:20px; font-weight:900; letter-spacing:3px; text-transform:uppercase; color:var(--branco); }
+.fl span { color:var(--dou); }
+.foot-links { display:flex; gap:22px; list-style:none; }
+.foot-links a { font-size:12px; color:rgba(255,255,255,.3); text-decoration:none; transition:color .2s; }
+.foot-links a:hover { color:rgba(255,255,255,.7); }
+.fc { font-family:'DM Mono',monospace; font-size:10px; color:rgba(255,255,255,.15); letter-spacing:.06em; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .wrap{padding:0 32px;}
+  #hero{padding:116px 32px 0;}
+  .rg{gap:44px;}
+  .eco-grid{grid-template-columns:1fr 1fr;}
+  .cases-hdr{flex-direction:column;align-items:flex-start;}
+  .mhma-hdr{left:32px;right:32px;}
+  .mhma-txt{padding:60px 32px;}
+  .mhma-illo{padding:60px 20px 60px 32px;}
+}
+@media(max-width:768px){
+  .wrap{padding:0 20px;}
+  #hero{padding:100px 20px 0;}
+  .hero-h1{font-size:clamp(36px,10vw,52px);}
+  .hero-sub{font-size:15px;}
+  .hero-ctas{flex-direction:column;align-items:center;}
+  .btn-p,.btn-s{width:100%;max-width:300px;text-align:center;}
+  .hero-stats{flex-wrap:wrap;}
+  .hs{min-width:50%;border-bottom:1px solid var(--bd2);}
+  .rg{grid-template-columns:1fr;gap:32px;}
+  .icp-grid{grid-template-columns:1fr;}
+  .cases-grid{grid-template-columns:1fr;}
+  .depo-grid{grid-template-columns:1fr;}
+  .eco-grid{grid-template-columns:1fr 1fr;}
+  .cta-form{grid-template-columns:1fr;}
+  .mhma-slide{grid-template-columns:1fr;grid-template-rows:auto 1fr;}
+  .mhma-illo{padding:80px 20px 20px;justify-content:flex-start;}
+  .mhma-txt{padding:0 20px 60px;}
+  .mhma-hdr{left:20px;right:20px;}
+  .mhma-hint{right:20px;}
+  .eogm-grid{flex-direction:column;border:none;gap:10px;}
+  .eogm-s{border-right:none;border:1.5px solid var(--bd2);border-radius:12px;}
+  .eogm-dc{max-height:unset!important;opacity:1!important;}
+  .eogm-rs{flex-direction:column;align-items:flex-start;gap:12px;}
+  .nav-links,.nav-cta{display:none;}
+  .ham{display:flex;}
+  .mob{display:flex;}
+  .fi{flex-direction:column;align-items:flex-start;gap:18px;}
+  .foot-links{flex-wrap:wrap;gap:10px 18px;}
+  .sc{padding:56px 0;border-radius:20px 20px 0 0;}
+  .mhma-outer{border-radius:20px 20px 0 0;}
+  .mhma-inner{border-radius:20px 20px 0 0;}
+}
+@media(max-width:390px){
+  .hero-h1{font-size:32px;}
+  .eco-grid{grid-template-columns:1fr;}
+  .hs{min-width:100%;}
+}
+@media(hover:none){
+  .eogm-s:hover{flex:1;background:transparent;}
+  .eogm-dc{max-height:unset!important;opacity:1!important;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-i">
+    <div class="logo">Veross<span>.</span></div>
+    <ul class="nav-links">
+      <li><a href="#">Método</a></li>
+      <li><a href="#">Cases</a></li>
+      <li><a href="#">Ecossistema</a></li>
+      <li><a href="#">Sobre</a></li>
+    </ul>
+    <button class="nav-cta">Diagnóstico Gratuito</button>
+    <button class="ham" id="ham"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="#" onclick="cm()">Método</a>
+  <a href="#" onclick="cm()">Cases</a>
+  <a href="#" onclick="cm()">Ecossistema</a>
+  <a href="#" onclick="cm()">Sobre</a>
+  <button class="mob-cta" onclick="cm()">Diagnóstico Gratuito</button>
+</div>
+
+<!-- ══════════════════════════════════
+     HERO — base, sem sticky
+══════════════════════════════════ -->
+<div id="hero">
+  <div class="hero-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dt" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="rgba(174,138,86,0.1)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dt)"/>
+      <!-- nós de arquitetura esquerda -->
+      <g stroke="rgba(174,138,86,.35)" stroke-width="1" fill="none" opacity=".8">
+        <line x1="0" y1="420" x2="180" y2="280"/><line x1="180" y1="280" x2="340" y2="360"/>
+        <line x1="340" y1="360" x2="340" y2="520"/><line x1="180" y1="280" x2="180" y2="420"/>
+        <line x1="0" y1="420" x2="180" y2="420"/>
+        <circle cx="180" cy="280" r="5" fill="rgba(174,138,86,.6)" stroke="none"/>
+        <circle cx="340" cy="360" r="5" fill="rgba(174,138,86,.6)" stroke="none"/>
+        <circle cx="180" cy="420" r="3.5" fill="rgba(174,138,86,.35)" stroke="none"/>
+        <rect x="60" y="326" width="84" height="22" rx="4" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)"/>
+        <rect x="196" y="376" width="84" height="22" rx="4" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)"/>
+      </g>
+      <!-- nós de arquitetura direita -->
+      <g stroke="rgba(174,138,86,.35)" stroke-width="1" fill="none" opacity=".8">
+        <line x1="1200" y1="400" x2="1020" y2="280"/><line x1="1020" y1="280" x2="860" y2="340"/>
+        <line x1="860" y1="340" x2="860" y2="500"/><line x1="1020" y1="280" x2="1020" y2="420"/>
+        <line x1="1200" y1="400" x2="1020" y2="420"/>
+        <circle cx="1020" cy="280" r="5" fill="rgba(174,138,86,.6)" stroke="none"/>
+        <circle cx="860"  cy="340" r="5" fill="rgba(174,138,86,.6)" stroke="none"/>
+        <circle cx="1020" cy="420" r="3.5" fill="rgba(174,138,86,.35)" stroke="none"/>
+        <rect x="1052" y="316" width="84" height="22" rx="4" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)"/>
+        <rect x="876"  y="382" width="84" height="22" rx="4" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="hero-cnt">
+    <div class="hero-badge"><div class="hero-dot"></div>Arquitetura Comercial B2B</div>
+    <p class="hero-tag">Estruturamos como empresas B2B vendem e replicam isso continuadamente.</p>
+    <h1 class="fd hero-h1">Sua empresa já vende.<br><em>O problema é que ainda<br>cresce no improviso.</em></h1>
+    <p class="hero-sub">A Veross estrutura a operação comercial de empresas B2B que dependem demais de indicação, esforço individual e processos pouco documentados — e transforma isso em uma operação previsível e sustentável.</p>
+    <div class="hero-ctas">
+      <button class="btn-p">Quero um diagnóstico gratuito</button>
+      <button class="btn-s">Ver como funciona</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hs"><div class="hs-n">+20 anos</div><div class="hs-l">experiência B2B</div></div>
+      <div class="hs"><div class="hs-n">+123</div><div class="hs-l">empresas estruturadas</div></div>
+      <div class="hs"><div class="hs-n">+4 mi</div><div class="hs-l">prospecções realizadas</div></div>
+      <div class="hs"><div class="hs-n">R$93 mi</div><div class="hs-l">em vendas geradas</div></div>
+      <div class="hs"><div class="hs-n">3×</div><div class="hs-l">Top Voice LinkedIn</div></div>
+    </div>
+  </div>
+
+  <!-- 2EOGM isométrico strip -->
+  <div class="hero-illo">
+    <svg width="100%" viewBox="0 0 900 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="rgba(174,138,86,.5)" stroke-width="1.5" stroke-linecap="round"/>
+        </marker>
+      </defs>
+      <!-- Bloco E -->
+      <g transform="translate(55,20)">
+        <polygon points="0,55 55,28 110,55 55,82" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+        <polygon points="0,55 0,112 55,138 55,82"  fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <polygon points="110,55 110,112 55,138 55,82" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <text x="55" y="54" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.7)" letter-spacing="1">E</text>
+        <text x="55" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">Estratégia</text>
+      </g>
+      <path d="M185 88 L210 88" stroke="rgba(174,138,86,.4)" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Bloco E2 -->
+      <g transform="translate(218,20)">
+        <polygon points="0,55 55,28 110,55 55,82" fill="rgba(174,138,86,.13)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+        <polygon points="0,55 0,112 55,138 55,82"  fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <polygon points="110,55 110,112 55,138 55,82" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <text x="55" y="54" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.75)" letter-spacing="1">E</text>
+        <text x="55" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">Estruturação</text>
+      </g>
+      <path d="M348 88 L373 88" stroke="rgba(174,138,86,.4)" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Bloco O — maior (centro) -->
+      <g transform="translate(380,8)">
+        <polygon points="0,66 66,33 132,66 66,99" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.55)" stroke-width="1.5"/>
+        <polygon points="0,66 0,134 66,166 66,99"  fill="rgba(174,138,86,.12)" stroke="rgba(174,138,86,.4)" stroke-width="1.5"/>
+        <polygon points="132,66 132,134 66,166 66,99" fill="rgba(174,138,86,.16)" stroke="rgba(174,138,86,.4)" stroke-width="1.5"/>
+        <text x="66" y="65" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="rgba(174,138,86,.85)" letter-spacing="1">O</text>
+        <text x="66" y="182" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">Operação</text>
+      </g>
+      <path d="M530 88 L555 88" stroke="rgba(174,138,86,.4)" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Bloco G -->
+      <g transform="translate(562,20)">
+        <polygon points="0,55 55,28 110,55 55,82" fill="rgba(174,138,86,.13)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+        <polygon points="0,55 0,112 55,138 55,82"  fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <polygon points="110,55 110,112 55,138 55,82" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <text x="55" y="54" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.75)" letter-spacing="1">G</text>
+        <text x="55" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">Gestão</text>
+      </g>
+      <path d="M692 88 L717 88" stroke="rgba(174,138,86,.4)" stroke-width="1.5" marker-end="url(#ar)"/>
+      <!-- Bloco M -->
+      <g transform="translate(724,20)">
+        <polygon points="0,55 55,28 110,55 55,82" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+        <polygon points="0,55 0,112 55,138 55,82"  fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <polygon points="110,55 110,112 55,138 55,82" fill="rgba(174,138,86,.08)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+        <text x="55" y="54" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.7)" letter-spacing="1">M</text>
+        <text x="55" y="158" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">Melhoria</text>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     REFRAME — sticky z:2
+══════════════════════════════════ -->
+<section class="sc sc-white">
+  <div class="wrap">
+    <div class="rg">
+      <div>
+        <div class="ey">O problema real</div>
+        <h2 class="fh sh">O problema raramente<br>é falta de <em>lead.</em></h2>
+        <p class="bp">A maioria das empresas B2B que chegam até nós não tem um problema de vendas. Tem um problema de estrutura comercial.</p>
+        <p class="bp">Vendem, mas dependem demais de indicação. Crescem, mas só enquanto o fundador está nas reuniões. Prospectam, mas sem método, cadência ou critério.</p>
+        <p class="bp">O resultado é sempre o mesmo: crescimento instável, baixa previsibilidade e dificuldade de escalar sem criar caos.</p>
+        <div class="callout"><p>Esse não é um problema de esforço.<br>É um problema de ecossistema comercial.</p></div>
+      </div>
+      <div>
+        <p class="pain-hdr">Você reconhece algum desses?</p>
+        <ul class="pain-list">
+          <li>Dependemos demais de indicação e networking para crescer.</li>
+          <li>O dono ainda precisa estar em quase toda reunião comercial.</li>
+          <li>Temos vendedores, mas a prospecção é inconsistente.</li>
+          <li>CRM existe, mas não reflete a realidade do pipeline.</li>
+          <li>Não conseguimos medir o que está funcionando — e o que está travando.</li>
+          <li>Crescemos até aqui, mas sente que travou.</li>
+        </ul>
+        <p class="pain-close">Se você reconheceu dois ou mais, a Veross foi construída para a sua empresa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ICP — sticky z:3
+══════════════════════════════════ -->
+<section class="sc sc-warm">
+  <div class="wrap">
+    <div class="ey">Para quem é</div>
+    <h2 class="fh sh">A Veross não é para todo mundo.<br>É para <em>você?</em></h2>
+    <div class="icp-grid">
+      <div class="icp-card fit">
+        <div class="icp-ttl">Bom fit</div>
+        <ul class="icp-it">
+          <li>Empresa B2B brasileira, privada, com oferta validada e clientes ativos</li>
+          <li>Entre 10 e 300 colaboradores · faturamento entre R$3M e R$100M</li>
+          <li>Venda consultiva, relacional ou técnica</li>
+          <li>Ticket médio acima de R$5 mil</li>
+          <li>Ao menos uma pessoa responsável por vendas</li>
+          <li>Decisor identificável e acessível</li>
+          <li>Quer crescer com método — não com improviso</li>
+        </ul>
+      </div>
+      <div class="icp-card no">
+        <div class="icp-ttl">Provável não fit</div>
+        <ul class="icp-it">
+          <li>Sem oferta validada ou clientes ativos</li>
+          <li>Modelo de venda puramente transacional ou ticket muito baixo</li>
+          <li>Busca lista de leads ou resultado imediato sem processo</li>
+          <li>Não tem ninguém para absorver e acompanhar a operação</li>
+          <li>Rejeita CRM, rotina e gestão comercial</li>
+          <li>Quer terceirizar o problema — não estruturar a operação</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     MHMA — outer: position RELATIVE (não sticky!)
+              inner: position sticky top:0
+     z-index: 4 cobre o ICP quando sobe
+══════════════════════════════════ -->
+<div class="mhma-outer" id="mhma-outer">
+  <div class="mhma-inner" id="mhma-inner">
+    <div class="mhma-hdr">
+      <span class="mhma-ey">Método MHMA · O guarda-chuva</span>
+      <span class="mhma-ct" id="mhma-ct">1 / 4</span>
+    </div>
+    <div class="mhma-track" id="mhma-track">
+
+      <!-- M — Mentalidade -->
+      <div class="mhma-slide" data-i="0">
+        <div class="mhma-illo">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="120" r="76" stroke="rgba(174,138,86,.2)" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <circle cx="150" cy="120" r="52" fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.3)" stroke-width="1.5"/>
+            <g transform="translate(150,120)">
+              <circle r="18" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.5)" stroke-width="1.5"/>
+              <circle r="7" fill="rgba(174,138,86,.35)"/>
+              <line x1="-26" y1="0" x2="26" y2="0" stroke="rgba(174,138,86,.4)" stroke-width="2"/>
+              <line x1="0" y1="-26" x2="0" y2="26" stroke="rgba(174,138,86,.4)" stroke-width="2"/>
+              <line x1="-18" y1="-18" x2="18" y2="18" stroke="rgba(174,138,86,.2)" stroke-width="1.5"/>
+              <line x1="18" y1="-18" x2="-18" y2="18" stroke="rgba(174,138,86,.2)" stroke-width="1.5"/>
+            </g>
+            <rect x="132" y="194" width="36" height="26" rx="4" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <path d="M76 268 Q150 232 224 268" stroke="rgba(174,138,86,.4)" stroke-width="1.5" fill="rgba(174,138,86,.06)"/>
+            <g stroke="rgba(174,138,86,.4)" stroke-width="1" fill="none">
+              <path d="M68 76 L52 56 L72 60"/><path d="M232 76 L248 56 L228 60"/>
+              <line x1="150" y1="26" x2="150" y2="8"/><path d="M144 14 L150 8 L156 14"/>
+            </g>
+            <text x="150" y="292" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">MENTALIDADE</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">01 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Mentalidade</div>
+          <p class="mhma-desc">A transformação começa antes do processo. Empresas que crescem com consistência não mudam de ferramenta — mudam de forma de pensar.<br><br><em>Expansão. Protagonismo. Autorresponsabilidade.</em></p>
+          <div class="mhma-bg-ltr">M</div>
+        </div>
+      </div>
+
+      <!-- H — Habilidades -->
+      <div class="mhma-slide" data-i="1">
+        <div class="mhma-illo">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="56" y="192" width="188" height="7" rx="3.5" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <rect x="74" y="136" width="20" height="56" rx="4" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="112" y="100" width="20" height="92" rx="4" fill="rgba(174,138,86,.3)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="150" y="118" width="20" height="74" rx="4" fill="rgba(174,138,86,.25)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="188" y="76" width="20" height="116" rx="4" fill="rgba(174,138,86,.4)" stroke="rgba(174,138,86,.5)" stroke-width="1"/>
+            <text x="84"  y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">DG</text>
+            <text x="122" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">AB</text>
+            <text x="160" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">QF</text>
+            <text x="198" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">NG</text>
+            <path d="M64 182 L86 148 L118 116 L156 130 L192 88" stroke="rgba(174,138,86,.65)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="192" cy="88" r="5" fill="rgba(174,138,86,.8)"/>
+            <text x="150" y="280" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">HABILIDADES</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">02 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Habilidades</div>
+          <p class="mhma-desc">Método sem habilidade não sai do papel. Desenvolvemos as competências que o time precisa para executar com qualidade.<br><br><em>Diagnóstico. Abordagem. Qualificação. Negociação.</em></p>
+          <div class="mhma-bg-ltr">H</div>
+        </div>
+      </div>
+
+      <!-- M — Método -->
+      <div class="mhma-slide" data-i="2">
+        <div class="mhma-illo">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="46" y="58" width="208" height="152" rx="6" fill="rgba(174,138,86,.05)" stroke="rgba(174,138,86,.3)" stroke-width="1.5" stroke-dasharray="8 4"/>
+            <line x1="46" y1="96"  x2="254" y2="96"  stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="46" y1="134" x2="254" y2="134" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="46" y1="172" x2="254" y2="172" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="102" y1="58" x2="102" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="150" y1="58" x2="150" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="198" y1="58" x2="198" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <!-- 5 blocos -->
+            <rect x="56" y="106" width="28" height="44" rx="3" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="92" y="96"  width="28" height="54" rx="3" fill="rgba(174,138,86,.18)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="128" y="84" width="28" height="66" rx="3" fill="rgba(174,138,86,.25)" stroke="rgba(174,138,86,.5)" stroke-width="1.5"/>
+            <rect x="164" y="96" width="28" height="54" rx="3" fill="rgba(174,138,86,.18)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="200" y="106" width="28" height="44" rx="3" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <text x="70"  y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">E</text>
+            <text x="106" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">E</text>
+            <text x="142" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.8)">O</text>
+            <text x="178" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">G</text>
+            <text x="214" y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">M</text>
+            <line x1="46" y1="232" x2="254" y2="232" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <line x1="46" y1="228" x2="46" y2="236" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <line x1="254" y1="228" x2="254" y2="236" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <text x="150" y="248" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.4)" letter-spacing="1">2 E O G M</text>
+            <text x="150" y="282" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">MÉTODO</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">03 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Método</div>
+          <p class="mhma-desc">O sistema que organiza o ecossistema comercial de ponta a ponta. Estratégia, estrutura, operação, gestão e melhoria contínua em ciclo.<br><br><em>O 2EOGM.</em></p>
+          <div class="mhma-bg-ltr">M</div>
+        </div>
+      </div>
+
+      <!-- A — Ação -->
+      <div class="mhma-slide" data-i="3">
+        <div class="mhma-illo">
+          <svg width="300" height="300" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M96 254 Q126 214 154 152 Q182 90 196 54" stroke="rgba(174,138,86,.2)" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+            <g transform="translate(154,152) rotate(-30)">
+              <polygon points="0,-34 11,11 -11,11" fill="rgba(174,138,86,.4)" stroke="rgba(174,138,86,.65)" stroke-width="1.5"/>
+              <rect x="-9" y="11" width="18" height="15" rx="3" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+              <polygon points="0,26 -5,42 0,36 5,42" fill="rgba(201,169,122,.5)" stroke="rgba(201,169,122,.7)" stroke-width="1"/>
+              <circle cx="0" cy="1" r="4.5" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.5)" stroke-width="1"/>
+            </g>
+            <circle cx="124" cy="224" r="5.5" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.4)" stroke-width="1.5"/>
+            <circle cx="142" cy="186" r="5.5" fill="rgba(174,138,86,.3)" stroke="rgba(174,138,86,.5)" stroke-width="1.5"/>
+            <circle cx="163" cy="136" r="5.5" fill="rgba(174,138,86,.42)" stroke="rgba(174,138,86,.65)" stroke-width="1.5"/>
+            <circle cx="184" cy="92"  r="5.5" fill="rgba(174,138,86,.55)" stroke="rgba(174,138,86,.75)" stroke-width="1.5"/>
+            <circle cx="196" cy="56" r="12" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.65)" stroke-width="2"/>
+            <circle cx="196" cy="56" r="5"  fill="rgba(174,138,86,.75)"/>
+            <text x="150" y="282" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">AÇÃO</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">04 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Ação</div>
+          <p class="mhma-desc">Execução consistente, todo santo dia. Sem ação, mentalidade, habilidade e método ficam no papel.<br><br><em>É aqui que o resultado acontece.</em></p>
+          <div class="mhma-bg-ltr">A</div>
+        </div>
+      </div>
+
+    </div><!-- /track -->
+    <div class="mhma-dots">
+      <div class="mhma-dot on" data-d="0"></div>
+      <div class="mhma-dot" data-d="1"></div>
+      <div class="mhma-dot" data-d="2"></div>
+      <div class="mhma-dot" data-d="3"></div>
+    </div>
+    <div class="mhma-hint" id="mhma-hint">↓ role para avançar</div>
+  </div><!-- /inner -->
+</div><!-- /outer -->
+
+<!-- ══════════════════════════════════
+     2EOGM — sticky z:5
+══════════════════════════════════ -->
+<section class="sc sc-white">
+  <div class="wrap">
+    <div class="ey">2EOGM · Sistema operacional</div>
+    <div class="eogm-intro">
+      <h2 class="fh sh">Do improviso à operação <em>estruturada.</em></h2>
+      <p class="bp" style="margin-top:10px">Passe o mouse para explorar cada fase.</p>
+    </div>
+    <div class="eogm-grid">
+      <div class="eogm-s"><div class="eogm-n">01</div><div class="eogm-l">E</div><div class="eogm-nm">Estratégia</div><div class="eogm-dc">ICP, personas, mercado-alvo, posicionamento e critérios de qualificação. O ponto de partida para uma operação que sabe onde mirar.</div></div>
+      <div class="eogm-s"><div class="eogm-n">02</div><div class="eogm-l">E</div><div class="eogm-nm">Estruturação</div><div class="eogm-dc">CRM, pipeline, cadências, playbook e papéis definidos. A base sem a qual qualquer esforço comercial é improvisado.</div></div>
+      <div class="eogm-s"><div class="eogm-n">03</div><div class="eogm-l">O</div><div class="eogm-nm">Operação</div><div class="eogm-dc">Prospecção ativa multicanal, listas qualificadas e abordagens testadas. O motor rodando com consistência.</div></div>
+      <div class="eogm-s"><div class="eogm-n">04</div><div class="eogm-l">G</div><div class="eogm-nm">Gestão</div><div class="eogm-dc">Indicadores, rituais, pipeline e cultura de dados. O que garante que o motor não apague.</div></div>
+      <div class="eogm-s"><div class="eogm-n">05</div><div class="eogm-l">M</div><div class="eogm-nm">Melhoria Contínua</div><div class="eogm-dc">Análise de conversão, ajuste de mensagens e inteligência comercial. A operação melhorando com o tempo.</div></div>
+    </div>
+    <div class="eogm-rs">
+      <p>Resultado esperado · Os 4Rs</p>
+      <div class="rs-wrap">
+        <span class="rs-tag">Receita</span><span class="rs-tag">Recorrência</span>
+        <span class="rs-tag">Rentabilidade</span><span class="rs-tag">Replicabilidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CASES — sticky z:6
+══════════════════════════════════ -->
+<section class="sc sc-warm">
+  <div class="wrap">
+    <div class="cases-hdr">
+      <div>
+        <div class="ey">Resultados</div>
+        <h2 class="fh sh">Operações que estruturamos.<br>Números que você pode verificar.</h2>
+      </div>
+      <button class="btn-s">Ver todos os cases →</button>
+    </div>
+    <div class="cases-grid">
+      <div class="cc">
+        <div class="cc-tag">Agência de Marketing B2B</div>
+        <div><div class="cc-n">−57%</div><div class="cc-l">de redução no CAC via outbound</div></div>
+        <hr><p class="cc-d">Crescia por indicação. Estruturamos ICP, listas, cadência multicanal e pré-vendas. Canal outbound 100% ativo em 60 dias.</p>
+      </div>
+      <div class="cc">
+        <div class="cc-tag">Consórcio e Investimentos</div>
+        <div><div class="cc-n">R$10mi</div><div class="cc-l">em novas vendas geradas</div></div>
+        <hr><p class="cc-d">Operação manual e improvisada. Automação completa com CRM estruturado, cadências e gestão comercial.</p>
+      </div>
+      <div class="cc">
+        <div class="cc-tag">Assessoria de Cobrança</div>
+        <div><div class="cc-n">+35%</div><div class="cc-l">de taxa de resposta</div></div>
+        <hr><p class="cc-d">Pipeline estagnado. Reestruturação de ICP, mensagens, cadências e follow-up. +R$7mi em receita adicional.</p>
+      </div>
+    </div>
+    <div class="depo-grid">
+      <div class="depo">
+        <p class="depo-q">Se eu pudesse voltar no tempo, teria colocado o Veross na minha empresa há 10 anos. Hoje nunca paramos nossa prospecção.</p>
+        <div><div class="depo-name">Wesley R.</div><div class="depo-role">Head Comercial</div></div>
+      </div>
+      <div class="depo">
+        <p class="depo-q">O que otimizou nosso tempo e potencializou a estratégia de prospecção. Usamos quase todas as soluções da Veross.</p>
+        <div><div class="depo-name">Sandra T.</div><div class="depo-role">Diretora Comercial</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     ECO — sticky z:7
+══════════════════════════════════ -->
+<section class="sc sc-white">
+  <div class="wrap">
+    <div class="ey">Ecossistema</div>
+    <div class="eco-intro">
+      <h2 class="fh sh">O método vem primeiro.<br>As ferramentas <em>vêm junto.</em></h2>
+      <p class="bp" style="margin-top:10px">Ferramenta sem método não performa. Aqui as duas andam juntas — cada solução acelera uma fase do 2EOGM.</p>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-g"><h4>Prospecção e dados</h4><ul class="eco-tools"><li>AlessIA Flow</li><li>Veross Scraper AI</li></ul></div>
+      <div class="eco-g"><h4>Engajamento</h4><ul class="eco-tools"><li>Meetime Flow</li><li>Rocketflow</li></ul></div>
+      <div class="eco-g"><h4>IA Comercial</h4><ul class="eco-tools"><li>Kiel AI</li><li>Social Media AI LinkedIn</li></ul></div>
+      <div class="eco-g"><h4>Academia Veross</h4><ul class="eco-tools"><li>Imersão MHMA</li><li>Mentorias</li><li>Treinamentos</li></ul></div>
+    </div>
+    <p class="eco-note"><a href="#">Conhecer o ecossistema completo →</a></p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FAQ — sticky z:8
+══════════════════════════════════ -->
+<section class="sc sc-warm">
+  <div class="wrap">
+    <div class="ey">Perguntas frequentes</div>
+    <h2 class="fh sh" style="max-width:480px">Perguntas de quem avalia<br>a Veross <em>com seriedade.</em></h2>
+    <div class="faq-list">
+      <div class="faq-item on">
+        <div class="faq-q" onclick="faq(this.parentElement)"><span class="faq-qt">"Já tentamos outbound antes e não funcionou."</span><div class="faq-ic">+</div></div>
+        <div class="faq-body"><div class="faq-body-i">Outbound normalmente não falha por ser outbound. Falha por ICP mal definido, lista ruim, mensagem genérica, cadência fraca ou falta de gestão. A pergunta certa não é se você tentou — é se você operou com método e melhoria contínua.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this.parentElement)"><span class="faq-qt">"O dono ainda cuida das vendas aqui."</span><div class="faq-ic">+</div></div>
+        <div class="faq-body"><div class="faq-body-i">Esse é exatamente o sinal de que é hora de estruturar. O objetivo não é tirar o dono das vendas de uma vez — é transformar o conhecimento e o relacionamento dele em processo, playbook e rotina replicável.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this.parentElement)"><span class="faq-qt">"Precisamos primeiro melhorar o caixa para investir."</span><div class="faq-ic">+</div></div>
+        <div class="faq-body"><div class="faq-body-i">Se a geração comercial é um gargalo, esperar o caixa melhorar sem mexer na causa é esperar o efeito antes de tratar o problema. Estruturação comercial é alavanca de receita, não despesa periférica.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this.parentElement)"><span class="faq-qt">"Vocês fazem as vendas pela gente?"</span><div class="faq-ic">+</div></div>
+        <div class="faq-body"><div class="faq-body-i">Não. A Veross não terceiriza o problema comercial — estrutura para que a empresa seja capaz de operar, replicar e evoluir por conta própria. Criamos operações autônomas, não clientes cativos.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this.parentElement)"><span class="faq-qt">"Quanto tempo para ver resultado?"</span><div class="faq-ic">+</div></div>
+        <div class="faq-body"><div class="faq-body-i">Em B2B consultivo os primeiros resultados de pipeline aparecem entre 30 e 90 dias. Resultados consistentes dependem do ciclo de venda da empresa e da maturidade da operação que estamos estruturando juntos.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     CTA — sticky z:9, dark
+══════════════════════════════════ -->
+<section class="sc sc-dark" style="text-align:center; overflow:hidden">
+  <div class="cta-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dt2" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="rgba(174,138,86,.07)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dt2)"/>
+    </svg>
+  </div>
+  <div class="wrap" style="position:relative;z-index:2">
+    <h2 class="fd cta-h2">O que acontece com a operação de vocês se <em>nada mudar</em> nos próximos 6 meses?</h2>
+    <p class="cta-sub">O diagnóstico comercial da Veross é o primeiro passo para entender onde está a quebra e o que precisa ser estruturado.</p>
+    <div class="cta-form">
+      <input type="text" placeholder="Seu nome">
+      <input type="text" placeholder="Empresa">
+      <input type="text" placeholder="Segmento">
+      <input type="text" placeholder="Tamanho do time comercial">
+      <input type="text" class="full" placeholder="Qual o maior desafio comercial hoje?">
+    </div>
+    <button class="cta-btn">Quero um diagnóstico gratuito</button>
+    <p class="cta-alt">Prefere conversar antes? <a href="#">Fale pelo WhatsApp</a></p>
+    <p class="cta-sign">Rumo ao próximo nível.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fi">
+    <div class="fl">Veross<span>.</span></div>
+    <ul class="foot-links">
+      <li><a href="#">Método</a></li><li><a href="#">Cases</a></li>
+      <li><a href="#">Ecossistema</a></li><li><a href="#">Sobre</a></li>
+      <li><a href="#">Blog</a></li><li><a href="#">Contato</a></li>
+    </ul>
+    <div class="fc">© 2026 Veross · veross.com.br</div>
+  </div>
+</footer>
+
+<script>
+/* ── FAQ ── */
+function faq(item) {
+  const open = item.classList.contains('on');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('on'));
+  if (!open) item.classList.add('on');
+}
+
+/* ── MOBILE NAV ── */
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mob');
+ham.addEventListener('click', () => {
+  const o = ham.classList.toggle('open');
+  mob.classList.toggle('open', o);
+  document.body.style.overflow = o ? 'hidden' : '';
+});
+function cm() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+/* ════════════════════════════════════════
+   MHMA STICKY — scroll horizontal gaveta
+   Usa mhma-outer (position:relative, 500vh)
+   para calcular progresso. O mhma-inner
+   (position:sticky) apenas exibe os slides.
+════════════════════════════════════════ */
+(function() {
+  const outer  = document.getElementById('mhma-outer');
+  const slides = document.querySelectorAll('.mhma-slide');
+  const dots   = document.querySelectorAll('.mhma-dot');
+  const count  = document.getElementById('mhma-ct');
+  const hint   = document.getElementById('mhma-hint');
+  const N      = slides.length;
+
+  /* posiciona slides inicialmente fora da tela */
+  slides.forEach((s, i) => {
+    s.style.transform = i === 0 ? 'translateX(0%)' : 'translateX(100%)';
+  });
+
+  function render(p) {
+    const raw = Math.max(0, Math.min(N - 1, p * (N - 1)));
+    const cur = Math.min(Math.floor(raw), N - 1);
+
+    hint.classList.toggle('off', p > 0.04);
+    count.textContent = (cur + 1) + ' / ' + N;
+
+    slides.forEach((s, i) => {
+      s.style.transform = `translateX(${(i - raw) * 100}%)`;
+    });
+    dots.forEach((d, i) => d.classList.toggle('on', i === cur));
+  }
+
+  function update() {
+    const rect  = outer.getBoundingClientRect();
+    const total = outer.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    const p = Math.max(0, Math.min(1, -rect.top / total));
+    render(p);
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update, { passive: true });
+  /* pequeno delay para garantir que o DOM está pronto */
+  setTimeout(update, 100);
+
+  /* touch swipe */
+  let tx0 = 0, ts0 = 0;
+  outer.addEventListener('touchstart', e => {
+    tx0 = e.touches[0].clientX;
+    const rect  = outer.getBoundingClientRect();
+    const total = outer.offsetHeight - window.innerHeight;
+    ts0 = total > 0 ? Math.round(Math.max(0, Math.min(1, -rect.top / total)) * (N - 1)) : 0;
+  }, { passive: true });
+  outer.addEventListener('touchend', e => {
+    const dx = tx0 - e.changedTouches[0].clientX;
+    if (Math.abs(dx) < 44) return;
+    const dir    = dx > 0 ? 1 : -1;
+    const target = Math.max(0, Math.min(N - 1, ts0 + dir));
+    const total  = outer.offsetHeight - window.innerHeight;
+    const top    = outer.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: top + (target / (N - 1)) * total, behavior: 'smooth' });
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
