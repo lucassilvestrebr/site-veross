@@ -253,6 +253,7 @@ footer { background: var(--azul); padding: 56px 0 32px; }
 
 /* ── NAV DROPDOWN ── */
 .nav-has-drop { position: relative; }
+.nav-has-drop::after { content:''; position:absolute; top:100%; left:0; right:0; height:24px; }
 .nav-drop-trigger { display: inline-flex; align-items: center; gap: 5px; }
 .nav-caret { transition: transform .22s; flex-shrink: 0; }
 .nav-has-drop:hover .nav-caret { transform: rotate(180deg); }
