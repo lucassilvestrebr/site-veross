@@ -64,8 +64,8 @@ body { background:var(--bg); color:var(--tx); font-family:'Mulish',sans-serif; f
 .nav-drop-trigger { display:inline-flex; align-items:center; gap:5px; }
 .nav-caret { transition:transform .22s; flex-shrink:0; }
 .nav-has-drop:hover .nav-caret { transform:rotate(180deg); }
+.nav-has-drop::after { content:''; position:absolute; top:100%; left:0; right:0; height:24px; }
 .nav-dropdown { position:absolute; top:calc(100% + 18px); left:50%; transform:translateX(-50%) translateY(8px); width:310px; background:var(--branco); border:1px solid var(--bd2); border-radius:16px; padding:10px; box-shadow:0 12px 48px rgba(6,9,35,.12); opacity:0; pointer-events:none; transition:opacity .22s,transform .22s; z-index:200; }
-.nav-dropdown::before { content:''; position:absolute; top:-20px; left:0; right:0; height:20px; }
 .nav-has-drop:hover .nav-dropdown { opacity:1; pointer-events:all; transform:translateX(-50%) translateY(0); }
 .nd-item { display:flex; align-items:center; gap:12px; padding:11px 13px; border-radius:10px; text-decoration:none; transition:background .15s; }
 .nd-item:hover { background:rgba(174,138,86,.06); }
