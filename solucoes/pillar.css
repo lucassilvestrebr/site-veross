@@ -52,6 +52,21 @@
 .prod-features { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
 .prod-features li { padding: 5px 12px; border-radius: 100px; background: rgba(174,138,86,.06); border: 1px solid var(--bd); font-size: 11px; color: var(--tx-m); }
 
+/* ── EXTERNAL PRODUCT LINK (own landing page) ── */
+.prod-card.has-link { border-color: var(--bd); }
+.prod-card.has-link::before { transform: scaleY(1); opacity: .5; }
+.prod-card.has-link:hover::before { opacity: 1; }
+.prod-ext-tag { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; padding: 4px 11px; border-radius: 100px; background: var(--azul); color: var(--branco); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 16px; }
+.prod-ext-tag::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--dou-lt); }
+.prod-foot { margin-top: auto; padding-top: 22px; }
+.prod-link { display: inline-flex; align-items: center; justify-content: center; gap: 9px; width: 100%; background: var(--azul); color: var(--branco); border: none; padding: 13px 22px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 12.5px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
+.prod-link:hover { background: var(--dou); }
+.prod-link svg { width: 14px; height: 14px; flex-shrink: 0; transition: transform .2s; }
+.prod-link:hover svg { transform: translate(2px,-2px); }
+.prod-trial { display: flex; align-items: center; gap: 8px; justify-content: center; margin-top: 12px; font-size: 12px; color: var(--tx-s); }
+.prod-trial strong { color: var(--dou); font-weight: 700; }
+.prod-trial svg { width: 14px; height: 14px; flex-shrink: 0; color: var(--dou); }
+
 /* ── PROCESS ── */
 .proc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--bd2); border: 1px solid var(--bd2); border-radius: 16px; overflow: hidden; margin-top: 48px; }
 .proc-grid.three-step { grid-template-columns: repeat(3, 1fr); }
