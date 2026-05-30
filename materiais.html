@@ -83,6 +83,20 @@
 .mat-pform button { background: var(--dou); color: var(--azul); border: none; border-radius: 100px; padding: 14px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; transition: background .2s; margin-top: 4px; }
 .mat-pform button:hover { background: var(--dou-lt); }
 .mat-pform-note { font-size: 11px; color: var(--tx-s); line-height: 1.5; margin-top: 4px; text-align: center; }
+
+/* ── MODAL SUCCESS STATE ── */
+.mat-success { display: none; text-align: center; padding: 8px 0 4px; }
+.mat-modal-card.done .mat-pform,
+.mat-modal-card.done .mat-modal-sub { display: none; }
+.mat-modal-card.done .mat-success { display: block; }
+.mat-ok-icon { width: 50px; height: 50px; border-radius: 50%; background: rgba(174,138,86,.1); border: 1.5px solid var(--dou); display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--dou); margin: 0 auto 16px; }
+.mat-ok-h { font-family: 'League Spartan', sans-serif; font-size: 21px; font-weight: 800; color: var(--azul); margin-bottom: 8px; }
+.mat-ok-sub { font-size: 13.5px; color: var(--tx-m); line-height: 1.65; margin-bottom: 6px; }
+.mat-ok-note { font-size: 12px; color: var(--tx-s); line-height: 1.6; margin-bottom: 20px; }
+.mat-ok-wa { display: inline-flex; align-items: center; gap: 8px; background: #25D366; color: #fff; padding: 12px 26px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .03em; text-decoration: none; transition: background .2s; }
+.mat-ok-wa:hover { background: #1ebe59; }
+.mat-pform input.input-err { border-color: rgba(220,80,80,.55); }
+.mat-pform button:disabled { opacity: .6; cursor: not-allowed; }
 .mat-placeholder-flag { margin-top:14px; padding:10px 12px; border:1px dashed var(--bd); border-radius:10px; background:rgba(174,138,86,.05); font-family:'DM Mono',monospace; font-size:10px; line-height:1.5; color:var(--dou); }
 
 @media (max-width: 1024px) {
@@ -281,38 +295,69 @@
     <div class="mat-modal-title" id="matModalTitle">White Paper</div>
     <p class="mat-modal-sub">Preencha seus dados e enviaremos o material direto no seu e-mail.</p>
 
-    <!-- HubSpot form renderiza aqui quando os IDs forem configurados -->
+    <!-- HubSpot: descomente e configure com seu portalId + formId
     <div class="hs-mount" id="hsMount"></div>
+    -->
 
-    <!-- Placeholder visual (substituído pelo form do HubSpot) -->
-    <form class="mat-pform" id="matPlaceholderForm" onsubmit="return false">
-      <input type="text" placeholder="Nome completo" required>
-      <input type="email" placeholder="E-mail corporativo" required>
-      <input type="text" placeholder="Empresa" required>
-      <button type="submit">Receber material</button>
+    <form class="mat-pform" id="matPlaceholderForm">
+      <input type="text" name="nome" id="matNome" placeholder="Nome completo" required>
+      <input type="email" name="email" id="matEmail" placeholder="E-mail corporativo" required>
+      <input type="tel" name="celular" id="matCelular" placeholder="Celular" required>
+      <button type="submit" id="matSubmitBtn">Receber material</button>
       <p class="mat-pform-note">Ao enviar, você concorda em receber conteúdos da Veross. Sem spam.</p>
     </form>
-    <div class="mat-placeholder-flag">⚙ Formulário de demonstração — será substituído pelo formulário do HubSpot assim que os IDs forem configurados.</div>
+
+    <!-- Estado de sucesso -->
+    <div class="mat-success" id="matSuccess">
+      <div class="mat-ok-icon">✓</div>
+      <p class="mat-ok-h">Solicitação recebida!</p>
+      <p class="mat-ok-sub">Enviaremos <strong id="matSuccessTitle2"></strong> para <strong id="matSuccessEmail"></strong> em breve.</p>
+      <p class="mat-ok-note">Não encontrou? Verifique a caixa de spam.<br>Se preferir, fale conosco diretamente.</p>
+      <a href="#" class="mat-ok-wa" id="matOkWa" target="_blank" rel="noopener">Chamar no WhatsApp →</a>
+    </div>
   </div>
 </div>
 
 <script src="_nav.js"></script>
 <script>
+/* ── MATERIAIS — MODAL + FORM HANDLER ──────────────────────────────────
+   Configure:
+   1. ENDPOINT  → endpoint Formspree (https://formspree.io/f/XXXXXXXX)
+                  ou deixe vazio; o form mostra sucesso sem envio externo.
+   2. WA_NUMBER → número WhatsApp com DDI (ex: '5511999999999')
+──────────────────────────────────────────────────────────────────────── */
 (function () {
-  var modal = document.getElementById('matModal');
-  var title = document.getElementById('matModalTitle');
+  var HS_MAT_URL = 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/a9359301-5e7f-4ec0-85d8-fb473f9a4405';
+  var WA_NUMBER   = '5512982519830';  /* WhatsApp Veross */
 
+  var modal      = document.getElementById('matModal');
+  var title      = document.getElementById('matModalTitle');
+  var card       = modal.querySelector('.mat-modal-card');
+  var form       = document.getElementById('matPlaceholderForm');
+  var submitBtn  = document.getElementById('matSubmitBtn');
+  var matOkWa    = document.getElementById('matOkWa');
+
+  // ── Abrir modal ──
   document.querySelectorAll('.mat-dl').forEach(function (btn) {
     btn.addEventListener('click', function () {
       title.textContent = btn.getAttribute('data-wp') || 'White Paper';
+      resetModal();
       modal.classList.add('open');
       document.body.style.overflow = 'hidden';
     });
   });
 
+  // ── Fechar modal ──
   function closeModal() {
     modal.classList.remove('open');
     document.body.style.overflow = '';
+    resetModal();
+  }
+  function resetModal() {
+    card.classList.remove('done');
+    form.reset();
+    form.querySelectorAll('.input-err').forEach(function (el) { el.classList.remove('input-err'); });
+    if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Receber material'; }
   }
   modal.querySelectorAll('[data-close]').forEach(function (el) {
     el.addEventListener('click', closeModal);
@@ -323,7 +368,7 @@
 
   // ── Filtros ──
   var filters = document.querySelectorAll('.mat-filter');
-  var cards = document.querySelectorAll('.mat-card');
+  var cards   = document.querySelectorAll('.mat-card');
   filters.forEach(function (f) {
     f.addEventListener('click', function () {
       filters.forEach(function (x) { x.classList.remove('on'); });
@@ -336,13 +381,62 @@
     });
   });
 
+  // ── Form submit ──
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nome     = document.getElementById('matNome').value.trim();
+    var email    = document.getElementById('matEmail').value.trim();
+    var celular  = document.getElementById('matCelular').value.trim();
+    var material = title.textContent;
+
+    form.querySelectorAll('.input-err').forEach(function (el) { el.classList.remove('input-err'); });
+    var ok = true;
+    if (!nome)  { document.getElementById('matNome').classList.add('input-err');   ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      document.getElementById('matEmail').classList.add('input-err'); ok = false;
+    }
+    if (!celular) { document.getElementById('matCelular').classList.add('input-err'); ok = false; }
+    if (!ok) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando…';
+
+    // Atualiza WhatsApp
+    var waMsg = encodeURIComponent('Olá! Acabei de solicitar o white paper "' + material + '" pelo site da Veross e gostaria de receber agora.');
+    if (matOkWa) matOkWa.href = 'https://wa.me/' + WA_NUMBER + '?text=' + waMsg;
+
+    // Atualiza texto de sucesso
+    var st2 = document.getElementById('matSuccessTitle2');
+    var se  = document.getElementById('matSuccessEmail');
+    if (st2) st2.textContent = '"' + material + '"';
+    if (se)  se.textContent  = email;
+
+    function showSuccess() { card.classList.add('done'); }
+
+    fetch(HS_MAT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [
+          { objectTypeId: '0-1', name: 'firstname',   value: nome    },
+          { objectTypeId: '0-1', name: 'email',        value: email   },
+          { objectTypeId: '0-1', name: 'mobilephone',  value: celular }
+        ],
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    })
+    .then(showSuccess)
+    .catch(showSuccess);
+  });
+
   // ── Prefill e-mail vindo do rodapé (?email=) + abre modal automaticamente ──
-  var params = new URLSearchParams(window.location.search);
+  var params   = new URLSearchParams(window.location.search);
   var preEmail = params.get('email');
   if (preEmail) {
-    var emailInput = document.querySelector('#matPlaceholderForm input[type="email"]');
+    var emailInput = document.getElementById('matEmail');
     if (emailInput) emailInput.value = preEmail;
     title.textContent = 'White Papers Veross';
+    resetModal();
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }

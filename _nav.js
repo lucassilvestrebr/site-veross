@@ -50,9 +50,22 @@
 
   // White Paper CTA (footer subscribe box)
   window.goWhitePaper = function () {
-    var el = document.getElementById('fv2WpEmail');
-    var v = el ? el.value.trim() : '';
-    window.location.href = b + 'materiais.html' + (v ? ('?email=' + encodeURIComponent(v)) : '');
+    var el   = document.getElementById('fv2WpEmail');
+    var v    = el ? el.value.trim() : '';
+    var dest = b + 'materiais.html' + (v ? ('?email=' + encodeURIComponent(v)) : '');
+    if (v && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      fetch('https://api.hsforms.com/submissions/v3/integration/submit/44513728/a725e3f4-98c5-45d2-bc96-737aac04470f', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: [{ objectTypeId: '0-1', name: 'email', value: v }],
+          context: { pageUri: window.location.href, pageName: document.title }
+        })
+      }).then(function () { window.location.href = dest; })
+        .catch(function () { window.location.href = dest; });
+    } else {
+      window.location.href = dest;
+    }
   };
 
   // Fade-in observer

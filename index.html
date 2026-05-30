@@ -242,6 +242,20 @@ body { background: var(--bg); color: var(--tx); font-family: 'Mulish', sans-seri
 .cta-alt a { color: var(--dou-lt); text-decoration: none; }
 .cta-sign { margin-top: 52px; font-family: 'League Spartan', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(174,138,86,.25); }
 
+/* ── CTA FORM STATES ── */
+.input-err { border-color: rgba(220,80,80,.55) !important; }
+#ctaFormWrap.sending { opacity: .6; pointer-events: none; transition: opacity .2s; }
+.cta-success { display: none; padding: 24px 0 8px; }
+#ctaFormWrap.done .cta-form,
+#ctaFormWrap.done .cta-btn,
+#ctaFormWrap.done .cta-alt { display: none; }
+#ctaFormWrap.done .cta-success { display: block; }
+.cta-ok-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(174,138,86,.12); border: 1.5px solid var(--dou); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--dou); margin: 0 auto 20px; }
+.cta-ok-h { font-family: 'League Spartan', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 800; color: var(--branco); margin-bottom: 10px; }
+.cta-ok-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.38); max-width: 380px; margin: 0 auto 28px; line-height: 1.8; }
+.cta-ok-cal { display: inline-flex; align-items: center; gap: 9px; background: var(--dou); color: var(--azul); padding: 14px 32px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
+.cta-ok-cal:hover { background: var(--dou-lt); }
+
 /* ── FOOTER ── */
 footer { background: var(--azul); padding: 56px 0 32px; }
 .footer-main { max-width: 1120px; margin: 0 auto; padding: 0 52px 44px; display: grid; grid-template-columns: 220px 1fr 220px; gap: 48px; align-items: start; border-bottom: 1px solid rgba(255,255,255,.07); }
@@ -1101,29 +1115,37 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
     <div class="ey" style="justify-content:center;color:rgba(174,138,86,.5);">Próximo passo</div>
     <h2 class="fd cta-h2">O que acontece com a sua operação se nada mudar nos <em>próximos 6 meses?</em></h2>
     <p class="cta-sub">O diagnóstico comercial da Veross é o primeiro passo para entender onde está a quebra e o que precisa ser estruturado.</p>
-    <form class="cta-form" onsubmit="return false">
-      <input type="text" placeholder="Nome completo" class="full">
-      <input type="email" placeholder="E-mail corporativo">
-      <input type="text" placeholder="Empresa">
-      <select onchange="this.classList.toggle('filled',this.value!='')">
-        <option value="">Tamanho da empresa</option>
-        <option>Até 10 colaboradores</option>
-        <option>11 a 50 colaboradores</option>
-        <option>51 a 150 colaboradores</option>
-        <option>151 a 300 colaboradores</option>
-        <option>Acima de 300 colaboradores</option>
-      </select>
-      <select onchange="this.classList.toggle('filled',this.value!='')">
-        <option value="">Nº de comerciais</option>
-        <option>1 a 2</option>
-        <option>3 a 5</option>
-        <option>6 a 10</option>
-        <option>11 a 20</option>
-        <option>Acima de 20</option>
-      </select>
-    </form>
-    <button class="cta-btn" onclick="window.open('https://calendly.com/veross-lucas-silvestre/presentation','_blank')">Quero meu diagnóstico gratuito</button>
-    <p class="cta-alt">Prefere falar antes? <a href="https://calendly.com/veross-lucas-silvestre/presentation" target="_blank" rel="noopener">Agende uma call →</a></p>
+    <div id="ctaFormWrap">
+      <form class="cta-form" id="ctaForm">
+        <input type="text" name="nome" placeholder="Nome completo" class="full" required>
+        <input type="email" name="email" placeholder="E-mail corporativo" required>
+        <input type="text" name="empresa" placeholder="Empresa">
+        <select name="tamanho" onchange="this.classList.toggle('filled',this.value!='')">
+          <option value="">Tamanho da empresa</option>
+          <option>Até 10 colaboradores</option>
+          <option>11 a 50 colaboradores</option>
+          <option>51 a 150 colaboradores</option>
+          <option>151 a 300 colaboradores</option>
+          <option>Acima de 300 colaboradores</option>
+        </select>
+        <select name="comerciais" onchange="this.classList.toggle('filled',this.value!='')">
+          <option value="">Nº de comerciais</option>
+          <option>1 a 2</option>
+          <option>3 a 5</option>
+          <option>6 a 10</option>
+          <option>11 a 20</option>
+          <option>Acima de 20</option>
+        </select>
+      </form>
+      <button class="cta-btn" id="ctaBtn">Quero meu diagnóstico gratuito</button>
+      <p class="cta-alt">Prefere falar antes? <a href="https://calendly.com/veross-lucas-silvestre/presentation" target="_blank" rel="noopener">Agende uma call →</a></p>
+      <div class="cta-success">
+        <div class="cta-ok-icon">✓</div>
+        <p class="cta-ok-h">Recebemos sua solicitação!</p>
+        <p class="cta-ok-sub">Abrindo o agendamento do diagnóstico em instantes…</p>
+        <a href="https://calendly.com/veross-lucas-silvestre/presentation" target="_blank" rel="noopener" class="cta-ok-cal">Agendar diagnóstico →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1137,7 +1159,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
       <p class="fv2-desc">Estruturamos como empresas B2B vendem — com método, previsibilidade e resultados replicáveis.</p>
       <div class="fv2-subscribe">
         <input type="email" placeholder="Seu melhor e-mail" class="fv2-email">
-        <button class="fv2-sub-btn" onclick="var e=this.previousElementSibling.value.trim();location.href='materiais.html'+(e?'?email='+encodeURIComponent(e):'')">White Paper</button>
+        <button class="fv2-sub-btn" onclick="goWhiteP(this)">White Paper</button>
       </div>
       <div class="fv2-social">
         <a href="https://linkedin.com/company/verossbr" class="fv2-soc" target="_blank" rel="noopener" aria-label="LinkedIn">
@@ -1279,6 +1301,103 @@ function tFaq(btn) {
   }, { threshold: 0.08 });
   els.forEach(el => obs.observe(el));
 })();
+</script>
+
+<script>
+/* ── CTA FORM HANDLER — HubSpot ─────────────────────────────────
+   Portal: 44513728  |  Form: ca9e4440-e3b2-4b19-aa33-c1d0289822da
+   Campos mapeados:
+     firstname         → contato · nome
+     email             → contato · e-mail
+     name              → empresa · nome da empresa
+     tamanho_da_empresa → empresa · tamanho
+     n_de_comerciais   → empresa · nº de comerciais
+──────────────────────────────────────────────────────────────── */
+(function () {
+  var HS_URL   = 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/ca9e4440-e3b2-4b19-aa33-c1d0289822da';
+  var CALENDLY = 'https://calendly.com/veross-lucas-silvestre/presentation';
+
+  var wrap = document.getElementById('ctaFormWrap');
+  var form = document.getElementById('ctaForm');
+  var btn  = document.getElementById('ctaBtn');
+  if (!wrap || !form || !btn) return;
+
+  btn.addEventListener('click', function () {
+    var nome  = form.querySelector('[name="nome"]').value.trim();
+    var email = form.querySelector('[name="email"]').value.trim();
+
+    clearErrors();
+    var ok = true;
+    if (!nome)  { markErr(form.querySelector('[name="nome"]'));  ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      markErr(form.querySelector('[name="email"]')); ok = false;
+    }
+    if (!ok) return;
+
+    var empresa    = form.querySelector('[name="empresa"]').value.trim();
+    var tamanho    = form.querySelector('[name="tamanho"]').value;
+    var comerciais = form.querySelector('[name="comerciais"]').value;
+
+    setLoading(true);
+
+    var fields = [
+      { objectTypeId: '0-1', name: 'firstname', value: nome  },
+      { objectTypeId: '0-1', name: 'email',     value: email }
+    ];
+    if (empresa)    fields.push({ objectTypeId: '0-2', name: 'name',                value: empresa    });
+    if (tamanho)    fields.push({ objectTypeId: '0-2', name: 'tamanho_da_empresa',  value: tamanho    });
+    if (comerciais) fields.push({ objectTypeId: '0-2', name: 'n_de_comerciais',     value: comerciais });
+
+    function proceed() {
+      showSuccess();
+      setTimeout(function () { window.open(CALENDLY, '_blank'); }, 900);
+    }
+
+    fetch(HS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields:  fields,
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    })
+    .then(function () { setLoading(false); proceed(); })
+    .catch(function () { setLoading(false); proceed(); });
+  });
+
+  function markErr(el)   { if (el) el.classList.add('input-err'); }
+  function clearErrors() {
+    form.querySelectorAll('.input-err').forEach(function (e) { e.classList.remove('input-err'); });
+  }
+  function setLoading(on) {
+    wrap.classList.toggle('sending', on);
+    btn.disabled = on;
+    btn.textContent = on ? 'Enviando…' : 'Quero meu diagnóstico gratuito';
+  }
+  function showSuccess() {
+    wrap.classList.remove('sending');
+    wrap.classList.add('done');
+  }
+})();
+
+// ── FOOTER WHITE PAPER ──
+window.goWhiteP = function (btn) {
+  var e    = btn.previousElementSibling.value.trim();
+  var dest = 'materiais.html' + (e ? '?email=' + encodeURIComponent(e) : '');
+  if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) {
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/44513728/a725e3f4-98c5-45d2-bc96-737aac04470f', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [{ objectTypeId: '0-1', name: 'email', value: e }],
+        context: { pageUri: location.href, pageName: document.title }
+      })
+    }).then(function () { location.href = dest; })
+      .catch(function () { location.href = dest; });
+  } else {
+    location.href = dest;
+  }
+};
 </script>
 </body>
 </html>
