@@ -362,7 +362,7 @@
    HS_URL: 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/FORM_ID'
 ──────────────────────────────────────────────────────────────── */
 (function () {
-  var HS_URL = ''; /* ← cole o endpoint HubSpot aqui quando o form for criado */
+  var HS_URL = 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/517a3486-214a-41f4-bed4-3609ebcdaceb';
 
   var wrap = document.getElementById('scraperFormWrap');
   var form = document.getElementById('scraperForm');
@@ -394,7 +394,7 @@
       { objectTypeId: '0-1', name: 'phone',     value: telefone }
     ];
     if (empresa) fields.push({ objectTypeId: '0-2', name: 'name',   value: empresa });
-    if (perfil)  fields.push({ objectTypeId: '0-1', name: 'message', value: perfil  });
+    if (perfil)  fields.push({ objectTypeId: '0-1', name: 'qual_uso', value: perfil  });
 
     function showSuccess() { setLoading(false); wrap.classList.add('done'); }
 

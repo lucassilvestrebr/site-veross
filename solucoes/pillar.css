@@ -48,6 +48,8 @@
 .prod-tag { font-family: 'DM Mono', monospace; font-size: 9.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--dou); margin-bottom: 18px; }
 .prod-icon { width: 46px; height: 46px; border-radius: 13px; background: rgba(174,138,86,.08); border: 1px solid var(--bd); display: flex; align-items: center; justify-content: center; font-size: 19px; color: var(--dou); margin-bottom: 18px; }
 .prod-name { font-family: 'League Spartan', sans-serif; font-size: 20px; font-weight: 800; color: var(--azul); letter-spacing: -.02em; line-height: 1.12; margin-bottom: 12px; }
+.prod-logo { margin-bottom: 20px; }
+.prod-logo img { height: 34px; width: auto; max-width: 165px; object-fit: contain; display: block; }
 .prod-desc { font-size: 14px; font-weight: 300; color: var(--tx-m); line-height: 1.78; flex: 1; margin-bottom: 22px; }
 .prod-features { list-style: none; display: flex; flex-wrap: wrap; gap: 7px; }
 .prod-features li { padding: 5px 12px; border-radius: 100px; background: rgba(174,138,86,.06); border: 1px solid var(--bd); font-size: 11px; color: var(--tx-m); }
