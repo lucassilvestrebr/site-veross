@@ -1203,6 +1203,8 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
       <div class="fv2-col">
         <div class="fv2-col-head">Empresa</div>
         <a href="sobre.html">Sobre a Veross</a>
+        <a href="politica-de-privacidade.html">Política de Privacidade</a>
+        <a href="termos-de-uso.html">Termos de Uso</a>
         <a href="https://linkedin.com/in/lucassilvestre" target="_blank" rel="noopener">Lucas Silvestre</a>
         <a href="/cdn-cgi/l/email-protection#d8aebdaab7abab98aebdaab7ababf6bbb7b5f6baaa">Contato</a>
       </div>
@@ -1405,6 +1407,20 @@ window.goWhiteP = function (btn) {
     location.href = dest;
   }
 };
+</script>
+<!-- ── Cookie Banner (LGPD) ── -->
+<style>#cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:9997;background:#060923;border-top:1px solid rgba(255,255,255,.08);padding:16px 52px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s ease}#cookie-bar.show{transform:translateY(0)}#cookie-bar p{font-size:13px;color:rgba(255,255,255,.48);line-height:1.6;margin:0;flex:1;min-width:200px}#cookie-bar p a{color:#AE8A56;text-decoration:none}#cookie-bar p a:hover{text-decoration:underline}.ck-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.ck-accept{background:#AE8A56;color:#060923;border:none;padding:9px 22px;border-radius:100px;font-family:'League Spartan',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap}.ck-accept:hover{background:#C9A97A}.ck-reject{background:transparent;color:rgba(255,255,255,.3);border:none;font-size:12px;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'Mulish',sans-serif;white-space:nowrap}.ck-reject:hover{color:rgba(255,255,255,.55)}@media(max-width:768px){#cookie-bar{padding:16px 20px;flex-direction:column;align-items:flex-start}.ck-actions{width:100%}}#cookie-bar.show~#wa-float{bottom:90px}@media(max-width:768px){#cookie-bar.show~#wa-float{bottom:144px}}</style>
+<div id="cookie-bar"><p>Usamos cookies para melhorar sua experiência e analisar o tráfego. Ao aceitar, você concorda com nossa <a href="politica-de-privacidade.html">Política de Privacidade</a>.</p><div class="ck-actions"><button class="ck-accept" onclick="verossCK(1)">Aceitar</button><button class="ck-reject" onclick="verossCK(0)">Recusar</button></div></div>
+<script>
+(function(){
+  if(localStorage.getItem('veross_cookies')){ return; }
+  setTimeout(function(){ var b=document.getElementById('cookie-bar'); if(b) b.classList.add('show'); }, 700);
+  window.verossCK = function(ok){
+    localStorage.setItem('veross_cookies', ok ? 'accepted' : 'rejected');
+    var b=document.getElementById('cookie-bar');
+    if(b){ b.classList.remove('show'); setTimeout(function(){ if(b.parentNode) b.parentNode.removeChild(b); }, 420); }
+  };
+})();
 </script>
 <!-- ── WhatsApp Floating Button ── -->
 <style>#wa-float{position:fixed;bottom:28px;right:28px;z-index:9999;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.35);transition:transform .2s,box-shadow .2s;text-decoration:none}#wa-float:hover{transform:scale(1.08);box-shadow:0 8px 32px rgba(37,211,102,.45)}#wa-float svg{width:28px;height:28px}@media(max-width:768px){#wa-float{bottom:20px;right:16px;width:50px;height:50px}}</style>
