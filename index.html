@@ -1408,6 +1408,32 @@ window.goWhiteP = function (btn) {
   }
 };
 </script>
+<!-- ── IP Tracking → n8n ── -->
+<script>
+(function() {
+  if (/localhost|127\.0\.0\.1/.test(window.location.hostname)) return;
+  if (localStorage.getItem('veross_cookies') === 'rejected') return;
+  fetch('https://ipinfo.io/json')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      fetch('https://webhook.veross.com.br/webhook/scrap-site-veross', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ip:        d.ip        || '',
+          org:       d.org       || '',
+          city:      d.city      || '',
+          region:    d.region    || '',
+          country:   d.country   || '',
+          page:      window.location.href,
+          referrer:  document.referrer || '',
+          timestamp: new Date().toISOString()
+        })
+      });
+    })
+    .catch(function(){});
+})();
+</script>
 <!-- ── Cookie Banner (LGPD) ── -->
 <style>#cookie-bar{position:fixed;bottom:0;left:0;right:0;z-index:9997;background:#060923;border-top:1px solid rgba(255,255,255,.08);padding:16px 52px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;transform:translateY(100%);transition:transform .4s ease}#cookie-bar.show{transform:translateY(0)}#cookie-bar p{font-size:13px;color:rgba(255,255,255,.48);line-height:1.6;margin:0;flex:1;min-width:200px}#cookie-bar p a{color:#AE8A56;text-decoration:none}#cookie-bar p a:hover{text-decoration:underline}.ck-actions{display:flex;align-items:center;gap:12px;flex-shrink:0}.ck-accept{background:#AE8A56;color:#060923;border:none;padding:9px 22px;border-radius:100px;font-family:'League Spartan',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;transition:background .2s;white-space:nowrap}.ck-accept:hover{background:#C9A97A}.ck-reject{background:transparent;color:rgba(255,255,255,.3);border:none;font-size:12px;cursor:pointer;padding:4px 8px;transition:color .2s;font-family:'Mulish',sans-serif;white-space:nowrap}.ck-reject:hover{color:rgba(255,255,255,.55)}@media(max-width:768px){#cookie-bar{padding:16px 20px;flex-direction:column;align-items:flex-start}.ck-actions{width:100%}}#cookie-bar.show~#wa-float{bottom:90px}@media(max-width:768px){#cookie-bar.show~#wa-float{bottom:144px}}</style>
 <div id="cookie-bar"><p>Usamos cookies para melhorar sua experiência e analisar o tráfego. Ao aceitar, você concorda com nossa <a href="politica-de-privacidade.html">Política de Privacidade</a>.</p><div class="ck-actions"><button class="ck-accept" onclick="verossCK(1)">Aceitar</button><button class="ck-reject" onclick="verossCK(0)">Recusar</button></div></div>
