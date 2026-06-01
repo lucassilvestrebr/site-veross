@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A Veross estrutura a operação comercial de empresas B2B com método, tecnologia e execução — transformando vendas improvisadas em crescimento previsível e sustentável.">
+<title>Veross — Arquitetura Comercial B2B</title>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.veross.com.br/">
+<meta property="og:title" content="Veross — Arquitetura Comercial B2B">
+<meta property="og:description" content="A Veross estrutura a operação comercial de empresas B2B com método, tecnologia e execução — transformando vendas improvisadas em crescimento previsível e sustentável.">
+<meta property="og:image" content="https://www.veross.com.br/img/hero/lucas-silvestre-tablet.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Veross — Arquitetura Comercial B2B">
+<meta name="twitter:description" content="A Veross estrutura a operação comercial de empresas B2B com método, tecnologia e execução.">
+<!-- Favicon -->
+<link rel="icon" href="favicon-light.ico" sizes="any">
+<link rel="icon" href="favicon-dark.ico" sizes="any" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="favicon-light.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --azul:   #060923;
+  --dou:    #AE8A56;
+  --dou-lt: #C9A97A;
+  --amen:   #ECD7B4;
+  --plat:   #CDCDD0;
+  --branco: #FCFCFC;
+  --bg:     #FCFCFC;
+  --bg-w:   #F5EFE2;
+  --card:   #FFFFFF;
+  --tx:     #060923;
+  --tx-m:   #3C3020;
+  --tx-s:   #9A8C78;
+  --bd:     rgba(174,138,86,.22);
+  --bd2:    rgba(6,9,35,.08);
+  --R:      28px;
+  --r:      12px;
+  --nav-h:  84px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--tx); font-family: 'Mulish', sans-serif; font-weight: 400; line-height: 1.65; overflow-x: hidden; }
+
+/* ── TYPE HELPERS ── */
+.fd { font-family: 'League Spartan', sans-serif; font-weight: 900; letter-spacing: -.03em; line-height: .95; }
+.fh { font-family: 'League Spartan', sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 52px; }
+.ey { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dou); margin-bottom: 22px; }
+.ey::before { content: ''; width: 20px; height: 1px; background: var(--dou); opacity: .5; }
+.sh { font-size: clamp(26px, 3.2vw, 42px); color: var(--azul); margin-bottom: 18px; }
+.sh em { font-style: normal; color: var(--dou); }
+.bp { font-size: 15px; font-weight: 300; color: var(--tx-m); line-height: 1.85; margin-bottom: 14px; }
+
+/* ── BUTTONS ── */
+.btn-p { display: inline-flex; align-items: center; justify-content: center; background: var(--azul); color: var(--branco); border: none; padding: 14px 28px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; text-decoration: none; white-space: nowrap; }
+.btn-p:hover { background: var(--dou); }
+.btn-s { display: inline-flex; align-items: center; justify-content: center; background: transparent; color: var(--tx-m); border: 1.5px solid var(--bd2); padding: 13px 26px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; transition: border-color .2s, color .2s; text-decoration: none; white-space: nowrap; }
+.btn-s:hover { border-color: var(--dou); color: var(--dou); }
+
+/* ── NAV ── */
+#main-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(252,252,252,.82); backdrop-filter: blur(24px); border-bottom: 1px solid var(--bd2); transition: box-shadow .3s; }
+#main-nav.scrolled { box-shadow: 0 2px 24px rgba(6,9,35,.07); }
+.nav-i { max-width: 1120px; margin: 0 auto; padding: 0 52px; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo img { height: 72px; width: auto; display: block; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 13px; font-weight: 500; color: var(--tx-m); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--dou); }
+.nav-cta { background: var(--azul); color: var(--branco); border: none; padding: 10px 20px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; white-space: nowrap; }
+.nav-cta:hover { background: var(--dou); }
+.ham { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; background: transparent; border: 1px solid var(--bd2); border-radius: 8px; padding: 9px; cursor: pointer; }
+.ham span { display: block; height: 1.5px; background: var(--azul); border-radius: 2px; transition: transform .3s, opacity .3s; }
+.ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity: 0; }
+.ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mob { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: rgba(252,252,252,.98); backdrop-filter: blur(24px); z-index: 900; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.mob.open { opacity: 1; pointer-events: all; }
+.mob a { font-family: 'League Spartan', sans-serif; font-size: clamp(28px,7vw,44px); font-weight: 800; color: rgba(6,9,35,.28); text-decoration: none; transition: color .2s; padding: 6px 0; }
+.mob a:hover { color: var(--dou); }
+.mob-cta { margin-top: 28px; background: var(--azul); color: var(--branco); border: none; padding: 14px 36px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+
+/* ── SECTIONS ── */
+.sc { padding: 88px 0; }
+.sc-white { background: var(--card); }
+.sc-warm  { background: var(--bg-w); }
+.sc-dark  { background: var(--azul); }
+
+/* ── HERO ── */
+#hero { min-height: calc(100vh - 56px); padding-top: var(--nav-h); background: var(--bg); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+.hero-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.hero-main { flex: 1; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; padding: 64px 52px 48px; max-width: 1220px; width: 100%; margin: 0 auto; position: relative; z-index: 1; }
+.hero-left { padding-right: 56px; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(174,138,86,.08); border: 1px solid var(--bd); border-radius: 100px; padding: 5px 14px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dou); margin-bottom: 28px; }
+.hero-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--dou); flex-shrink: 0; }
+.hero-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--tx-s); margin-bottom: 20px; line-height: 1.6; }
+.hero-h1 { font-size: clamp(36px, 3.8vw, 64px); color: var(--azul); margin-bottom: 24px; }
+.hero-h1 em { font-style: normal; color: var(--dou); }
+.hero-sub { font-size: 16px; font-weight: 300; color: var(--tx-m); line-height: 1.8; max-width: 480px; margin-bottom: 40px; }
+.hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+/* Hero right — media placeholder */
+.hero-right { padding-left: 8px; }
+.hero-media { width: 100%; aspect-ratio: 4/3.2; border-radius: 20px; border: 1.5px dashed rgba(174,138,86,.35); background: linear-gradient(135deg, var(--bg-w) 0%, #F0E8D8 100%); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero-media-deco { position: absolute; inset: 0; pointer-events: none; }
+.hero-media-content { display: flex; flex-direction: column; align-items: center; gap: 16px; position: relative; z-index: 2; }
+.hero-media-icon { width: 56px; height: 56px; border-radius: 50%; border: 1.5px solid rgba(174,138,86,.4); display: flex; align-items: center; justify-content: center; }
+.hero-media-icon svg { width: 20px; height: 20px; }
+.hero-media-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(174,138,86,.5); text-align: center; }
+.hero-media-sub { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: rgba(174,138,86,.3); text-align: center; }
+/* corner markers */
+.hero-media::before { content: ''; position: absolute; top: 14px; left: 14px; width: 22px; height: 22px; border-top: 1.5px solid rgba(174,138,86,.4); border-left: 1.5px solid rgba(174,138,86,.4); }
+.hero-media::after  { content: ''; position: absolute; bottom: 14px; right: 14px; width: 22px; height: 22px; border-bottom: 1.5px solid rgba(174,138,86,.4); border-right: 1.5px solid rgba(174,138,86,.4); }
+
+/* Hero stats bar */
+.hero-stats { display: flex; border-top: 1px solid var(--bd2); width: 100%; position: relative; z-index: 1; }
+.hs { flex: 1; padding: 22px 0; border-right: 1px solid var(--bd2); text-align: center; }
+.hs:last-child { border-right: none; }
+.hs-n { font-family: 'League Spartan', sans-serif; font-size: 24px; font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 5px; }
+.hs-l { font-size: 11px; color: var(--tx-s); line-height: 1.4; }
+
+/* ── REFRAME ── */
+.rg { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+.callout { margin-top: 28px; padding: 20px 24px; background: rgba(174,138,86,.06); border-left: 2px solid var(--dou); border-radius: 0 var(--r) var(--r) 0; }
+.callout p { font-family: 'League Spartan', sans-serif; font-size: 16px; font-weight: 600; color: var(--azul); line-height: 1.5; }
+.pain-hdr { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--tx-s); margin-bottom: 14px; }
+.pain-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.pain-list li { display: flex; align-items: flex-start; gap: 12px; padding: 13px 15px; background: var(--bg-w); border: 1px solid var(--bd2); border-radius: var(--r); font-size: 14px; font-style: italic; color: var(--tx-m); line-height: 1.55; transition: border-color .2s; }
+.pain-list li:hover { border-color: var(--bd); }
+.pain-list li::before { content: '"'; font-family: 'League Spartan', sans-serif; font-size: 28px; font-weight: 900; color: var(--dou); opacity: .4; line-height: 1; flex-shrink: 0; margin-top: -3px; }
+.pain-close { margin-top: 16px; font-size: 13px; font-weight: 600; color: var(--dou); }
+
+/* ── ICP ── */
+.icp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+.icp-card { border-radius: 16px; padding: 32px; border: 1.5px solid var(--bd2); }
+.icp-card.fit { border-color: rgba(174,138,86,.32); background: rgba(174,138,86,.02); }
+.icp-card.no  { border-color: rgba(140,40,40,.14); }
+.icp-ttl { font-family: 'League Spartan', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 18px; padding-bottom: 14px; border-bottom: 1px solid var(--bd2); }
+.icp-card.fit .icp-ttl { color: var(--dou); }
+.icp-card.no  .icp-ttl { color: rgba(140,40,40,.65); }
+.icp-it { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.icp-it li { font-size: 13.5px; color: var(--tx-m); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+.icp-card.fit .icp-it li::before { content: '—'; color: var(--dou); flex-shrink: 0; font-weight: 700; }
+.icp-card.no  .icp-it li::before { content: '—'; color: rgba(140,40,40,.45); flex-shrink: 0; }
+
+/* ── MHMA ── */
+.mhma-outer { position: relative; height: 500vh; background: var(--azul); border-radius: var(--R) var(--R) 0 0; }
+.mhma-inner { position: sticky; top: 0; height: 100vh; overflow: hidden; border-radius: var(--R) var(--R) 0 0; }
+.mhma-hdr { position: absolute; top: 38px; left: 52px; right: 52px; display: flex; align-items: center; justify-content: space-between; z-index: 20; pointer-events: none; }
+.mhma-ey { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: var(--amen); }
+.mhma-ct { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; color: rgba(174,138,86,.35); }
+.mhma-track { position: relative; width: 100%; height: 100%; }
+.mhma-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; align-items: center; will-change: transform; }
+.mhma-illo { display: flex; align-items: center; justify-content: center; padding: 60px 40px 60px 52px; }
+.mhma-txt { padding: 60px 52px 60px 40px; position: relative; }
+.mhma-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .15em; text-transform: uppercase; color: rgba(174,138,86,.38); margin-bottom: 16px; }
+.mhma-ln { width: 32px; height: 1px; background: var(--dou); opacity: .5; margin-bottom: 22px; }
+.mhma-name { font-family: 'League Spartan', sans-serif; font-size: clamp(32px,4.5vw,52px); font-weight: 800; color: var(--branco); letter-spacing: -.02em; line-height: 1; margin-bottom: 22px; }
+.mhma-desc { font-size: 16px; font-weight: 300; color: rgba(255,255,255,.4); line-height: 1.85; max-width: 400px; }
+.mhma-desc em { font-style: normal; color: var(--amen); font-weight: 500; }
+.mhma-bg-ltr { position: absolute; right: 44px; bottom: 36px; font-family: 'League Spartan', sans-serif; font-size: clamp(80px,15vw,160px); font-weight: 900; line-height: .85; color: rgba(174,138,86,.05); letter-spacing: -.05em; user-select: none; pointer-events: none; }
+.mhma-dots { position: absolute; bottom: 34px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 20; }
+.mhma-dot { width: 22px; height: 2px; border-radius: 1px; background: rgba(174,138,86,.18); transition: background .3s, width .3s; }
+.mhma-dot.on { background: var(--dou); width: 38px; }
+.mhma-hint { position: absolute; bottom: 34px; right: 52px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: rgba(174,138,86,.28); z-index: 20; transition: opacity .4s; }
+.mhma-hint.off { opacity: 0; }
+
+/* ── 2EOGM ── */
+.eogm-intro { max-width: 520px; margin-bottom: 52px; }
+.eogm-grid { display: flex; border: 1.5px solid var(--bd2); border-radius: 14px; overflow: hidden; }
+.eogm-s { flex: 1; padding: 30px 22px; border-right: 1px solid var(--bd2); transition: background .25s, flex .35s cubic-bezier(.4,0,.2,1); cursor: default; overflow: hidden; }
+.eogm-s:last-child { border-right: none; }
+.eogm-s:hover { background: rgba(174,138,86,.05); flex: 1.7; }
+.eogm-n { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; color: var(--tx-s); margin-bottom: 14px; }
+.eogm-l { font-family: 'League Spartan', sans-serif; font-size: 44px; font-weight: 900; color: rgba(174,138,86,.11); line-height: 1; margin-bottom: 12px; transition: color .25s; }
+.eogm-s:hover .eogm-l { color: rgba(174,138,86,.42); }
+.eogm-nm { font-family: 'League Spartan', sans-serif; font-size: 14px; font-weight: 700; color: var(--azul); margin-bottom: 8px; }
+.eogm-dc { font-size: 12px; font-weight: 300; color: var(--tx-s); line-height: 1.75; max-height: 0; overflow: hidden; opacity: 0; transition: max-height .35s ease, opacity .3s ease .05s; }
+.eogm-s:hover .eogm-dc { max-height: 130px; opacity: 1; }
+.eogm-rs { margin-top: 24px; display: flex; align-items: center; justify-content: space-between; padding: 16px 22px; background: var(--bg-w); border: 1px solid var(--bd2); border-radius: var(--r); flex-wrap: wrap; gap: 12px; }
+.eogm-rs-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx-s); letter-spacing: .06em; white-space: nowrap; }
+.rs-wrap { display: flex; gap: 8px; flex-wrap: wrap; }
+.rs-tag { padding: 5px 13px; border-radius: 100px; border: 1px solid var(--bd); font-family: 'DM Mono', monospace; font-size: 10px; color: var(--dou); letter-spacing: .04em; }
+
+/* ── CASES ── */
+.cases-hdr { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 44px; gap: 20px; }
+.cases-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+.cc { background: var(--card); border: 1.5px solid var(--bd2); border-radius: 14px; padding: 32px 30px; display: flex; flex-direction: column; gap: 18px; transition: border-color .25s, box-shadow .25s; }
+.cc:hover { border-color: var(--bd); box-shadow: 0 4px 24px rgba(174,138,86,.08); }
+.cc-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--tx-s); }
+.cc-n { font-family: 'League Spartan', sans-serif; font-size: 44px; font-weight: 800; color: var(--dou); line-height: 1; }
+.cc-l { font-size: 12px; color: var(--tx-s); margin-top: 2px; }
+.cc-d { font-size: 13px; font-weight: 300; color: var(--tx-m); line-height: 1.75; }
+.cc hr { border: none; border-top: 1px solid var(--bd2); }
+.depo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+.depo { background: var(--card); border: 1.5px solid var(--bd2); border-radius: 14px; padding: 28px; }
+.depo-q { font-size: 15px; font-style: italic; font-weight: 300; color: var(--tx-m); line-height: 1.8; margin-bottom: 20px; padding-left: 14px; border-left: 2px solid var(--dou); }
+.depo-name { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--dou); }
+.depo-role { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx-s); letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; }
+
+/* ── ECO ── */
+.eco-intro { max-width: 540px; margin-bottom: 48px; }
+.eco-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; }
+.eco-g { background: rgba(6,9,35,.035); border: 1px solid var(--bd2); border-radius: var(--r); padding: 22px; }
+.eco-g h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--dou); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--bd2); }
+.eco-tools { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.eco-tools li { font-size: 13px; color: var(--tx-m); padding: 5px 0; border-bottom: 1px solid rgba(6,9,35,.05); display: flex; gap: 9px; align-items: center; }
+.eco-tools li:last-child { border-bottom: none; }
+.eco-tools li::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--dou); opacity: .5; flex-shrink: 0; }
+.eco-note { margin-top: 28px; text-align: center; }
+.eco-note p { font-size: 13px; color: var(--tx-s); }
+
+/* ── FAQ ── */
+.faq-wrap { max-width: 760px; margin: 0 auto; }
+.faq-list { margin-top: 48px; border-top: 1px solid var(--bd2); }
+.faq-item { border-bottom: 1px solid var(--bd2); }
+.faq-q { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; gap: 20px; cursor: pointer; user-select: none; }
+.faq-qt { font-family: 'League Spartan', sans-serif; font-size: 16px; font-weight: 600; color: var(--tx-m); line-height: 1.35; transition: color .2s; }
+.faq-item.on .faq-qt { color: var(--dou); }
+.faq-ic { width: 28px; height: 28px; flex-shrink: 0; border: 1px solid var(--bd2); border-radius: 50%; display: grid; place-items: center; font-size: 18px; color: var(--dou); transition: transform .25s, background .2s, border-color .2s; line-height: 1; }
+.faq-item.on .faq-ic { transform: rotate(45deg); background: var(--dou); color: #fff; border-color: var(--dou); }
+.faq-body { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
+.faq-item.on .faq-body { max-height: 300px; }
+.faq-body-i { padding-bottom: 22px; font-size: 14px; font-weight: 300; color: var(--tx-m); line-height: 1.85; max-width: 640px; }
+
+/* ── CTA ── */
+.cta-inner { text-align: center; position: relative; padding: 88px 20px; }
+.cta-deco { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.cta-h2 { font-size: clamp(28px, 4vw, 52px); color: var(--branco); max-width: 680px; margin: 0 auto 16px; }
+.cta-h2 em { font-style: normal; color: var(--dou-lt); }
+.cta-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,.36); max-width: 440px; margin: 0 auto 52px; line-height: 1.8; }
+.cta-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 520px; margin: 0 auto 12px; }
+.cta-form input { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 14px 18px; color: var(--branco); font-family: 'Mulish', sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
+.cta-form input::placeholder { color: rgba(255,255,255,.2); }
+.cta-form input:focus { border-color: rgba(174,138,86,.55); }
+.cta-form .full { grid-column: 1 / -1; }
+.cta-btn { display: block; width: 100%; max-width: 520px; margin: 0 auto; background: var(--dou); color: var(--azul); border: none; padding: 16px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.cta-btn:hover { background: var(--dou-lt); }
+.cta-alt { margin-top: 14px; font-size: 13px; color: rgba(255,255,255,.25); }
+.cta-alt a { color: var(--dou-lt); text-decoration: none; }
+.cta-sign { margin-top: 52px; font-family: 'League Spartan', sans-serif; font-size: 11px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: rgba(174,138,86,.25); }
+
+/* ── CTA FORM STATES ── */
+.input-err { border-color: rgba(220,80,80,.55) !important; }
+#ctaFormWrap.sending { opacity: .6; pointer-events: none; transition: opacity .2s; }
+.cta-success { display: none; padding: 24px 0 8px; }
+#ctaFormWrap.done .cta-form,
+#ctaFormWrap.done .cta-btn,
+#ctaFormWrap.done .cta-alt { display: none; }
+#ctaFormWrap.done .cta-success { display: block; }
+.cta-ok-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(174,138,86,.12); border: 1.5px solid var(--dou); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--dou); margin: 0 auto 20px; }
+.cta-ok-h { font-family: 'League Spartan', sans-serif; font-size: clamp(22px, 3vw, 32px); font-weight: 800; color: var(--branco); margin-bottom: 10px; }
+.cta-ok-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.38); max-width: 380px; margin: 0 auto 28px; line-height: 1.8; }
+.cta-ok-cal { display: inline-flex; align-items: center; gap: 9px; background: var(--dou); color: var(--azul); padding: 14px 32px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; text-decoration: none; transition: background .2s; }
+.cta-ok-cal:hover { background: var(--dou-lt); }
+
+/* ── FOOTER ── */
+footer { background: var(--azul); padding: 56px 0 32px; }
+.footer-main { max-width: 1120px; margin: 0 auto; padding: 0 52px 44px; display: grid; grid-template-columns: 220px 1fr 220px; gap: 48px; align-items: start; border-bottom: 1px solid rgba(255,255,255,.07); }
+.footer-brand { }
+.footer-logo { display: flex; align-items: center; margin-bottom: 14px; }
+.footer-logo img { height: 68px; filter: brightness(0) invert(1); }
+.footer-brand-desc { font-size: 12px; font-weight: 300; color: rgba(255,255,255,.28); line-height: 1.8; }
+.footer-center { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.footer-tagline { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .06em; color: rgba(255,255,255,.2); text-align: center; text-transform: uppercase; }
+.footer-nav { display: flex; gap: 8px 32px; flex-wrap: wrap; justify-content: center; }
+.footer-nav a { font-size: 12px; color: rgba(255,255,255,.3); text-decoration: none; transition: color .2s; }
+.footer-nav a:hover { color: var(--dou); }
+.footer-contact { }
+.footer-contact-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(174,138,86,.4); margin-bottom: 12px; }
+.footer-contact a { display: flex; align-items: center; gap: 8px; font-size: 13px; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; margin-bottom: 6px; }
+.footer-contact a:hover { color: var(--dou); }
+.footer-bottom { max-width: 1120px; margin: 0 auto; padding: 20px 52px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-copy { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,.12); letter-spacing: .06em; }
+.footer-sign { font-family: 'League Spartan', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: rgba(174,138,86,.28); }
+
+/* ── NAV DROPDOWN ── */
+.nav-has-drop { position: relative; }
+.nav-has-drop::after { content:''; position:absolute; top:100%; left:0; right:0; height:24px; }
+.nav-drop-trigger { display: inline-flex; align-items: center; gap: 5px; }
+.nav-caret { transition: transform .22s; flex-shrink: 0; }
+.nav-has-drop:hover .nav-caret { transform: rotate(180deg); }
+.nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%); width: 310px; background: var(--branco); border: 1px solid var(--bd2); border-radius: 16px; padding: 10px; box-shadow: 0 12px 48px rgba(6,9,35,.12); opacity: 0; pointer-events: none; transition: opacity .22s, transform .22s; transform: translateX(-50%) translateY(8px); z-index: 200; }
+.nav-has-drop:hover .nav-dropdown { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.nd-item { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 10px; text-decoration: none; transition: background .15s; }
+.nd-item:hover { background: rgba(174,138,86,.06); }
+.nd-icon { font-size: 16px; color: var(--dou); flex-shrink: 0; width: 28px; text-align: center; }
+.nd-item strong { display: block; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--azul); line-height: 1.2; }
+.nd-item em { display: block; font-style: normal; font-size: 11px; color: var(--tx-s); margin-top: 2px; }
+.nd-sep { border-top: 1px solid var(--bd2); margin: 6px 0; }
+.nd-all { display: block; text-align: center; padding: 9px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--dou); text-decoration: none; border-radius: 8px; transition: background .15s; }
+.nd-all:hover { background: rgba(174,138,86,.06); }
+
+/* ── FADE IN ── */
+.fi { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+.fi.visible { opacity: 1; transform: none; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .wrap { padding: 0 32px; }
+  .nav-i { padding: 0 32px; }
+  .hero-main { padding: 56px 32px 40px; }
+  .rg { gap: 44px; }
+  .eco-grid { grid-template-columns: 1fr 1fr; }
+  .cases-hdr { flex-direction: column; align-items: flex-start; }
+  .pain-grid { grid-template-columns: 1fr 1fr; }
+  .depo-row-2 .depo { flex: 0 0 calc(50% - 7px); }
+  .mhma-hdr { left: 32px; right: 32px; }
+  .mhma-txt { padding: 60px 32px 60px 32px; }
+  .mhma-illo { padding: 60px 20px 60px 32px; }
+  .footer-main { padding: 0 32px 44px; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+  .footer-bottom { padding: 20px 32px 0; }
+}
+
+@media (max-width: 768px) {
+  .wrap { padding: 0 20px; }
+  .nav-i { padding: 0 20px; }
+  .hero-main { grid-template-columns: 1fr; padding: 44px 20px 32px; gap: 36px; }
+  .hero-left { padding-right: 0; }
+  .hero-h1 { font-size: clamp(32px,9vw,50px); }
+  .hero-sub { font-size: 15px; max-width: 100%; }
+  .hero-ctas { flex-direction: column; align-items: flex-start; }
+  .btn-p, .btn-s { width: 100%; max-width: 340px; }
+  .hero-stats { flex-wrap: wrap; }
+  .hs { min-width: 50%; border-bottom: 1px solid var(--bd2); }
+  .rg { grid-template-columns: 1fr; gap: 32px; }
+  .icp-grid { grid-template-columns: 1fr; }
+  .cases-grid { grid-template-columns: 1fr; }
+  .depo-grid { grid-template-columns: 1fr; }
+  .eco-grid { grid-template-columns: 1fr 1fr; }
+  .cta-form { grid-template-columns: 1fr; }
+  .pain-grid { grid-template-columns: 1fr; }
+  .depo-row-3 { grid-template-columns: 1fr; }
+  .depo-row-2 { flex-direction: column; }
+  .depo-row-2 .depo { flex: none; width: 100%; }
+  .callout-banner { flex-direction: column; align-items: flex-start; padding: 24px 28px; }
+  .mhma-slide { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
+  .mhma-illo { padding: 76px 20px 20px; justify-content: flex-start; }
+  .mhma-txt { padding: 0 20px 60px; }
+  .mhma-hdr { left: 20px; right: 20px; }
+  .mhma-hint { right: 20px; }
+  .eogm-grid { flex-direction: column; border: none; gap: 10px; }
+  .eogm-s { border-right: none; border: 1.5px solid var(--bd2); border-radius: 12px; }
+  .eogm-dc { max-height: unset !important; opacity: 1 !important; }
+  .eogm-rs { flex-direction: column; align-items: flex-start; }
+  .nav-links, .nav-cta { display: none; }
+  .ham { display: flex; }
+  .mob { display: flex; }
+  .sc { padding: 56px 0; border-radius: 20px 20px 0 0; }
+  .mhma-outer { border-radius: 20px 20px 0 0; }
+  .mhma-inner { border-radius: 20px 20px 0 0; }
+  .footer-main { grid-template-columns: 1fr; padding: 0 20px 40px; }
+  .footer-center { align-items: flex-start; }
+  .footer-nav { justify-content: flex-start; }
+  .footer-bottom { padding: 18px 20px 0; }
+  .faq-wrap { padding: 0 20px; }
+}
+
+@media (max-width: 480px) {
+  .hero-h1 { font-size: 30px; }
+  .eco-grid { grid-template-columns: 1fr; }
+  .hs { min-width: 100%; }
+  .hero-media { aspect-ratio: 4/3.5; }
+}
+
+/* ── PAIN CARDS ── */
+.pain-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.pain-card { border-radius: var(--r); padding: 24px 20px 20px; border: 1.5px solid var(--bd2); background: var(--card); transition: border-color .2s, box-shadow .2s; display: flex; flex-direction: column; gap: 10px; }
+.pain-card:hover { border-color: var(--bd); box-shadow: 0 4px 20px rgba(174,138,86,.07); }
+.pain-card-q { font-size: 14px; font-style: italic; color: var(--tx-m); line-height: 1.65; display: flex; gap: 10px; margin: 0; }
+.pain-card-q::before { content: '"'; font-family: 'League Spartan', sans-serif; font-size: 28px; font-weight: 900; color: var(--dou); opacity: .4; line-height: 1; flex-shrink: 0; margin-top: -4px; }
+.pain-card-stat { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--bd2); font-size: 12px; font-weight: 300; color: var(--tx-s); line-height: 1.65; }
+.pain-card-stat strong { color: var(--dou); font-weight: 700; }
+.pain-card-src { display: block; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--tx-s); opacity: .55; margin-top: 7px; }
+.callout-banner { margin-top: 40px; padding: 36px 52px; background: var(--azul); border-radius: var(--R); display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
+.callout-banner p { font-family: 'League Spartan', sans-serif; font-size: clamp(20px,2.4vw,30px); font-weight: 800; color: var(--branco); line-height: 1.15; margin: 0; }
+.callout-banner p em { font-style: normal; color: var(--dou-lt); }
+.callout-banner span { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.42); line-height: 1.75; max-width: 360px; }
+
+/* ── DEPO v2 ── */
+.depo-5-wrap { display: flex; flex-direction: column; gap: 14px; }
+.depo-row-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.depo-row-2 { display: flex; gap: 14px; justify-content: center; }
+.depo-row-2 .depo { flex: 0 0 calc((100% - 14px) / 3); }
+.depo-avatar { width: 54px; height: 54px; border-radius: 50%; object-fit: cover; object-position: top center; flex-shrink: 0; border: 2px solid rgba(174,138,86,.2); }
+.depo-person { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.depo-meta { flex: 1; min-width: 0; }
+
+.depo-company { font-size: 12px; color: var(--tx-m); font-weight: 500; margin-top: 2px; }
+.cta-form select { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 14px 18px; color: rgba(255,255,255,.28); font-family: 'Mulish', sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; appearance: none; cursor: pointer; }
+.cta-form select.filled { color: var(--branco); }
+.cta-form select option { background: #060923; color: var(--branco); }
+.cta-form select:focus { border-color: rgba(174,138,86,.55); color: var(--branco); }
+
+/* ── CLIENTS MARQUEE ── */
+.clients-strip { background: var(--azul); padding: 14px 0; overflow: hidden; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.05); }
+.cs-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: rgba(174,138,86,.32); white-space: nowrap; padding: 0 40px 0 52px; flex-shrink: 0; }
+.cs-track-wrap { flex: 1; overflow: hidden; position: relative; }
+.cs-track-wrap::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to right, var(--azul), transparent); z-index: 2; pointer-events: none; }
+.cs-track-wrap::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to left, var(--azul), transparent); z-index: 2; pointer-events: none; }
+.cs-track { display: flex; white-space: nowrap; animation: cs-scroll 34s linear infinite; }
+.cs-item { display: inline-flex; align-items: center; padding: 0 32px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: rgba(255,255,255,.45); }
+.cs-item::after { content: ' ·'; color: rgba(174,138,86,.25); padding-left: 4px; }
+.cs-logo { height: 26px; width: auto; filter: brightness(0) invert(1); opacity: .55; display: block; }
+@keyframes cs-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── NÃO É COMPARE ── */
+.nao-compare { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--bd2); border-radius: var(--R); overflow: hidden; margin-top: 48px; }
+.nao-col-no { background: var(--bg-w); }
+.nao-col-yes { background: var(--azul); }
+.nao-col-head { padding: 18px 28px; display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; border-bottom: 1px solid; }
+.nao-col-no .nao-col-head { color: rgba(160,50,30,.55); border-color: var(--bd2); }
+.nao-col-yes .nao-col-head { color: var(--dou); border-color: rgba(255,255,255,.09); }
+.nao-row { padding: 16px 28px; display: flex; align-items: center; gap: 12px; font-family: 'League Spartan', sans-serif; font-size: 15px; font-weight: 600; line-height: 1.3; border-bottom: 1px solid; }
+.nao-col-no .nao-row { border-color: var(--bd2); }
+.nao-col-yes .nao-row { border-color: rgba(255,255,255,.06); }
+.nao-row:last-child { border-bottom: none; }
+.nao-icon { flex-shrink: 0; font-size: 16px; line-height: 1; }
+.nao-col-no .nao-icon { color: rgba(160,50,30,.4); }
+.nao-col-yes .nao-icon { color: var(--dou); }
+.nao-col-no .nao-row span:last-child { color: rgba(60,48,32,.38); text-decoration: line-through; text-decoration-color: rgba(160,50,30,.28); }
+.nao-col-yes .nao-row span:last-child { color: rgba(255,255,255,.82); }
+
+/* ── HERO PHOTO ── */
+.hero-photo-wrap { position: relative; border-radius: 20px; overflow: hidden; }
+.hero-photo { width: 100%; max-height: 540px; object-fit: cover; object-position: top center; display: block; border-radius: 20px; }
+.hero-photo-float { position: absolute; background: rgba(252,252,252,.93); backdrop-filter: blur(16px); border: 1px solid rgba(174,138,86,.2); border-radius: var(--r); padding: 12px 16px; box-shadow: 0 4px 28px rgba(6,9,35,.14); transition: transform .3s ease, box-shadow .3s ease; cursor: default; }
+.hero-photo-float:hover { animation: badge-float .75s ease-in-out infinite alternate; box-shadow: 0 10px 40px rgba(6,9,35,.22); }
+@keyframes badge-float { 0% { transform: translateY(0) scale(1); } 100% { transform: translateY(-8px) scale(1.03); } }
+.hero-photo-float-top { top: 24px; right: 20px; }
+.hero-photo-float-bot { bottom: 80px; left: 20px; }
+.hero-photo-float-br { bottom: 20px; right: 20px; }
+.hpf-mono { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--dou); }
+.hpf-n { font-family: 'League Spartan', sans-serif; font-size: 22px; font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 3px; }
+.hpf-l { font-size: 11px; color: var(--tx-s); }
+
+/* ── FOOTER v2 ── */
+.fv2 { padding: 64px 52px 52px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
+.fv2-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,.35); line-height: 1.85; margin-bottom: 28px; max-width: 260px; }
+.fv2-subscribe { display: flex; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 100px; padding: 5px 5px 5px 18px; margin-bottom: 24px; max-width: 280px; }
+.fv2-email { background: transparent; border: none; outline: none; color: var(--branco); font-family: 'Mulish', sans-serif; font-size: 13px; flex: 1; min-width: 0; }
+.fv2-email::placeholder { color: rgba(255,255,255,.25); }
+.fv2-sub-btn { background: var(--dou); color: var(--azul); border: none; border-radius: 100px; padding: 9px 20px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; cursor: pointer; white-space: nowrap; transition: background .2s; flex-shrink: 0; }
+.fv2-sub-btn:hover { background: var(--dou-lt); }
+.fv2-social { display: flex; gap: 10px; }
+.fv2-soc { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.4); text-decoration: none; transition: border-color .2s, color .2s; }
+.fv2-soc:hover { border-color: var(--dou); color: var(--dou); }
+.fv2-soc svg { width: 16px; height: 16px; }
+.fv2-links { display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; }
+.fv2-col { display: flex; flex-direction: column; gap: 10px; }
+.fv2-col-head { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--branco); letter-spacing: .03em; margin-bottom: 6px; }
+.fv2-col a { font-size: 13px; color: rgba(255,255,255,.38); text-decoration: none; transition: color .2s; line-height: 1.5; }
+.fv2-col a:hover { color: var(--dou); }
+.fv2-bottom { max-width: 1200px; margin: 0 auto; padding: 20px 52px 32px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+@media (max-width: 1024px) {
+  .fv2 { grid-template-columns: 220px 1fr; gap: 48px; padding: 52px 32px 44px; }
+  .fv2-links { grid-template-columns: repeat(2,1fr); }
+  .fv2-bottom { padding: 20px 32px 28px; }
+}
+@media (max-width: 768px) {
+  .cs-label { display: none; }
+  .nao-compare { grid-template-columns: 1fr; }
+  .fv2 { grid-template-columns: 1fr; gap: 40px; padding: 44px 20px 36px; }
+  .fv2-bottom { padding: 18px 20px 24px; }
+}
+
+/* ── BENTO GRID ── */
+.bento-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+.bc { background: var(--card); border: 1.5px solid var(--bd2); border-radius: 16px; padding: 28px 26px 24px; display: flex; flex-direction: column; transition: border-color .25s, box-shadow .25s; }
+.bc:hover { border-color: var(--bd); box-shadow: 0 4px 24px rgba(174,138,86,.08); }
+.bc-hero { grid-column: span 2; padding: 40px 36px; background: var(--azul); border-color: transparent; }
+.bc-hero .bc-tag { color: rgba(174,138,86,.5); }
+.bc-hero .bc-n { font-size: 72px; color: var(--dou); }
+.bc-hero .bc-l { color: rgba(255,255,255,.42); font-size: 13px; }
+.bc-hero .bc-d { color: rgba(255,255,255,.36); font-size: 13px; }
+.bc-hero hr.bc-hr { border-color: rgba(255,255,255,.1); }
+.bc-tag { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--tx-s); margin-bottom: 20px; }
+.bc-n { font-family: 'League Spartan', sans-serif; font-size: 52px; font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 4px; }
+.bc-l { font-size: 12px; color: var(--tx-s); }
+hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
+.bc-d { font-size: 13px; font-weight: 300; color: var(--tx-m); line-height: 1.75; margin-top: auto; }
+.bc-mid .bc-n { font-size: 42px; }
+.bc-depo-wide { grid-column: span 2; }
+.bc-dp { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.bc-dp img { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; object-position: top center; flex-shrink: 0; border: 1.5px solid rgba(174,138,86,.2); }
+.bc-dp-meta { flex: 1; min-width: 0; }
+.bc-dp-name { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--dou); line-height: 1.2; }
+.bc-dp-co { font-size: 11px; color: var(--tx-s); margin-top: 2px; }
+.bc-q { font-size: 13px; font-style: italic; font-weight: 300; color: var(--tx-m); line-height: 1.75; padding-left: 12px; border-left: 2px solid var(--dou); }
+@media (max-width: 1024px) {
+  .bento-grid { grid-template-columns: repeat(2,1fr); }
+  .bc-hero, .bc-depo-wide { grid-column: span 2; }
+  .pain-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .bento-grid { grid-template-columns: 1fr; }
+  .bc-hero, .bc-depo-wide { grid-column: span 1; }
+  .bc-hero .bc-n { font-size: 52px; }
+  .pain-grid { grid-template-columns: 1fr; }
+}
+
+@media (hover: none) {
+  .eogm-s:hover { flex: 1; background: transparent; }
+  .eogm-dc { max-height: unset !important; opacity: 1 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav id="main-nav">
+  <div class="nav-i">
+    <a href="#" class="nav-logo" aria-label="Veross">
+      <img src="img/logos/logo-veross.svg" alt="Veross" height="72">
+    </a>
+    <ul class="nav-links">
+      <li><a href="sobre.html">A Veross</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#cases">Cases</a></li>
+      <li class="nav-has-drop">
+        <a href="solucoes.html" class="nav-drop-trigger">Soluções <svg class="nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav-dropdown">
+          <a href="solucoes/educacao-comercial.html" class="nd-item">
+            <span class="nd-icon">◎</span>
+            <span>
+              <strong>Educação Comercial</strong>
+              <em>Academia Veross · Imersão · Mentoria</em>
+            </span>
+          </a>
+          <a href="solucoes/tecnologia-comercial.html" class="nd-item">
+            <span class="nd-icon">◈</span>
+            <span>
+              <strong>Tecnologia Comercial</strong>
+              <em>AlessIA Flow · Scraper AI · Agentes IA</em>
+            </span>
+          </a>
+          <a href="solucoes/operacao-comercial.html" class="nd-item">
+            <span class="nd-icon">◇</span>
+            <span>
+              <strong>Operação Comercial</strong>
+              <em>VMND · Ecossistema B2B</em>
+            </span>
+          </a>
+          <div class="nd-sep"></div>
+          <a href="solucoes.html" class="nd-all">Ver todas as soluções →</a>
+        </div>
+      </li>
+    </ul>
+    <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Diagnóstico Gratuito</button>
+    <button class="ham" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mob" id="mob">
+  <a href="sobre.html" onclick="cm()">A Veross</a>
+  <a href="#metodo" onclick="cm()">Método</a>
+  <a href="#cases" onclick="cm()">Cases</a>
+  <a href="solucoes.html" onclick="cm()">Soluções</a>
+  <a href="solucoes/educacao-comercial.html" onclick="cm()" style="font-size:clamp(18px,4.5vw,28px)">↳ Educação Comercial</a>
+  <a href="solucoes/tecnologia-comercial.html" onclick="cm()" style="font-size:clamp(18px,4.5vw,28px)">↳ Tecnologia Comercial</a>
+  <a href="solucoes/operacao-comercial.html" onclick="cm()" style="font-size:clamp(18px,4.5vw,28px)">↳ Operação Comercial</a>
+  <button class="mob-cta" onclick="cm();document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Diagnóstico Gratuito</button>
+</div>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<div id="hero">
+  <!-- decorative background -->
+  <div class="hero-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1440 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dt" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="rgba(174,138,86,0.09)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dt)"/>
+      <g stroke="rgba(174,138,86,.22)" stroke-width="1" fill="none" opacity=".7">
+        <line x1="0" y1="500" x2="160" y2="320"/><line x1="160" y1="320" x2="300" y2="420"/>
+        <line x1="300" y1="420" x2="300" y2="580"/><line x1="160" y1="320" x2="160" y2="500"/>
+        <circle cx="160" cy="320" r="4.5" fill="rgba(174,138,86,.55)" stroke="none"/>
+        <circle cx="300" cy="420" r="4.5" fill="rgba(174,138,86,.55)" stroke="none"/>
+        <circle cx="160" cy="500" r="3" fill="rgba(174,138,86,.3)" stroke="none"/>
+        <rect x="50" y="388" width="72" height="18" rx="3" fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.22)"/>
+        <rect x="176" y="450" width="72" height="18" rx="3" fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.22)"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- two-column grid -->
+  <div class="hero-main">
+    <!-- LEFT: text -->
+    <div class="hero-left">
+      <div class="hero-badge"><div class="hero-dot"></div>Arquitetura Comercial B2B</div>
+      <p class="hero-tag">Estruturamos como empresas B2B vendem e replicam isso continuadamente.</p>
+      <h1 class="fd hero-h1">Sua empresa<br>já vende.<br><em>O problema é que<br>ainda cresce no improviso.</em></h1>
+      <p class="hero-sub">A Veross estrutura a operação comercial de empresas B2B que dependem demais de indicação, esforço individual e processos pouco documentados — e transforma isso em uma operação previsível e sustentável.</p>
+      <div class="hero-ctas">
+        <button class="btn-p" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Quero um diagnóstico gratuito</button>
+      </div>
+    </div>
+
+    <!-- RIGHT: foto -->
+    <div class="hero-right">
+      <div class="hero-photo-wrap">
+        <img src="img/hero/lucas-silvestre-tablet.png" alt="Lucas Silvestre — Veross" class="hero-photo">
+        <div class="hero-photo-float hero-photo-float-top">
+          <div class="hpf-mono">3× Top Voice</div>
+          <div class="hpf-l">Sales Prospecting · LinkedIn</div>
+        </div>
+        <div class="hero-photo-float hero-photo-float-bot">
+          <div class="hpf-n">R$93M+</div>
+          <div class="hpf-l">em vendas geradas</div>
+        </div>
+        <div class="hero-photo-float hero-photo-float-br">
+          <div class="hpf-mono">Metodologia própria</div>
+          <div class="hpf-l">100% validada</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- stats bar -->
+  <div class="hero-stats">
+    <div class="hs"><div class="hs-n">+20 anos</div><div class="hs-l">experiência B2B</div></div>
+    <div class="hs"><div class="hs-n">+123</div><div class="hs-l">empresas estruturadas</div></div>
+    <div class="hs"><div class="hs-n">+4 mi</div><div class="hs-l">prospecções realizadas</div></div>
+    <div class="hs"><div class="hs-n">R$93 mi</div><div class="hs-l">em vendas geradas</div></div>
+    <div class="hs"><div class="hs-n">3×</div><div class="hs-l">Top Voice Sales Prospecting</div></div>
+    <div class="hs"><div class="hs-n">1ª</div><div class="hs-l">uma das primeiras a lançar<br>Agente IA no LinkedIn</div></div>
+  </div>
+</div>
+
+<!-- ═══ CLIENTES ═══ -->
+<div class="clients-strip">
+  <div class="cs-track-wrap">
+    <div class="cs-track">
+      <span class="cs-item"><img src="img/clientes/mag-seguros.svg" alt="MAG Seguros" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-tibox.png" alt="Tibox" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-ray.webp" alt="Ray Consulting" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-inbotix.png" alt="Inbotix" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-ademicon.svg" alt="Ademicon" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-careon.svg" alt="CareOn Brasil" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-plataforma-emp.webp" alt="Plataforma Empresas" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-onvox.png" alt="Onvox" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-meetime.webp" alt="Meetime" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/mag-seguros.svg" alt="MAG Seguros" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-tibox.png" alt="Tibox" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-ray.webp" alt="Ray Consulting" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-inbotix.png" alt="Inbotix" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-ademicon.svg" alt="Ademicon" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-careon.svg" alt="CareOn Brasil" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-plataforma-emp.webp" alt="Plataforma Empresas" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-onvox.png" alt="Onvox" class="cs-logo" loading="lazy"></span><span class="cs-item"><img src="img/clientes/logo-meetime.webp" alt="Meetime" class="cs-logo" loading="lazy"></span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════ REFRAME ═══════════════════════ -->
+<section class="sc sc-white" id="sobre">
+  <div class="wrap">
+    <div class="fi" style="max-width:600px;margin-bottom:52px">
+      <div class="ey">O problema real</div>
+      <h2 class="fh sh">O problema raramente<br>é falta de <em>lead.</em></h2>
+      <p class="bp">A maioria das empresas B2B que chegam até nós não tem um problema de vendas. Tem um problema de estrutura comercial — e os dados do mercado confirmam que não é caso isolado.</p>
+    </div>
+    <div class="pain-grid fi" style="transition-delay:.1s">
+      <div class="pain-card">
+        <p class="pain-card-q">Dependemos demais de indicação e networking para crescer.</p>
+        <div class="pain-card-stat"><strong>82%</strong> dos compradores B2B confiam em colegas e gestores internos antes de fornecedores. Indicação ajuda, mas depender só dela limita o pipeline e remove o controle comercial.<span class="pain-card-src">Forrester</span></div>
+      </div>
+      <div class="pain-card">
+        <p class="pain-card-q">O dono ainda precisa estar em quase toda reunião comercial.</p>
+        <div class="pain-card-stat">Compras B2B envolvem, em média, <strong>13 pessoas</strong> e 3+ departamentos em <strong>73%</strong> dos casos. Sem método e playbook, o dono vira o único tradutor de valor.<span class="pain-card-src">Forrester</span></div>
+      </div>
+      <div class="pain-card">
+        <p class="pain-card-q">Temos vendedores, mas a prospecção é inconsistente.</p>
+        <div class="pain-card-stat"><strong>47%</strong> dos vendedores afirmam não ter capacidade suficiente para prospectar. Sem cadência, dados e gestão, a prospecção vira esforço individual.<span class="pain-card-src">Salesforce</span></div>
+      </div>
+      <div class="pain-card">
+        <p class="pain-card-q">CRM existe, mas não reflete a realidade do pipeline.</p>
+        <div class="pain-card-stat"><strong>76%</strong> das empresas afirmam que menos da metade dos dados do CRM é precisa e completa. Pipeline ruim gera forecast ruim.<span class="pain-card-src">Validity · Gartner</span></div>
+      </div>
+      <div class="pain-card">
+        <p class="pain-card-q">Não conseguimos medir o que está funcionando — e o que está travando.</p>
+        <div class="pain-card-stat">Times orientados por dados são <strong>1,7×</strong> mais propensos a ganhar participação de mercado. Sem arquitetura comercial, gestão vira opinião.<span class="pain-card-src">McKinsey</span></div>
+      </div>
+      <div class="pain-card">
+        <p class="pain-card-q">Crescemos até aqui, mas sente que travou.</p>
+        <div class="pain-card-stat"><strong>86%</strong> das compras B2B travam em algum momento. O crescimento sem estrutura tem um teto — e ele chega mais cedo do que parece.<span class="pain-card-src">Forrester</span></div>
+      </div>
+    </div>
+    <div class="callout-banner fi" style="transition-delay:.2s">
+      <p>Não falta esforço.<br><em>Falta estrutura comercial.</em></p>
+      <span>Se você reconheceu dois ou mais desses sintomas, a Veross foi construída para a sua empresa.</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ ICP ═══════════════════════ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">Para quem é</div>
+    <h2 class="fh sh">A Veross não é para todo mundo.<br>É para <em>você?</em></h2>
+    <div class="icp-grid">
+      <div class="icp-card fit">
+        <div class="icp-ttl">Bom fit</div>
+        <ul class="icp-it">
+          <li>Empresa B2B, com oferta validada e clientes ativos</li>
+          <li>Entre 10 e 300 colaboradores · faturamento R$3M e R$100M</li>
+          <li>Venda consultiva, relacional ou técnica</li>
+          <li>Ticket médio acima de R$5 mil</li>
+          <li>Ao menos uma pessoa dedicada e responsável por vendas</li>
+          <li>Decisor identificável e acessível</li>
+          <li>Quer crescer com método — não com improviso</li>
+        </ul>
+      </div>
+      <div class="icp-card no">
+        <div class="icp-ttl">Provável não fit</div>
+        <ul class="icp-it">
+          <li>Sem oferta validada ou clientes ativos</li>
+          <li>Modelo de venda puramente transacional ou ticket muito baixo</li>
+          <li>Busca lista de leads ou resultado imediato sem processo</li>
+          <li>Não tem ninguém para absorver e acompanhar a operação</li>
+          <li>Rejeita CRM, rotina e gestão comercial</li>
+          <li>Quer terceirizar o problema — não estruturar a operação</li>
+          <li>Acredita que vender é somente feeling</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ NÃO É ═══════════════════════ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">Posicionamento</div>
+    <h2 class="fh sh">O que a Veross <em>não é.</em></h2>
+    <div class="nao-compare">
+      <div class="nao-col nao-col-no">
+        <div class="nao-col-head"><span>× Não somos</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Agência genérica de leads</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Consultoria que entrega diagnóstico e desaparece</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Ferramenta vendida sem contexto comercial</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Treinamento motivacional sem método</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Operação baseada em improviso, volume e promessa fácil</span></div>
+        <div class="nao-row"><span class="nao-icon">×</span><span>Processo comercial que ignora pessoas, cultura e rotina</span></div>
+      </div>
+      <div class="nao-col nao-col-yes">
+        <div class="nao-col-head"><span>→ Somos</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Arquitetura comercial B2B</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Educação, tecnologia e operação comercial</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Método aplicado à geração de demanda</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Estrutura para tornar vendas mais gerenciáveis</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Desenvolvimento de times, lideranças e operação comercial</span></div>
+        <div class="nao-row"><span class="nao-icon">→</span><span>Execução com clareza, processo e melhoria contínua</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ MHMA ═══════════════════════ -->
+<div id="metodo" style="position:relative;top:0"></div>
+<div class="mhma-outer" id="mhma-outer">
+  <div class="mhma-inner" id="mhma-inner">
+    <div class="mhma-hdr">
+      <span class="mhma-ey">Método MHMA</span>
+      <span class="mhma-ct" id="mhma-ct">1 / 4</span>
+    </div>
+    <div class="mhma-track" id="mhma-track">
+
+      <!-- M — Mentalidade -->
+      <div class="mhma-slide" data-i="0">
+        <div class="mhma-illo">
+          <svg width="280" height="280" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="150" cy="120" r="76" stroke="rgba(174,138,86,.2)" stroke-width="1.5" stroke-dasharray="6 4"/>
+            <circle cx="150" cy="120" r="52" fill="rgba(174,138,86,.06)" stroke="rgba(174,138,86,.3)" stroke-width="1.5"/>
+            <g transform="translate(150,120)">
+              <circle r="18" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.5)" stroke-width="1.5"/>
+              <circle r="7" fill="rgba(174,138,86,.35)"/>
+              <line x1="-26" y1="0" x2="26" y2="0" stroke="rgba(174,138,86,.4)" stroke-width="2"/>
+              <line x1="0" y1="-26" x2="0" y2="26" stroke="rgba(174,138,86,.4)" stroke-width="2"/>
+              <line x1="-18" y1="-18" x2="18" y2="18" stroke="rgba(174,138,86,.2)" stroke-width="1.5"/>
+              <line x1="18" y1="-18" x2="-18" y2="18" stroke="rgba(174,138,86,.2)" stroke-width="1.5"/>
+            </g>
+            <rect x="132" y="194" width="36" height="26" rx="4" fill="rgba(174,138,86,.1)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <path d="M76 268 Q150 232 224 268" stroke="rgba(174,138,86,.4)" stroke-width="1.5" fill="rgba(174,138,86,.06)"/>
+            <g stroke="rgba(174,138,86,.4)" stroke-width="1" fill="none">
+              <path d="M68 76 L52 56 L72 60"/><path d="M232 76 L248 56 L228 60"/>
+              <line x1="150" y1="26" x2="150" y2="8"/><path d="M144 14 L150 8 L156 14"/>
+            </g>
+            <text x="150" y="292" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">MENTALIDADE</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">01 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Mentalidade</div>
+          <p class="mhma-desc">A transformação começa antes do processo. Empresas que crescem com consistência não mudam de ferramenta — mudam de forma de pensar.<br><br><em>Expansão. Protagonismo. Autorresponsabilidade.</em></p>
+          <div class="mhma-bg-ltr">M</div>
+        </div>
+      </div>
+
+      <!-- H — Habilidades -->
+      <div class="mhma-slide" data-i="1">
+        <div class="mhma-illo">
+          <svg width="280" height="280" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="56" y="192" width="188" height="7" rx="3.5" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <rect x="74"  y="136" width="20" height="56" rx="4" fill="rgba(174,138,86,.2)"  stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="112" y="100" width="20" height="92" rx="4" fill="rgba(174,138,86,.3)"  stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="150" y="118" width="20" height="74" rx="4" fill="rgba(174,138,86,.25)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="188" y="76"  width="20" height="116" rx="4" fill="rgba(174,138,86,.4)" stroke="rgba(174,138,86,.5)" stroke-width="1"/>
+            <text x="84"  y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">DG</text>
+            <text x="122" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">AB</text>
+            <text x="160" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">QF</text>
+            <text x="198" y="214" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.5)">NG</text>
+            <path d="M64 182 L86 148 L118 116 L156 130 L192 88" stroke="rgba(174,138,86,.65)" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="192" cy="88" r="5" fill="rgba(174,138,86,.8)"/>
+            <text x="150" y="280" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">HABILIDADES</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">02 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Habilidades</div>
+          <p class="mhma-desc">Método sem habilidade não sai do papel. Desenvolvemos as competências que o time precisa para executar com qualidade.<br><br><em>Diagnóstico. Abordagem. Qualificação. Negociação.</em></p>
+          <div class="mhma-bg-ltr">H</div>
+        </div>
+      </div>
+
+      <!-- M — Método -->
+      <div class="mhma-slide" data-i="2">
+        <div class="mhma-illo">
+          <svg width="280" height="280" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="46" y="58" width="208" height="152" rx="6" fill="rgba(174,138,86,.04)" stroke="rgba(174,138,86,.3)" stroke-width="1.5" stroke-dasharray="8 4"/>
+            <line x1="46" y1="96"  x2="254" y2="96"  stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="46" y1="134" x2="254" y2="134" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="46" y1="172" x2="254" y2="172" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="102" y1="58" x2="102" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="150" y1="58" x2="150" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <line x1="198" y1="58" x2="198" y2="210" stroke="rgba(174,138,86,.1)" stroke-width=".8"/>
+            <rect x="56"  y="106" width="28" height="44" rx="3" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="92"  y="96"  width="28" height="54" rx="3" fill="rgba(174,138,86,.18)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="128" y="84"  width="28" height="66" rx="3" fill="rgba(174,138,86,.28)" stroke="rgba(174,138,86,.5)" stroke-width="1.5"/>
+            <rect x="164" y="96"  width="28" height="54" rx="3" fill="rgba(174,138,86,.18)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <rect x="200" y="106" width="28" height="44" rx="3" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+            <text x="70"  y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">E</text>
+            <text x="106" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">E</text>
+            <text x="142" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.8)">O</text>
+            <text x="178" y="127" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">G</text>
+            <text x="214" y="132" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.7)">M</text>
+            <line x1="46" y1="232" x2="254" y2="232" stroke="rgba(174,138,86,.3)" stroke-width="1"/>
+            <text x="150" y="248" text-anchor="middle" font-family="DM Mono,monospace" font-size="7" fill="rgba(174,138,86,.38)" letter-spacing="1">2 E O G M</text>
+            <text x="150" y="282" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">MÉTODO</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">03 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Método</div>
+          <p class="mhma-desc">O sistema que organiza o ecossistema comercial de ponta a ponta. Estratégia, estrutura, operação, gestão e melhoria contínua em ciclo.<br><br><em>O 2EOGM.</em></p>
+          <div class="mhma-bg-ltr">M</div>
+        </div>
+      </div>
+
+      <!-- A — Ação -->
+      <div class="mhma-slide" data-i="3">
+        <div class="mhma-illo">
+          <svg width="280" height="280" viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M96 254 Q126 214 154 152 Q182 90 196 54" stroke="rgba(174,138,86,.18)" stroke-width="2" fill="none" stroke-dasharray="6 4"/>
+            <g transform="translate(154,152) rotate(-30)">
+              <polygon points="0,-34 11,11 -11,11" fill="rgba(174,138,86,.4)" stroke="rgba(174,138,86,.65)" stroke-width="1.5"/>
+              <rect x="-9" y="11" width="18" height="15" rx="3" fill="rgba(174,138,86,.2)" stroke="rgba(174,138,86,.4)" stroke-width="1"/>
+              <polygon points="0,26 -5,42 0,36 5,42" fill="rgba(201,169,122,.5)" stroke="rgba(201,169,122,.7)" stroke-width="1"/>
+              <circle cx="0" cy="1" r="4.5" fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.5)" stroke-width="1"/>
+            </g>
+            <circle cx="124" cy="224" r="5.5" fill="rgba(174,138,86,.2)"  stroke="rgba(174,138,86,.4)"  stroke-width="1.5"/>
+            <circle cx="142" cy="186" r="5.5" fill="rgba(174,138,86,.3)"  stroke="rgba(174,138,86,.5)"  stroke-width="1.5"/>
+            <circle cx="163" cy="136" r="5.5" fill="rgba(174,138,86,.42)" stroke="rgba(174,138,86,.65)" stroke-width="1.5"/>
+            <circle cx="184" cy="92"  r="5.5" fill="rgba(174,138,86,.55)" stroke="rgba(174,138,86,.75)" stroke-width="1.5"/>
+            <circle cx="196" cy="56"  r="12"  fill="rgba(174,138,86,.2)"  stroke="rgba(174,138,86,.65)" stroke-width="2"/>
+            <circle cx="196" cy="56"  r="5"   fill="rgba(174,138,86,.75)"/>
+            <text x="150" y="282" text-anchor="middle" font-family="DM Mono,monospace" font-size="8" fill="rgba(174,138,86,.4)" letter-spacing="2">AÇÃO</text>
+          </svg>
+        </div>
+        <div class="mhma-txt">
+          <div class="mhma-num">04 / 04</div>
+          <div class="mhma-ln"></div>
+          <div class="mhma-name">Ação</div>
+          <p class="mhma-desc">Execução consistente, todo santo dia. Sem ação, mentalidade, habilidade e método ficam no papel.<br><br><em>É aqui que o resultado acontece.</em></p>
+          <div class="mhma-bg-ltr">A</div>
+        </div>
+      </div>
+
+    </div><!-- /track -->
+    <div class="mhma-dots">
+      <div class="mhma-dot on" data-d="0"></div>
+      <div class="mhma-dot" data-d="1"></div>
+      <div class="mhma-dot" data-d="2"></div>
+      <div class="mhma-dot" data-d="3"></div>
+    </div>
+    <div class="mhma-hint" id="mhma-hint">↓ role para avançar</div>
+  </div><!-- /inner -->
+</div><!-- /outer -->
+
+<!-- ═══════════════════════ 2EOGM ═══════════════════════ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">2EOGM · Sistema operacional</div>
+    <div class="eogm-intro">
+      <h2 class="fh sh">Do improviso à operação <em>estruturada.</em></h2>
+      <p class="bp" style="margin-top:8px">Passe o mouse em cada fase para explorar.</p>
+    </div>
+    <div class="eogm-grid">
+      <div class="eogm-s">
+        <div class="eogm-n">01</div><div class="eogm-l">E</div>
+        <div class="eogm-nm">Estratégia</div>
+        <div class="eogm-dc">ICP, personas, mercado-alvo, posicionamento e critérios de qualificação. O ponto de partida para uma operação que sabe onde mirar.</div>
+      </div>
+      <div class="eogm-s">
+        <div class="eogm-n">02</div><div class="eogm-l">E</div>
+        <div class="eogm-nm">Estruturação</div>
+        <div class="eogm-dc">CRM, pipeline, cadências, playbook e papéis definidos. A base sem a qual qualquer esforço comercial é improvisado.</div>
+      </div>
+      <div class="eogm-s">
+        <div class="eogm-n">03</div><div class="eogm-l">O</div>
+        <div class="eogm-nm">Operação</div>
+        <div class="eogm-dc">Prospecção ativa multicanal, listas qualificadas e abordagens testadas. O motor rodando com consistência.</div>
+      </div>
+      <div class="eogm-s">
+        <div class="eogm-n">04</div><div class="eogm-l">G</div>
+        <div class="eogm-nm">Gestão</div>
+        <div class="eogm-dc">Indicadores, rituais, pipeline e cultura de dados. O que garante que o motor não apague.</div>
+      </div>
+      <div class="eogm-s">
+        <div class="eogm-n">05</div><div class="eogm-l">M</div>
+        <div class="eogm-nm">Melhoria Contínua</div>
+        <div class="eogm-dc">Análise de conversão, ajuste de mensagens e inteligência comercial. A operação melhorando com o tempo.</div>
+      </div>
+    </div>
+    <div class="eogm-rs">
+      <span class="eogm-rs-label">Resultado esperado · Os 4Rs</span>
+      <div class="rs-wrap">
+        <span class="rs-tag">Receita</span><span class="rs-tag">Recorrência</span>
+        <span class="rs-tag">Rentabilidade</span><span class="rs-tag">Replicabilidade</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CASES ═══════════════════════ -->
+<section class="sc sc-warm" id="cases">
+  <div class="wrap">
+    <div class="cases-hdr fi">
+      <div>
+        <div class="ey">Resultados</div>
+        <h2 class="fh sh">Operações que estruturamos.<br><em>Resultados que podem ser verificados.</em></h2>
+        <p class="bp" style="max-width:700px;margin-top:8px">Entre números, cases e depoimentos, a Veross mostra como método, tecnologia, operação e pessoas impactam crescimento comercial B2B.</p>
+      </div>
+    </div>
+    <div class="bento-grid fi" style="transition-delay:.1s">
+      <div class="bc bc-hero">
+        <div class="bc-tag">Assessoria de Cobrança</div>
+        <div class="bc-n">+R$37M</div>
+        <div class="bc-l">de carteira de crédito conquistada</div>
+        <hr class="bc-hr">
+        <p class="bc-d">Estruturação comercial aplicada à aquisição de novos clientes, contribuindo para uma carteira superior a R$37 milhões.</p>
+      </div>
+      <div class="bc bc-hero">
+        <div class="bc-tag">Consórcio e Investimentos</div>
+        <div class="bc-n">+R$32M</div>
+        <div class="bc-l">em vendas geradas ou influenciadas</div>
+        <hr class="bc-hr">
+        <p class="bc-d">Operação improvisada. Automação completa com CRM estruturado, cadências e gestão comercial.</p>
+      </div>
+      <div class="bc">
+        <div class="bc-tag">Tecnologia e Vendas</div>
+        <div class="bc-n">+R$3,5M</div>
+        <div class="bc-l">em impacto financeiro em 12 meses</div>
+        <hr class="bc-hr">
+        <p class="bc-d">Receita, retenção, economia operacional e recuperação de crédito — gerados e/ou preservados.</p>
+      </div>
+      <div class="bc">
+        <div class="bc-tag">Tecnologia</div>
+        <div class="bc-n">2,7×</div>
+        <div class="bc-l">mais LTV em meses e margem</div>
+        <hr class="bc-hr">
+        <p class="bc-d">Retenção e expansão da base elevaram o LTV em 2,7× em meses e margem de contribuição.</p>
+      </div>
+      <div class="bc bc-mid">
+        <div class="bc-tag">Agência de Marketing B2B</div>
+        <div class="bc-n">−57%</div>
+        <div class="bc-l">de redução no CAC via outbound</div>
+        <hr class="bc-hr">
+        <p class="bc-d">ICP, listas, cadência multicanal e pré-vendas. Canal outbound 100% ativo em 60 dias.</p>
+      </div>
+      <div class="bc bc-mid">
+        <div class="bc-tag">Assessoria de Cobrança</div>
+        <div class="bc-n">+35%</div>
+        <div class="bc-l">de taxa de resposta</div>
+        <hr class="bc-hr">
+        <p class="bc-d">Reestruturação de ICP, mensagens, cadências e follow-up. +R$7mi em receita adicional.</p>
+      </div>
+      <div class="bc bc-depo">
+        <div class="bc-dp">
+          <img src="img/depoimentos/heisemberg-lima.png" loading="lazy" alt="Heisemberg Lima">
+          <div class="bc-dp-meta"><div class="bc-dp-name">Heisemberg Lima</div><div class="bc-dp-co">Social Play · CEO</div></div>
+        </div>
+        <p class="bc-q">"A Veross mudou a mentalidade do negócio. Passamos a enxergar o posicionamento real da nossa entrega e o valor que geramos. Nada vence o processo."</p>
+      </div>
+      <div class="bc bc-depo bc-depo-wide">
+        <div class="bc-dp">
+          <img src="img/depoimentos/cesar-madureira.jpg" loading="lazy" alt="César Madureira">
+          <div class="bc-dp-meta"><div class="bc-dp-name">César Madureira</div><div class="bc-dp-co">Ademicon Penha · CEO</div></div>
+        </div>
+        <p class="bc-q">"Estruturaram nosso processo de pré-vendas do zero — implementaram os sistemas, trouxeram inteligência aplicada e estiveram presentes em cada etapa. Inovação de verdade."</p>
+      </div>
+      <div class="bc bc-depo">
+        <div class="bc-dp">
+          <img src="img/depoimentos/guilherme-loureiro.jpg" loading="lazy" alt="Guilherme Loureiro">
+          <div class="bc-dp-meta"><div class="bc-dp-name">Guilherme Loureiro</div><div class="bc-dp-co">Inbotix · CEO</div></div>
+        </div>
+        <p class="bc-q">"Organizou e evoluiu toda a operação comercial. Trouxe estrutura, previsibilidade e clareza nos processos. O time subiu de nível."</p>
+      </div>
+      <div class="bc bc-depo">
+        <div class="bc-dp">
+          <img src="img/depoimentos/fabricio-galan.jpg" loading="lazy" alt="Fabrício Galan">
+          <div class="bc-dp-meta"><div class="bc-dp-name">Fabrício Galan</div><div class="bc-dp-co">Plataforma Empresas · CEO</div></div>
+        </div>
+        <p class="bc-q">"Contribuiu muito na automatização da nossa prospecção. Geramos muito mais reuniões — e boa parte virou negócio de fato."</p>
+      </div>
+      <div class="bc bc-depo">
+        <div class="bc-dp">
+          <img src="img/depoimentos/silas-lanes.jpg" loading="lazy" alt="Sillas Lanes">
+          <div class="bc-dp-meta"><div class="bc-dp-name">Sillas Lanes</div><div class="bc-dp-co">CareOn Brasil · Líder Comercial</div></div>
+        </div>
+        <p class="bc-q">"Nossa busca ativa ficou muito mais eficiente. Alcançamos profissionais fora da base e ganhamos muito mais controle sobre as oportunidades."</p>
+      </div>
+      <div class="bc bc-depo bc-depo-wide">
+        <div class="bc-dp">
+          <img src="img/depoimentos/najua-mazloum.jpg" loading="lazy" alt="Nájua Mazloum">
+          <div class="bc-dp-meta"><div class="bc-dp-name">Nájua Mazloum</div><div class="bc-dp-co">Edrone · Gerente Comercial de Pré-vendas</div></div>
+        </div>
+        <p class="bc-q">"A Veross trouxe o conhecimento essencial de CRM, prospecção e pipeline que acelerou meu desenvolvimento profissional — e contribuiu diretamente para eu alcançar os cargos que ocupo hoje."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ═══════════════════════ FAQ ═══════════════════════ -->
+<section class="sc sc-warm">
+  <div class="faq-wrap fi">
+    <div style="padding:0 20px">
+      <div class="ey">Perguntas frequentes</div>
+      <h2 class="fh sh" style="max-width:500px">As dúvidas mais comuns: respondidas de forma clara e franca.</h2>
+    </div>
+    <div class="faq-list" style="padding:0 20px">
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">A Veross é uma consultoria de vendas?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Não. A Veross não é uma consultoria. Somos uma empresa de arquitetura e estruturação comercial B2B, com soluções em educação, tecnologia e operação comercial. Podemos capacitar, estruturar, implementar, apoiar ou operar partes da pré-vendas, conforme o nível de maturidade e necessidade da empresa.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">Em quanto tempo vemos resultado?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Depende do ponto de partida e da solução contratada. Operações de prospecção estruturada costumam gerar as primeiras oportunidades em 30 a 60 dias. Transformações mais profundas de ecossistema — ICP, CRM, playbook, gestão — levam de 90 a 180 dias para os primeiros passos da consolidação. Mas a avaliação ideal é sempre um ciclo completo de 12 meses. O que é certo: quem quer atalho ou "jeitinho" não é nosso cliente.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">A Veross faz a prospecção por mim?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Depende da solução contratada. Em Operação Comercial, a Veross pode executar a prospecção e/ou a pré-venda pelo cliente. Em Educação Comercial, capacitamos o time. Em Tecnologia Comercial, entregamos ferramentas com suporte técnico de uso, configuração e funcionamento, sem assessoria estratégica ou operacional incluída.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">Qual o tamanho mínimo de empresa para trabalhar com a Veross?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Trabalhamos melhor com empresas B2B que já possuem oferta validada, algum nível de tração e necessidade clara de estruturar vendas. Nossas soluções de operação são mais indicadas para empresas com 10 a 300 colaboradores, faturamento entre R$ 3M e R$ 100M, responsável por vendas ou pré-vendas e decisor acessível. Para negócios em estágio inicial ou profissionais individuais, as frentes de Educação Comercial e Tecnologia Comercial costumam ser o caminho mais adequado.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">O que é o Diagnóstico Gratuito?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">O Diagnóstico com a Veross é uma conversa estratégica para analisar o estágio atual da sua operação comercial, identificar gargalos de crescimento e apontar quais caminhos podem gerar mais impacto, seja por educação, tecnologia ou operação. Não é uma reunião genérica de venda, é uma leitura objetiva sobre maturidade comercial, prioridades e próximos passos.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">Qual solução da Veross é ideal para o meu momento?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Depende do estágio da empresa e do principal gargalo comercial. Se o desafio é desenvolver o time, a frente mais adequada pode ser Educação Comercial. Se a empresa precisa de ferramentas, dados, IA e automações, o caminho pode ser Tecnologia Comercial. Se o problema está na execução, geração de demanda ou pré-vendas, a frente indicada tende a ser Operação Comercial. O Diagnóstico com a Veross ajuda a identificar o melhor caminho.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">Preciso já ter um time comercial estruturado para contratar a Veross?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Não necessariamente. Algumas soluções são indicadas para empresas que já possuem time comercial ou pré-vendas. Outras podem atender empresas que ainda estão estruturando essa área. O ponto principal é ter uma oferta validada, clareza mínima sobre o público que deseja atingir e disposição para organizar a operação comercial com método.</div></div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-q" onclick="tFaq(this)">
+          <span class="faq-qt">A Veross vende apenas ferramentas?</span>
+          <span class="faq-ic">+</span>
+        </div>
+        <div class="faq-body"><div class="faq-body-i">Não. Tecnologia Comercial é uma das frentes da Veross, mas não resume a empresa. A Veross atua com Educação Comercial, Tecnologia Comercial e Operação Comercial. As ferramentas apoiam a estruturação, mas o posicionamento central da Veross está na arquitetura e estruturação comercial B2B.</div></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ CTA ═══════════════════════ -->
+<section class="sc-dark" id="cta">
+  <div class="cta-inner">
+    <div class="cta-deco">
+      <svg width="100%" height="100%" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="600" cy="300" r="280" fill="none" stroke="rgba(174,138,86,.06)" stroke-width="1" stroke-dasharray="8 6"/>
+        <circle cx="600" cy="300" r="180" fill="none" stroke="rgba(174,138,86,.04)" stroke-width="1" stroke-dasharray="5 5"/>
+      </svg>
+    </div>
+    <div class="ey" style="justify-content:center;color:rgba(174,138,86,.5);">Próximo passo</div>
+    <h2 class="fd cta-h2">O que acontece com a sua operação se nada mudar nos <em>próximos 6 meses?</em></h2>
+    <p class="cta-sub">O diagnóstico comercial da Veross é o primeiro passo para entender onde está a quebra e o que precisa ser estruturado.</p>
+    <div id="ctaFormWrap">
+      <form class="cta-form" id="ctaForm">
+        <input type="text" name="nome" placeholder="Nome completo" class="full" required>
+        <input type="email" name="email" placeholder="E-mail corporativo" required>
+        <input type="text" name="empresa" placeholder="Empresa">
+        <select name="tamanho" onchange="this.classList.toggle('filled',this.value!='')">
+          <option value="">Tamanho da empresa</option>
+          <option>Até 10 colaboradores</option>
+          <option>11 a 50 colaboradores</option>
+          <option>51 a 150 colaboradores</option>
+          <option>151 a 300 colaboradores</option>
+          <option>Acima de 300 colaboradores</option>
+        </select>
+        <select name="comerciais" onchange="this.classList.toggle('filled',this.value!='')">
+          <option value="">Nº de comerciais</option>
+          <option>1 a 2</option>
+          <option>3 a 5</option>
+          <option>6 a 10</option>
+          <option>11 a 20</option>
+          <option>Acima de 20</option>
+        </select>
+      </form>
+      <button class="cta-btn" id="ctaBtn">Quero meu diagnóstico gratuito</button>
+      <p class="cta-alt">Prefere falar antes? <a href="https://calendly.com/veross-lucas-silvestre/presentation" target="_blank" rel="noopener">Agende uma call →</a></p>
+      <div class="cta-success">
+        <div class="cta-ok-icon">✓</div>
+        <p class="cta-ok-h">Recebemos sua solicitação!</p>
+        <p class="cta-ok-sub">Abrindo o agendamento do diagnóstico em instantes…</p>
+        <a href="https://calendly.com/veross-lucas-silvestre/presentation" target="_blank" rel="noopener" class="cta-ok-cal">Agendar diagnóstico →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer>
+  <div class="fv2">
+    <div class="fv2-brand">
+      <div class="footer-logo" style="margin-bottom:20px">
+        <img src="img/logos/logo-veross.svg" alt="Veross" height="52">
+      </div>
+      <p class="fv2-desc">Estruturamos como empresas B2B vendem — com método, previsibilidade e resultados replicáveis.</p>
+      <div class="fv2-subscribe">
+        <input type="email" placeholder="Seu melhor e-mail" class="fv2-email">
+        <button class="fv2-sub-btn" onclick="goWhiteP(this)">White Paper</button>
+      </div>
+      <div class="fv2-social">
+        <a href="https://linkedin.com/company/verossbr" class="fv2-soc" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+        </a>
+        <a href="https://instagram.com/verossbr" class="fv2-soc" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        </a>
+        <a href="https://www.youtube.com/@lucas.silvestre.veross" class="fv2-soc" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="fv2-links">
+      <div class="fv2-col">
+        <div class="fv2-col-head">Método</div>
+        <a href="#metodo">MHMA</a>
+        <a href="#metodo">2EOGM</a>
+        <a href="#cta">Diagnóstico Gratuito</a>
+        <a href="#cases">Cases</a>
+      </div>
+      <div class="fv2-col">
+        <div class="fv2-col-head">Soluções</div>
+        <a href="solucoes/educacao-comercial.html">Educação Comercial</a>
+        <a href="solucoes/tecnologia-comercial.html">Tecnologia Comercial</a>
+        <a href="solucoes/operacao-comercial.html">Operação Comercial</a>
+      </div>
+      <div class="fv2-col">
+        <div class="fv2-col-head">Recursos</div>
+        <a href="https://substack.com/@lucassilvestrebr" target="_blank" rel="noopener">Newsletter</a>
+        <a href="materiais.html">Materiais</a>
+        <a href="https://whatsapp.com/channel/0029VbCiMTI7Noa6vXOSJx0f" target="_blank" rel="noopener">Comunidade WhatsApp</a>
+      </div>
+      <div class="fv2-col">
+        <div class="fv2-col-head">Empresa</div>
+        <a href="sobre.html">Sobre a Veross</a>
+        <a href="https://linkedin.com/in/lucassilvestre" target="_blank" rel="noopener">Lucas Silvestre</a>
+        <a href="/cdn-cgi/l/email-protection#d8aebdaab7abab98aebdaab7ababf6bbb7b5f6baaa">Contato</a>
+      </div>
+    </div>
+  </div>
+  <div class="fv2-bottom">
+    <span class="footer-copy">© 2026 Veross · Todos os direitos reservados · Synexus Group</span>
+    <span style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(174,138,86,.28)">Arquitetura Comercial B2B</span>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="image-slot.js"></script>
+<script>
+// ── NAV SCROLL ──
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// ── HAMBURGER ──
+const ham = document.getElementById('ham');
+const mob = document.getElementById('mob');
+ham.addEventListener('click', () => {
+  ham.classList.toggle('open');
+  mob.classList.toggle('open');
+  document.body.style.overflow = mob.classList.contains('open') ? 'hidden' : '';
+});
+function cm() {
+  ham.classList.remove('open');
+  mob.classList.remove('open');
+  document.body.style.overflow = '';
+}
+mob.addEventListener('click', e => { if (e.target === mob) cm(); });
+
+// ── FAQ ──
+function tFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const wasOpen = item.classList.contains('on');
+  document.querySelectorAll('.faq-item.on').forEach(i => i.classList.remove('on'));
+  if (!wasOpen) item.classList.add('on');
+}
+
+// ── MHMA SCROLL ──
+(function() {
+  const outer = document.getElementById('mhma-outer');
+  const track = document.getElementById('mhma-track');
+  const ct    = document.getElementById('mhma-ct');
+  const hint  = document.getElementById('mhma-hint');
+  const dots  = document.querySelectorAll('.mhma-dot');
+  const slides = document.querySelectorAll('.mhma-slide');
+  const N = slides.length;
+  let cur = -1;
+
+  // Initial positions: all offscreen right
+  slides.forEach((s, i) => {
+    s.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)';
+    s.style.transition = 'transform .6s cubic-bezier(.4,0,.2,1), opacity .5s ease';
+    s.style.opacity = i === 0 ? '1' : '0';
+  });
+
+  function goTo(idx) {
+    if (idx === cur) return;
+    const prev = cur;
+    cur = idx;
+    slides.forEach((s, i) => {
+      if (i === idx) {
+        s.style.transform = 'translateX(0)';
+        s.style.opacity = '1';
+      } else if (prev !== -1 && i < idx) {
+        s.style.transform = 'translateX(-100%)';
+        s.style.opacity = '0';
+      } else {
+        s.style.transform = 'translateX(100%)';
+        s.style.opacity = '0';
+      }
+    });
+    dots.forEach((d, i) => d.classList.toggle('on', i === idx));
+    ct.textContent = (idx + 1) + ' / ' + N;
+    if (idx > 0) hint.classList.add('off');
+  }
+
+  goTo(0);
+
+  function onScroll() {
+    const rect  = outer.getBoundingClientRect();
+    const total = outer.offsetHeight - window.innerHeight;
+    const scrolled = -rect.top;
+    if (scrolled < 0 || scrolled > total) return;
+    const progress = Math.min(Math.max(scrolled / total, 0), 1);
+    const idx = Math.min(Math.floor(progress * N), N - 1);
+    goTo(idx);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+// ── FADE IN ON SCROLL ──
+(function() {
+  const els = document.querySelectorAll('.fi');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  els.forEach(el => obs.observe(el));
+})();
+</script>
+
+<script>
+/* ── CTA FORM HANDLER — HubSpot ─────────────────────────────────
+   Portal: 44513728  |  Form: ca9e4440-e3b2-4b19-aa33-c1d0289822da
+   Campos mapeados:
+     firstname         → contato · nome
+     email             → contato · e-mail
+     name              → empresa · nome da empresa
+     tamanho_da_empresa → empresa · tamanho
+     n_de_comerciais   → empresa · nº de comerciais
+──────────────────────────────────────────────────────────────── */
+(function () {
+  var HS_URL   = 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/ca9e4440-e3b2-4b19-aa33-c1d0289822da';
+  var CALENDLY = 'https://calendly.com/veross-lucas-silvestre/presentation';
+
+  var wrap = document.getElementById('ctaFormWrap');
+  var form = document.getElementById('ctaForm');
+  var btn  = document.getElementById('ctaBtn');
+  if (!wrap || !form || !btn) return;
+
+  btn.addEventListener('click', function () {
+    var nome  = form.querySelector('[name="nome"]').value.trim();
+    var email = form.querySelector('[name="email"]').value.trim();
+
+    clearErrors();
+    var ok = true;
+    if (!nome)  { markErr(form.querySelector('[name="nome"]'));  ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      markErr(form.querySelector('[name="email"]')); ok = false;
+    }
+    if (!ok) return;
+
+    var empresa    = form.querySelector('[name="empresa"]').value.trim();
+    var tamanho    = form.querySelector('[name="tamanho"]').value;
+    var comerciais = form.querySelector('[name="comerciais"]').value;
+
+    setLoading(true);
+
+    var fields = [
+      { objectTypeId: '0-1', name: 'firstname', value: nome  },
+      { objectTypeId: '0-1', name: 'email',     value: email }
+    ];
+    if (empresa)    fields.push({ objectTypeId: '0-2', name: 'name',                value: empresa    });
+    if (tamanho)    fields.push({ objectTypeId: '0-2', name: 'tamanho_da_empresa',  value: tamanho    });
+    if (comerciais) fields.push({ objectTypeId: '0-2', name: 'n_de_comerciais',     value: comerciais });
+
+    function proceed() {
+      showSuccess();
+      setTimeout(function () { window.open(CALENDLY, '_blank'); }, 900);
+    }
+
+    fetch(HS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields:  fields,
+        context: { pageUri: window.location.href, pageName: document.title }
+      })
+    })
+    .then(function () { setLoading(false); proceed(); })
+    .catch(function () { setLoading(false); proceed(); });
+  });
+
+  function markErr(el)   { if (el) el.classList.add('input-err'); }
+  function clearErrors() {
+    form.querySelectorAll('.input-err').forEach(function (e) { e.classList.remove('input-err'); });
+  }
+  function setLoading(on) {
+    wrap.classList.toggle('sending', on);
+    btn.disabled = on;
+    btn.textContent = on ? 'Enviando…' : 'Quero meu diagnóstico gratuito';
+  }
+  function showSuccess() {
+    wrap.classList.remove('sending');
+    wrap.classList.add('done');
+  }
+})();
+
+// ── FOOTER WHITE PAPER ──
+window.goWhiteP = function (btn) {
+  var e    = btn.previousElementSibling.value.trim();
+  var dest = 'materiais.html' + (e ? '?email=' + encodeURIComponent(e) : '');
+  if (e && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)) {
+    fetch('https://api.hsforms.com/submissions/v3/integration/submit/44513728/a725e3f4-98c5-45d2-bc96-737aac04470f', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fields: [{ objectTypeId: '0-1', name: 'email', value: e }],
+        context: { pageUri: location.href, pageName: document.title }
+      })
+    }).then(function () { location.href = dest; })
+      .catch(function () { location.href = dest; });
+  } else {
+    location.href = dest;
+  }
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onvox — Veross · Telefonia Comercial Integrada ao Processo B2B</title>
+<meta name="description" content="A Onvox é a infraestrutura de telefonia que a Veross integra ao processo comercial B2B. UCaaS, Call Center, Omnichannel e integrações com CRM — com método e adoção real.">
+<!-- Favicon -->
+<link rel="icon" href="../favicon-light.ico" sizes="any">
+<link rel="icon" href="../favicon-dark.ico" sizes="any" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../favicon-light.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="pillar.css">
+<style>
+/* ── ONVOX PAGE ── */
+.onvox-logo-wrap { display: flex; align-items: center; gap: 14px; margin-bottom: 26px; flex-wrap: wrap; }
+.onvox-logo { height: 32px; width: auto; filter: brightness(0) invert(1); opacity: .65; }
+.num-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--bd2); border: 1px solid var(--bd2); border-radius: 16px; overflow: hidden; margin-top: 48px; }
+.num-item { background: var(--card); padding: 34px 24px; text-align: center; }
+.num-n { font-family: 'League Spartan', sans-serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 8px; letter-spacing: -.02em; }
+.num-l { font-size: 12.5px; color: var(--tx-s); line-height: 1.5; }
+
+/* ── ONVOX CTA ── */
+.onvox-cta { background: var(--azul); }
+.onvox-cta-inner { text-align: center; padding: 88px 20px; position: relative; }
+.onvox-cta-inner h2 { font-size: clamp(26px, 3.8vw, 46px); color: var(--branco); max-width: 580px; margin: 0 auto 12px; }
+.onvox-cta-inner h2 em { font-style: normal; color: var(--dou-lt); }
+.onvox-cta-inner > p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.34); max-width: 400px; margin: 0 auto 40px; line-height: 1.8; }
+.onvox-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 480px; margin: 0 auto 12px; }
+.onvox-form input { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 13px 16px; color: var(--branco); font-family: 'Mulish', sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
+.onvox-form input::placeholder { color: rgba(255,255,255,.2); }
+.onvox-form input:focus { border-color: rgba(174,138,86,.55); }
+.onvox-form .full { grid-column: 1 / -1; }
+.onvox-form input.input-err { border-color: rgba(220,80,80,.55); }
+.onvox-btn { display: block; width: 100%; max-width: 480px; margin: 0 auto; background: var(--dou); color: var(--azul); border: none; padding: 15px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.onvox-btn:hover { background: var(--dou-lt); }
+.onvox-btn:disabled { opacity: .6; cursor: not-allowed; }
+.onvox-alt { margin-top: 12px; font-size: 12px; color: rgba(255,255,255,.2); }
+#onvoxFormWrap.sending { opacity: .6; pointer-events: none; }
+.onvox-success { display: none; padding: 20px 0 8px; }
+#onvoxFormWrap.done .onvox-form,
+#onvoxFormWrap.done .onvox-btn,
+#onvoxFormWrap.done .onvox-alt { display: none; }
+#onvoxFormWrap.done .onvox-success { display: block; }
+.onvox-ok-icon { width: 52px; height: 52px; border-radius: 50%; background: rgba(174,138,86,.12); border: 1.5px solid var(--dou); display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--dou); margin: 0 auto 20px; }
+.onvox-ok-h { font-family: 'League Spartan', sans-serif; font-size: clamp(20px, 3vw, 30px); font-weight: 800; color: var(--branco); margin-bottom: 10px; }
+.onvox-ok-sub { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.38); max-width: 340px; margin: 0 auto; line-height: 1.8; }
+
+@media (max-width: 1024px) {
+  .num-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .onvox-form { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="page-top"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="ph" data-screen-label="Onvox">
+  <div class="ph-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1440 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dton" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="rgba(174,138,86,0.07)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dton)"/>
+      <circle cx="720" cy="0" r="320" fill="none" stroke="rgba(174,138,86,.04)" stroke-width="70"/>
+    </svg>
+  </div>
+  <div class="wrap ph-inner">
+    <div class="ph-bc fi">
+      <a href="../index.html">Veross</a><span class="ph-bc-sep">/</span>
+      <a href="../solucoes.html">Soluções</a><span class="ph-bc-sep">/</span>
+      <a href="tecnologia-comercial.html">Tecnologia Comercial</a><span class="ph-bc-sep">/</span>
+      <span>Onvox</span>
+    </div>
+    <div class="ph-grid">
+      <div class="fi">
+        <div class="onvox-logo-wrap">
+          <div class="ph-badge" style="margin-bottom:0"><span class="ph-badge-icon">◊</span>Parceiro Estratégico · Tecnologia Comercial</div>
+          <img src="../img/clientes/logo-onvox.png" alt="Onvox" class="onvox-logo">
+        </div>
+        <h1 class="fd">Telefonia comercial<br>integrada ao <em>processo.</em></h1>
+        <p class="ph-sub">A Onvox é a infraestrutura de voz que a Veross integra diretamente à operação comercial B2B. Cada ligação conectada ao processo, registrada e qualificada — e o time vendendo de onde estiver.</p>
+        <div class="ph-actions">
+          <a href="#cta-onvox" class="btn-dou">Quero saber mais</a>
+          <a href="tecnologia-comercial.html" class="btn-ghost">Ver tecnologia comercial</a>
+        </div>
+      </div>
+      <div class="ph-side fi" style="transition-delay:.1s">
+        <div class="ph-side-label">Soluções da plataforma</div>
+        <ul class="ph-side-list">
+          <li>Telefonia em Nuvem (UCaaS)</li>
+          <li>SIP Trunk</li>
+          <li>Call Center</li>
+          <li>Omnichannel</li>
+          <li>Videoconferência</li>
+          <li>OnConnect (Integrações)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ A PARCERIA ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="intro-grid">
+      <div>
+        <div class="ey">A parceria estratégica</div>
+        <p class="intro-quote">Não apenas uma ferramenta — a telefonia dentro do <em>método Veross.</em></p>
+        <p class="bp" style="margin-top:24px">A Onvox é parceira estratégica da Veross. Isso significa que não entregamos só a plataforma — estruturamos a telefonia como parte do processo comercial: integrada ao CRM, conectada à cadência de prospecção e visível na gestão por indicadores.</p>
+        <p class="bp">Além disso, por ser um parceiro oficial, a Veross tem condições exclusivas para clientes que adotam a Onvox dentro da estruturação comercial — garantindo que tecnologia e método caminhem juntos desde o início.</p>
+      </div>
+      <div>
+        <div class="pq-label">Para quem indicamos</div>
+        <ul class="pq-list">
+          <li>Empresas que ainda dependem de PABX físico e querem modernizar sem complicação</li>
+          <li>Times comerciais que precisam ligar de dentro do CRM e registrar tudo automaticamente</li>
+          <li>Operações com call center que querem controle, métricas e gravação estruturados</li>
+          <li>Equipes distribuídas ou remotas que precisam de ramais móveis com qualidade</li>
+          <li>Negócios que querem integrar voz ao WhatsApp, Teams e outras ferramentas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SOLUÇÕES ═══ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">A plataforma</div>
+    <h2 class="fh sh">Comunicação simples,<br>eficiente e <em>sem fronteiras.</em></h2>
+    <p class="bp" style="max-width:560px">UCaaS completo — da telefonia em nuvem ao call center, tudo em um ecossistema integrado à sua operação comercial.</p>
+    <div class="prod-grid three">
+
+      <div class="prod-card">
+        <div class="prod-tag">Principal</div>
+        <div class="prod-icon">◊</div>
+        <div class="prod-name">Telefonia em Nuvem</div>
+        <p class="prod-desc">Substitui o PABX físico por ramais móveis acessíveis de qualquer lugar. Voz, vídeo e mensagens em uma única plataforma, com URA, gravação e mais de 100 funcionalidades.</p>
+        <ul class="prod-features">
+          <li>Ramais móveis</li>
+          <li>Gravação de chamadas</li>
+          <li>+100 funcionalidades</li>
+        </ul>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-tag">Infraestrutura</div>
+        <div class="prod-icon">⬡</div>
+        <div class="prod-name">SIP Trunk</div>
+        <p class="prod-desc">Conecta o PABX IP existente à nuvem, eliminando linhas físicas. Mais flexibilidade, redução de custos em chamadas interurbanas e internacionais, com alta estabilidade.</p>
+        <ul class="prod-features">
+          <li>PABX na nuvem</li>
+          <li>Redução de custos</li>
+          <li>Alta disponibilidade</li>
+        </ul>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-tag">Atendimento</div>
+        <div class="prod-icon">▦</div>
+        <div class="prod-name">Call Center</div>
+        <p class="prod-desc">Filas de espera inteligentes, ACD, dashboard em tempo real e relatórios de performance. Estrutura completa para times de atendimento e pré-venda com controle total.</p>
+        <ul class="prod-features">
+          <li>Filas inteligentes</li>
+          <li>Dashboard ao vivo</li>
+          <li>Métricas detalhadas</li>
+        </ul>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-tag">Multicanal</div>
+        <div class="prod-icon">▤</div>
+        <div class="prod-name">Omnichannel</div>
+        <p class="prod-desc">WhatsApp, Instagram, Facebook, SMS e chat online centralizados em um só lugar. O cliente muda de canal sem perder o histórico — e o time atende com visibilidade total da conversa.</p>
+        <ul class="prod-features">
+          <li>WhatsApp + sociais</li>
+          <li>Histórico unificado</li>
+          <li>Chatbots</li>
+        </ul>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-tag">Colaboração</div>
+        <div class="prod-icon">▣</div>
+        <div class="prod-name">Videoconferência</div>
+        <p class="prod-desc">Reuniões em HD com compartilhamento de tela, chat integrado, gravação e integração com calendários. Na mesma plataforma, sem depender de ferramentas externas.</p>
+        <ul class="prod-features">
+          <li>Vídeo HD</li>
+          <li>Gravação</li>
+          <li>Integração agenda</li>
+        </ul>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-tag">Ecossistema</div>
+        <div class="prod-icon">◈</div>
+        <div class="prod-name">OnConnect</div>
+        <p class="prod-desc">Integrações com CRMs (Zendesk, Bitrix24, Odoo), Microsoft Teams, API para IA e armazenamento em nuvem. A telefonia conectada a toda a operação comercial.</p>
+        <ul class="prod-features">
+          <li>CRM integrado</li>
+          <li>API para IA</li>
+          <li>Microsoft 365</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ NÚMEROS ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">Onvox em números</div>
+    <h2 class="fh sh">Uma plataforma com<br>escala <em>global.</em></h2>
+    <div class="num-grid">
+      <div class="num-item">
+        <div class="num-n">120+</div>
+        <div class="num-l">países onde opera</div>
+      </div>
+      <div class="num-item">
+        <div class="num-n">450 mil+</div>
+        <div class="num-l">usuários ativos</div>
+      </div>
+      <div class="num-item">
+        <div class="num-n">9.000+</div>
+        <div class="num-l">canais globais</div>
+      </div>
+      <div class="num-item">
+        <div class="num-n">25.000+</div>
+        <div class="num-l">PABX instalados</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ COMO IMPLEMENTAMOS ═══ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">Onvox com método Veross</div>
+    <h2 class="fh sh">Não entregamos plataforma.<br>Entregamos <em>adoção.</em></h2>
+    <div class="proc-grid">
+      <div class="proc-item">
+        <div class="proc-step">Etapa 01</div>
+        <div class="proc-title">Diagnóstico de comunicação</div>
+        <p class="proc-desc">Mapeamos a estrutura atual de telefonia, canais e ferramentas — e identificamos onde a voz está travando a operação comercial.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Etapa 02</div>
+        <div class="proc-title">Implementação Onvox</div>
+        <p class="proc-desc">Configuramos a plataforma e integramos ao CRM e ao processo comercial existente. Sem interrupção, sem improviso.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Etapa 03</div>
+        <div class="proc-title">Capacitação do time</div>
+        <p class="proc-desc">Treinamos vendedores e gestores para usar a telefonia integrada à cadência, aos scripts e ao método MHMA da Veross.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Etapa 04</div>
+        <div class="proc-title">Gestão e otimização</div>
+        <p class="proc-desc">Acompanhamos indicadores de chamadas, conversão por canal e performance do time para extrair o máximo da plataforma.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ OUTROS PILARES ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">Continue explorando</div>
+    <h2 class="fh sh">Outras frentes da<br><em>Veross.</em></h2>
+    <div class="other-row">
+      <a href="tecnologia-comercial.html" class="other-card">
+        <div style="display:flex; align-items:center; gap:18px">
+          <span class="other-card-icon">◈</span>
+          <span>
+            <span class="other-card-name">Tecnologia Comercial</span>
+            <span class="other-card-sub">AlessIA Flow · Scraper AI · Agentes IA · Dados</span>
+          </span>
+        </div>
+        <span class="other-card-arrow">→</span>
+      </a>
+      <a href="educacao-comercial.html" class="other-card">
+        <div style="display:flex; align-items:center; gap:18px">
+          <span class="other-card-icon">◎</span>
+          <span>
+            <span class="other-card-name">Educação Comercial</span>
+            <span class="other-card-sub">Academia, Imersão e Mentoria MHMA</span>
+          </span>
+        </div>
+        <span class="other-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="onvox-cta" id="cta-onvox">
+  <div class="onvox-cta-inner">
+    <div class="ey" style="justify-content:center;color:rgba(174,138,86,.4)">Próximo passo</div>
+    <h2 class="fd">Quer a Onvox integrada<br>à sua <em>operação comercial?</em></h2>
+    <p>Preencha seus dados e um especialista da Veross entra em contato para entender seu cenário e apresentar a melhor solução.</p>
+    <div id="onvoxFormWrap">
+      <form class="onvox-form" id="onvoxForm">
+        <input type="text" name="nome" id="onvoxNome" placeholder="Nome completo" class="full" required>
+        <input type="email" name="email" id="onvoxEmail" placeholder="E-mail corporativo" required>
+        <input type="text" name="empresa" id="onvoxEmpresa" placeholder="Empresa" required>
+        <input type="tel" name="telefone" id="onvoxTel" placeholder="Telefone / WhatsApp" required>
+      </form>
+      <button class="onvox-btn" id="onvoxBtn">Quero saber mais sobre a Onvox</button>
+      <p class="onvox-alt">Sem compromisso. Resposta em até 1 dia útil.</p>
+      <div class="onvox-success">
+        <div class="onvox-ok-icon">✓</div>
+        <p class="onvox-ok-h">Mensagem recebida!</p>
+        <p class="onvox-ok-sub">Um especialista da Veross vai entrar em contato em breve para falar sobre a Onvox na sua operação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="../_nav.js"></script>
+<script>
+/* ── ONVOX FORM HANDLER ──────────────────────────────────────────
+   Configure: crie o form "Veross | Onvox" no HubSpot e cole abaixo.
+   portalId: 44513728
+   HS_URL: 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/FORM_ID'
+──────────────────────────────────────────────────────────────── */
+(function () {
+  var HS_URL = 'https://api.hsforms.com/submissions/v3/integration/submit/44513728/044d3669-2e98-4a06-8e10-5c081ffdfaf4';
+
+  var wrap = document.getElementById('onvoxFormWrap');
+  var form = document.getElementById('onvoxForm');
+  var btn  = document.getElementById('onvoxBtn');
+  if (!wrap || !form || !btn) return;
+
+  btn.addEventListener('click', function () {
+    var nome     = form.querySelector('[name="nome"]').value.trim();
+    var email    = form.querySelector('[name="email"]').value.trim();
+    var empresa  = form.querySelector('[name="empresa"]').value.trim();
+    var telefone = form.querySelector('[name="telefone"]').value.trim();
+
+    clearErrors();
+    var ok = true;
+    if (!nome)    { markErr(form.querySelector('[name="nome"]'));     ok = false; }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      markErr(form.querySelector('[name="email"]')); ok = false;
+    }
+    if (!empresa)  { markErr(form.querySelector('[name="empresa"]'));  ok = false; }
+    if (!telefone) { markErr(form.querySelector('[name="telefone"]')); ok = false; }
+    if (!ok) return;
+
+    setLoading(true);
+
+    var fields = [
+      { objectTypeId: '0-1', name: 'firstname', value: nome     },
+      { objectTypeId: '0-1', name: 'email',     value: email    },
+      { objectTypeId: '0-1', name: 'phone',     value: telefone }
+    ];
+    if (empresa) fields.push({ objectTypeId: '0-2', name: 'name', value: empresa });
+
+    function showSuccess() { setLoading(false); wrap.classList.add('done'); }
+
+    if (HS_URL) {
+      fetch(HS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          fields: fields,
+          context: { pageUri: window.location.href, pageName: document.title }
+        })
+      })
+      .then(showSuccess)
+      .catch(showSuccess);
+    } else {
+      showSuccess();
+    }
+  });
+
+  function markErr(el) { if (el) el.classList.add('input-err'); }
+  function clearErrors() {
+    form.querySelectorAll('.input-err').forEach(function (e) { e.classList.remove('input-err'); });
+  }
+  function setLoading(on) {
+    wrap.classList.toggle('sending', on);
+    btn.disabled = on;
+    btn.textContent = on ? 'Enviando…' : 'Quero saber mais sobre a Onvox';
+  }
+})();
+</script>
+</body>
+</html>
