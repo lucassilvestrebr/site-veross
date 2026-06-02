@@ -31,16 +31,13 @@
 .num-l { font-size: 12.5px; color: var(--tx-s); line-height: 1.5; }
 
 /* ── ONVOX VIDEO ── */
-.onvox-video-section { background: var(--bg); }
 .onvox-video-wrap {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  margin: 0 auto;
-  border-radius: 16px;
+  border-radius: 14px;
   overflow: hidden;
   aspect-ratio: 16 / 9;
-  box-shadow: 0 8px 48px rgba(0,0,0,.18);
+  box-shadow: 0 6px 36px rgba(0,0,0,.14);
   background: #000;
 }
 .onvox-video-wrap iframe {
@@ -70,19 +67,52 @@
   transition: opacity .3s;
 }
 .onvox-video-play-btn {
-  width: 68px;
-  height: 68px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(174,138,86,.92);
+  background: rgba(174,138,86,.9);
   display: flex;
   align-items: center;
   justify-content: center;
   backdrop-filter: blur(4px);
   transition: transform .2s, background .2s;
 }
-.onvox-video-play-btn svg { margin-left: 5px; }
+.onvox-video-play-btn svg { margin-left: 4px; }
 .onvox-video-wrap:hover .onvox-video-play-btn { transform: scale(1.08); background: var(--dou); }
 .onvox-video-wrap.vx-playing .onvox-video-play { opacity: 0; }
+
+/* ── PARA QUEM INDICAMOS TABS ── */
+.pq-tabs { margin-top: 64px; padding-top: 52px; border-top: 1px solid var(--bd2); }
+.pq-tabs-row { display: flex; margin-top: 28px; border-bottom: 1px solid var(--bd2); }
+.pq-tab {
+  flex: 1; padding: 0 0 18px; cursor: pointer; background: none; border: none;
+  text-align: left; position: relative; outline: none;
+}
+.pq-tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--dou);
+  transform: scaleX(0); transform-origin: left; transition: transform .28s;
+}
+.pq-tab.is-active::after { transform: scaleX(1); }
+.pq-tab-title {
+  font-family: 'League Spartan', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--tx-s); transition: color .2s, opacity .2s;
+  display: block; line-height: 1.2;
+}
+.pq-tab.is-active .pq-tab-title { color: var(--azul); font-weight: 800; }
+.pq-tabs-row:hover .pq-tab:not(:hover) .pq-tab-title { opacity: .45; }
+.pq-tabs-body { padding-top: 28px; min-height: 72px; position: relative; }
+.pq-tab-panel {
+  position: absolute; inset: 0; padding-top: 28px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .25s, transform .25s;
+  pointer-events: none;
+}
+.pq-tab-panel.is-active {
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto; position: relative;
+}
+.pq-tab-panel p { font-size: 15px; color: var(--tx-m); line-height: 1.75; max-width: 640px; }
 
 /* ── ONVOX CTA ── */
 .onvox-cta { background: var(--azul); }
@@ -181,36 +211,67 @@
         <p class="bp">Além disso, por ser um parceiro oficial, a Veross tem condições exclusivas para clientes que adotam a Onvox dentro da estruturação comercial — garantindo que tecnologia e método caminhem juntos desde o início.</p>
       </div>
       <div>
-        <div class="pq-label">Para quem indicamos</div>
-        <ul class="pq-list">
-          <li>Empresas que ainda dependem de PABX físico e querem modernizar sem complicação</li>
-          <li>Times comerciais que precisam ligar de dentro do CRM e registrar tudo automaticamente</li>
-          <li>Operações com call center que querem controle, métricas e gravação estruturados</li>
-          <li>Equipes distribuídas ou remotas que precisam de ramais móveis com qualidade</li>
-          <li>Negócios que querem integrar voz ao WhatsApp, Teams e outras ferramentas</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ VÍDEO ONVOX ═══ -->
-<section class="sc onvox-video-section">
-  <div class="wrap fi">
-    <div class="onvox-video-wrap" id="onvoxVideoWrap">
-      <div class="onvox-video-overlay" id="onvoxVideoOverlay"></div>
-      <div class="onvox-video-play" id="onvoxVideoPlay">
-        <div class="onvox-video-play-btn">
-          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        <div class="onvox-video-wrap" id="onvoxVideoWrap">
+          <div class="onvox-video-overlay" id="onvoxVideoOverlay"></div>
+          <div class="onvox-video-play" id="onvoxVideoPlay">
+            <div class="onvox-video-play-btn">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
+          <iframe
+            id="onvoxVideoIframe"
+            src="https://www.youtube.com/embed/oTD1NRahevU?rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=https://www.veross.com.br"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            title="Onvox — Telefonia Comercial Integrada"
+          ></iframe>
         </div>
       </div>
-      <iframe
-        id="onvoxVideoIframe"
-        src="https://www.youtube.com/embed/oTD1NRahevU?rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=https://www.veross.com.br"
-        frameborder="0"
-        allow="autoplay; encrypted-media"
-        title="Onvox — Telefonia Comercial Integrada"
-      ></iframe>
+    </div>
+
+    <!-- Para quem indicamos -->
+    <div class="pq-tabs" id="pqTabs">
+      <div class="ey">Para quem indicamos</div>
+      <div class="pq-tabs-row" role="tablist">
+        <button class="pq-tab is-active" data-idx="0" role="tab" aria-selected="true">
+          <span class="pq-tab-title">PABX físico</span>
+        </button>
+        <button class="pq-tab" data-idx="1" role="tab" aria-selected="false">
+          <span class="pq-tab-title">Ligação no CRM</span>
+        </button>
+        <button class="pq-tab" data-idx="2" role="tab" aria-selected="false">
+          <span class="pq-tab-title">Call Center</span>
+        </button>
+        <button class="pq-tab" data-idx="3" role="tab" aria-selected="false">
+          <span class="pq-tab-title">Equipes remotas</span>
+        </button>
+        <button class="pq-tab" data-idx="4" role="tab" aria-selected="false">
+          <span class="pq-tab-title">Integração multicanal</span>
+        </button>
+        <button class="pq-tab" data-idx="5" role="tab" aria-selected="false">
+          <span class="pq-tab-title">Cobrança e recuperação</span>
+        </button>
+      </div>
+      <div class="pq-tabs-body">
+        <div class="pq-tab-panel is-active" data-idx="0">
+          <p>Empresas que ainda dependem de PABX físico e querem modernizar sem complicação — migrando para a nuvem sem interrupção da operação.</p>
+        </div>
+        <div class="pq-tab-panel" data-idx="1">
+          <p>Times comerciais que precisam ligar de dentro do CRM e registrar tudo automaticamente — sem abrir outro sistema ou perder contexto da negociação.</p>
+        </div>
+        <div class="pq-tab-panel" data-idx="2">
+          <p>Operações com call center que querem controle, métricas e gravação estruturados — com dashboard em tempo real e relatórios de performance por agente.</p>
+        </div>
+        <div class="pq-tab-panel" data-idx="3">
+          <p>Equipes distribuídas ou remotas que precisam de ramais móveis com qualidade — atendendo e realizando chamadas de qualquer lugar, como se estivessem no escritório.</p>
+        </div>
+        <div class="pq-tab-panel" data-idx="4">
+          <p>Negócios que querem integrar voz ao WhatsApp, Teams e outras ferramentas — centralizando todos os canais de comunicação em uma única plataforma.</p>
+        </div>
+        <div class="pq-tab-panel" data-idx="5">
+          <p>Assessorias de cobrança e recuperação de crédito que precisam de alto volume de chamadas controladas, gravação obrigatória e integração com sistemas de gestão de carteiras inadimplentes.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -446,8 +507,32 @@
     } catch (_) {}
   });
 })();
-</script>
-<script>
+
+/* ── PARA QUEM INDICAMOS TABS ── */
+(function () {
+  var tabs   = document.querySelectorAll('#pqTabs .pq-tab');
+  var panels = document.querySelectorAll('#pqTabs .pq-tab-panel');
+
+  function activate(idx) {
+    tabs.forEach(function (t) {
+      var active = parseInt(t.dataset.idx) === idx;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', String(active));
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('is-active', parseInt(p.dataset.idx) === idx);
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('mouseenter', function () {
+      activate(parseInt(tab.dataset.idx));
+    });
+    tab.addEventListener('click', function () {
+      activate(parseInt(tab.dataset.idx));
+    });
+  });
+})();
 </script>
 <script>
 /* ── ONVOX FORM HANDLER ──────────────────────────────────────────
