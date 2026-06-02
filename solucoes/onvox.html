@@ -30,6 +30,60 @@
 .num-n { font-family: 'League Spartan', sans-serif; font-size: clamp(26px, 3.2vw, 40px); font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 8px; letter-spacing: -.02em; }
 .num-l { font-size: 12.5px; color: var(--tx-s); line-height: 1.5; }
 
+/* ── ONVOX VIDEO ── */
+.onvox-video-section { background: var(--bg); }
+.onvox-video-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  box-shadow: 0 8px 48px rgba(0,0,0,.18);
+  background: #000;
+}
+.onvox-video-wrap iframe {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 80px);
+  border: none;
+  display: block;
+  pointer-events: none;
+}
+.onvox-video-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+.onvox-video-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 11;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+.onvox-video-play-btn {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: rgba(174,138,86,.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  transition: transform .2s, background .2s;
+}
+.onvox-video-play-btn svg { margin-left: 5px; }
+.onvox-video-wrap:hover .onvox-video-play-btn { transform: scale(1.08); background: var(--dou); }
+.onvox-video-wrap.vx-playing .onvox-video-play { opacity: 0; }
+
 /* ── ONVOX CTA ── */
 .onvox-cta { background: var(--azul); }
 .onvox-cta-inner { text-align: center; padding: 88px 20px; position: relative; }
@@ -136,6 +190,27 @@
           <li>Negócios que querem integrar voz ao WhatsApp, Teams e outras ferramentas</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ VÍDEO ONVOX ═══ -->
+<section class="sc onvox-video-section">
+  <div class="wrap fi">
+    <div class="onvox-video-wrap" id="onvoxVideoWrap">
+      <div class="onvox-video-overlay" id="onvoxVideoOverlay"></div>
+      <div class="onvox-video-play" id="onvoxVideoPlay">
+        <div class="onvox-video-play-btn">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+      </div>
+      <iframe
+        id="onvoxVideoIframe"
+        src="https://www.youtube.com/embed/oTD1NRahevU?rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=https://www.veross.com.br"
+        frameborder="0"
+        allow="autoplay; encrypted-media"
+        title="Onvox — Telefonia Comercial Integrada"
+      ></iframe>
     </div>
   </div>
 </section>
@@ -335,6 +410,45 @@
 </section>
 
 <script src="../_nav.js"></script>
+<script>
+/* ── ONVOX VIDEO PLAYER ── */
+(function () {
+  var wrap    = document.getElementById('onvoxVideoWrap');
+  var overlay = document.getElementById('onvoxVideoOverlay');
+  var iframe  = document.getElementById('onvoxVideoIframe');
+  var playing = false;
+
+  function cmd(fn) {
+    iframe.contentWindow.postMessage(
+      JSON.stringify({ event: 'command', func: fn, args: [] }), '*'
+    );
+  }
+
+  overlay.addEventListener('click', function () {
+    if (!playing) {
+      cmd('playVideo');
+      playing = true;
+      wrap.classList.add('vx-playing');
+    } else {
+      cmd('pauseVideo');
+      playing = false;
+      wrap.classList.remove('vx-playing');
+    }
+  });
+
+  window.addEventListener('message', function (e) {
+    try {
+      var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+      if (data && data.event === 'onStateChange' && data.info === 0) {
+        playing = false;
+        wrap.classList.remove('vx-playing');
+      }
+    } catch (_) {}
+  });
+})();
+</script>
+<script>
+</script>
 <script>
 /* ── ONVOX FORM HANDLER ──────────────────────────────────────────
    Configure: crie o form "Veross | Onvox" no HubSpot e cole abaixo.
