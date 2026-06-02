@@ -29,7 +29,91 @@
 .num-n { font-family: 'League Spartan', sans-serif; font-size: clamp(28px, 3.5vw, 44px); font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 8px; letter-spacing: -.02em; }
 .num-l { font-size: 12.5px; color: var(--tx-s); line-height: 1.5; }
 
-/* flow vs dialer */
+/* ── MEETIME VIDEO + CAPA ── */
+.mee-video-col { display: flex; flex-direction: column; gap: 0; }
+.mee-video-wrap {
+  position: relative; width: 100%;
+  border-radius: 14px;
+  overflow: hidden; aspect-ratio: 16 / 9;
+  box-shadow: 0 6px 36px rgba(0,0,0,.14);
+  background: transparent;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+.mee-video-wrap iframe {
+  position: absolute; top: -65px; left: 0;
+  width: 100%; height: calc(100% + 155px);
+  border: none; display: block; pointer-events: none;
+}
+.mee-cover-overlay {
+  position: absolute; inset: 0; z-index: 20;
+  cursor: pointer; transition: opacity .45s ease;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1.5px #CDCDD0;
+}
+.mee-cover-overlay img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.mee-cover-overlay.hidden { opacity: 0; pointer-events: none; }
+.mee-video-overlay {
+  position: absolute; inset: 0; z-index: 10; cursor: pointer; display: none;
+}
+
+
+/* ── MEETIME FEATURES ── */
+.mee-video-features {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 6px; margin-top: 10px;
+}
+.mee-video-feat {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 7px; padding: 13px 8px;
+  background: var(--card); border: 1px solid rgba(174,138,86,.18);
+  border-radius: 10px; text-align: center;
+  transition: border-color .2s, box-shadow .2s, transform .2s; cursor: default;
+}
+.mee-video-feat:hover {
+  border-color: rgba(174,138,86,.45);
+  box-shadow: 0 4px 14px rgba(174,138,86,.09);
+  transform: translateY(-2px);
+}
+.mee-video-feat-icon { font-size: 17px; color: var(--dou); line-height: 1; }
+.mee-video-feat-label {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 11.5px; font-weight: 700; color: var(--azul);
+  letter-spacing: -.01em; line-height: 1.2;
+}
+
+/* ── MEETIME PQ TABS ── */
+.mee-pq-tabs { margin-top: 64px; padding-top: 52px; border-top: 1px solid var(--bd2); }
+.mee-pq-tabs-row { display: flex; margin-top: 28px; border-bottom: 1px solid var(--bd2); }
+.mee-pq-tab {
+  flex: 1; padding: 0 0 18px; cursor: pointer; background: none;
+  border: none; text-align: left; position: relative; outline: none;
+}
+.mee-pq-tab::after {
+  content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+  height: 2px; background: var(--dou);
+  transform: scaleX(0); transform-origin: left; transition: transform .28s;
+}
+.mee-pq-tab.is-active::after { transform: scaleX(1); }
+.mee-pq-tab-title {
+  font-family: 'League Spartan', sans-serif; font-size: 15px; font-weight: 600;
+  color: var(--tx-s); transition: color .2s, opacity .2s; display: block; line-height: 1.2;
+}
+.mee-pq-tab.is-active .mee-pq-tab-title { color: var(--azul); font-weight: 800; }
+.mee-pq-tabs-row:hover .mee-pq-tab:not(:hover) .mee-pq-tab-title { opacity: .45; }
+.mee-pq-tabs-body { padding-top: 28px; min-height: 72px; position: relative; }
+.mee-pq-tab-panel {
+  position: absolute; inset: 0; padding-top: 28px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .25s, transform .25s; pointer-events: none;
+}
+.mee-pq-tab-panel.is-active {
+  opacity: 1; transform: translateY(0);
+  pointer-events: auto; position: relative;
+}
+.mee-pq-tab-panel p { font-size: 15px; color: var(--tx-m); line-height: 1.75; max-width: 640px; }
 .products-split { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; margin-top: 48px; }
 .prod-main-card { background: var(--azul); border: 1px solid rgba(255,255,255,.06); border-radius: 20px; padding: 40px 36px; color: var(--branco); }
 .prod-main-card .prod-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(174,138,86,.5); margin-bottom: 16px; }
@@ -147,15 +231,77 @@
         <p class="bp" style="margin-top:24px">A Meetime é especialista em Inside Sales. A Veross é especialista em estruturação comercial B2B. Juntos, garantimos que o SDR não só tenha a ferramenta — mas saiba usá-la dentro de um processo com playbook, ICP definido, cadência validada e gestão por indicadores.</p>
         <p class="bp">Por ser parceiro oficial, a Veross tem condições exclusivas para clientes que adotam a Meetime dentro da estruturação comercial. A plataforma e o método chegam juntos, do zero ao resultado.</p>
       </div>
-      <div>
-        <div class="pq-label">Para quem indicamos</div>
-        <ul class="pq-list">
-          <li>Empresas B2B que têm SDR mas sem processo de cadência estruturado</li>
-          <li>Times que usam CRM para prospectar e perdem produtividade por falta de organização</li>
-          <li>Gestores que não têm visibilidade sobre o que o SDR faz e quantos contatos faz por dia</li>
-          <li>Operações que querem estruturar pré-venda com multicanal: e-mail, telefone, LinkedIn e WhatsApp</li>
-          <li>Empresas que já têm leads mas convertem pouco pela falta de ritmo e follow-up</li>
-        </ul>
+      <div class="mee-video-col">
+        <div class="mee-video-wrap" id="meeVideoWrap">
+          <div class="mee-cover-overlay" id="meeCoverOverlay">
+            <img src="../img/partners/veross-capa-meetime.png" alt="Veross e Meetime Apresentam">
+          </div>
+          <div class="mee-video-overlay" id="meeVideoOverlay"></div>
+          <iframe
+            id="meeVideoIframe"
+            src="https://www.youtube.com/embed/KPTcLvG_Bhw?controls=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=https://www.veross.com.br"
+            frameborder="0"
+            allow="autoplay; encrypted-media"
+            title="Meetime — Sales Engagement com método Veross"
+          ></iframe>
+        </div>
+        <div class="mee-video-features">
+          <div class="mee-video-feat">
+            <span class="mee-video-feat-icon">◈</span>
+            <span class="mee-video-feat-label">Integrado ao CRM</span>
+          </div>
+          <div class="mee-video-feat">
+            <span class="mee-video-feat-icon">◎</span>
+            <span class="mee-video-feat-label">Fit Score</span>
+          </div>
+          <div class="mee-video-feat">
+            <span class="mee-video-feat-icon">◆</span>
+            <span class="mee-video-feat-label">Multicanal</span>
+          </div>
+          <div class="mee-video-feat">
+            <span class="mee-video-feat-icon">▣</span>
+            <span class="mee-video-feat-label">Métricas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Para quem indicamos -->
+    <div class="mee-pq-tabs" id="meePqTabs">
+      <div class="ey">Para quem indicamos</div>
+      <div class="mee-pq-tabs-row" role="tablist">
+        <button class="mee-pq-tab is-active" data-idx="0" role="tab" aria-selected="true">
+          <span class="mee-pq-tab-title">SDR sem processo</span>
+        </button>
+        <button class="mee-pq-tab" data-idx="1" role="tab" aria-selected="false">
+          <span class="mee-pq-tab-title">Times com CRM</span>
+        </button>
+        <button class="mee-pq-tab" data-idx="2" role="tab" aria-selected="false">
+          <span class="mee-pq-tab-title">Gestão sem visibilidade</span>
+        </button>
+        <button class="mee-pq-tab" data-idx="3" role="tab" aria-selected="false">
+          <span class="mee-pq-tab-title">Pré-venda multicanal</span>
+        </button>
+        <button class="mee-pq-tab" data-idx="4" role="tab" aria-selected="false">
+          <span class="mee-pq-tab-title">Baixa conversão</span>
+        </button>
+      </div>
+      <div class="mee-pq-tabs-body">
+        <div class="mee-pq-tab-panel is-active" data-idx="0">
+          <p>Empresas B2B que têm SDR mas sem processo de cadência estruturado — o time prospecta no improviso, sem ritmo definido e sem saber quais leads priorizar.</p>
+        </div>
+        <div class="mee-pq-tab-panel" data-idx="1">
+          <p>Times que usam CRM para prospectar e perdem produtividade por falta de organização — trocam de ferramenta o tempo todo e perdem o fio da cadência.</p>
+        </div>
+        <div class="mee-pq-tab-panel" data-idx="2">
+          <p>Gestores que não têm visibilidade sobre o que o SDR faz e quantos contatos realiza por dia — sem dashboard, sem dados, sem como cobrar resultados com clareza.</p>
+        </div>
+        <div class="mee-pq-tab-panel" data-idx="3">
+          <p>Operações que querem estruturar pré-venda com multicanal — e-mail, telefone, LinkedIn e WhatsApp em sequências coordenadas, sem depender da memória do SDR.</p>
+        </div>
+        <div class="mee-pq-tab-panel" data-idx="4">
+          <p>Empresas que já têm leads mas convertem pouco pela falta de ritmo e follow-up — leads que esfriaram porque ninguém fez o segundo, terceiro e quarto contato.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -318,6 +464,69 @@
 </section>
 
 <script src="../_nav.js"></script>
+<script>
+/* ── MEETIME VIDEO PLAYER ── */
+(function () {
+  var wrap    = document.getElementById('meeVideoWrap');
+  var cover   = document.getElementById('meeCoverOverlay');
+  var overlay = document.getElementById('meeVideoOverlay');
+  var iframe  = document.getElementById('meeVideoIframe');
+  var playing = false;
+
+  function cmd(fn) {
+    iframe.contentWindow.postMessage(
+      JSON.stringify({ event: 'command', func: fn, args: [] }), '*'
+    );
+  }
+
+  cover.addEventListener('click', function () {
+    cover.classList.add('hidden');
+    overlay.style.display = 'block';
+    cmd('playVideo');
+    playing = true;
+    wrap.classList.add('vx-playing');
+  });
+
+  overlay.addEventListener('click', function () {
+    if (playing) {
+      cmd('pauseVideo'); playing = false; wrap.classList.remove('vx-playing');
+    } else {
+      cmd('playVideo'); playing = true; wrap.classList.add('vx-playing');
+    }
+  });
+
+  window.addEventListener('message', function (e) {
+    try {
+      var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
+      if (data && data.event === 'onStateChange' && data.info === 0) {
+        playing = false; wrap.classList.remove('vx-playing');
+      }
+    } catch (_) {}
+  });
+})();
+
+/* ── MEETIME PARA QUEM TABS ── */
+(function () {
+  var tabs   = document.querySelectorAll('#meePqTabs .mee-pq-tab');
+  var panels = document.querySelectorAll('#meePqTabs .mee-pq-tab-panel');
+
+  function activate(idx) {
+    tabs.forEach(function (t) {
+      var active = parseInt(t.dataset.idx) === idx;
+      t.classList.toggle('is-active', active);
+      t.setAttribute('aria-selected', String(active));
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('is-active', parseInt(p.dataset.idx) === idx);
+    });
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('mouseenter', function () { activate(parseInt(tab.dataset.idx)); });
+    tab.addEventListener('click', function () { activate(parseInt(tab.dataset.idx)); });
+  });
+})();
+</script>
 <script>
 /* ── MEETIME FORM HANDLER ────────────────────────────────────────
    Configure: crie o form "Veross | Meetime" no HubSpot e cole abaixo.

@@ -89,36 +89,17 @@
   display: block;
   pointer-events: none;
 }
+.onvox-cover-overlay {
+  position: absolute; inset: 0; z-index: 20;
+  cursor: pointer; transition: opacity .45s ease;
+}
+.onvox-cover-overlay img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+}
+.onvox-cover-overlay.hidden { opacity: 0; pointer-events: none; }
 .onvox-video-overlay {
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  cursor: pointer;
+  position: absolute; inset: 0; z-index: 10; cursor: pointer; display: none;
 }
-.onvox-video-play {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 11;
-  pointer-events: none;
-  transition: opacity .3s;
-}
-.onvox-video-play-btn {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: rgba(174,138,86,.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(4px);
-  transition: transform .2s, background .2s;
-}
-.onvox-video-play-btn svg { margin-left: 4px; }
-.onvox-video-wrap:hover .onvox-video-play-btn { transform: scale(1.08); background: var(--dou); }
-.onvox-video-wrap.vx-playing .onvox-video-play { opacity: 0; }
 
 /* ── PARA QUEM INDICAMOS TABS ── */
 .pq-tabs { margin-top: 64px; padding-top: 52px; border-top: 1px solid var(--bd2); }
@@ -251,12 +232,10 @@
       </div>
       <div>
         <div class="onvox-video-wrap" id="onvoxVideoWrap">
-          <div class="onvox-video-overlay" id="onvoxVideoOverlay"></div>
-          <div class="onvox-video-play" id="onvoxVideoPlay">
-            <div class="onvox-video-play-btn">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
-            </div>
+          <div class="onvox-cover-overlay" id="onvoxCoverOverlay">
+            <img src="../img/partners/veross-capa-onvox.png" alt="Veross e Onvox Apresentam">
           </div>
+          <div class="onvox-video-overlay" id="onvoxVideoOverlay"></div>
           <iframe
             id="onvoxVideoIframe"
             src="https://www.youtube.com/embed/oTD1NRahevU?controls=0&rel=0&modestbranding=1&iv_load_policy=3&enablejsapi=1&origin=https://www.veross.com.br"
@@ -532,6 +511,7 @@
 /* ── ONVOX VIDEO PLAYER ── */
 (function () {
   var wrap    = document.getElementById('onvoxVideoWrap');
+  var cover   = document.getElementById('onvoxCoverOverlay');
   var overlay = document.getElementById('onvoxVideoOverlay');
   var iframe  = document.getElementById('onvoxVideoIframe');
   var playing = false;
@@ -542,15 +522,21 @@
     );
   }
 
+  /* Primeiro clique: esconde capa e inicia vídeo */
+  cover.addEventListener('click', function () {
+    cover.classList.add('hidden');
+    overlay.style.display = 'block';
+    cmd('playVideo');
+    playing = true;
+    wrap.classList.add('vx-playing');
+  });
+
+  /* Cliques após capa: pause/play */
   overlay.addEventListener('click', function () {
-    if (!playing) {
-      cmd('playVideo');
-      playing = true;
-      wrap.classList.add('vx-playing');
+    if (playing) {
+      cmd('pauseVideo'); playing = false; wrap.classList.remove('vx-playing');
     } else {
-      cmd('pauseVideo');
-      playing = false;
-      wrap.classList.remove('vx-playing');
+      cmd('playVideo'); playing = true; wrap.classList.add('vx-playing');
     }
   });
 
@@ -558,8 +544,7 @@
     try {
       var data = typeof e.data === 'string' ? JSON.parse(e.data) : e.data;
       if (data && data.event === 'onStateChange' && data.info === 0) {
-        playing = false;
-        wrap.classList.remove('vx-playing');
+        playing = false; wrap.classList.remove('vx-playing');
       }
     } catch (_) {}
   });
