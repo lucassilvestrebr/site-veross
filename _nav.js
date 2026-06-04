@@ -139,4 +139,98 @@
     }, { threshold: 0.08 });
     fis.forEach(function (el) { obs.observe(el); });
   }
+
+  // ── Schema.org: Organization ──
+  (function() {
+    var s = document.createElement('script');
+    s.type = 'application/ld+json';
+    s.textContent = JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Veross",
+      "url": "https://www.veross.com.br",
+      "logo": "https://www.veross.com.br/img/logos/logo-veross.svg",
+      "description": "A Veross estrutura a operação comercial de empresas B2B com método, tecnologia e execução — transformando vendas improvisadas em crescimento previsível e sustentável.",
+      "sameAs": [
+        "https://www.linkedin.com/company/verossbr",
+        "https://www.instagram.com/verossbr",
+        "https://www.youtube.com/@lucas.silvestre.veross"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "vendas",
+        "telephone": "+5512982519830",
+        "availableLanguage": "Portuguese"
+      },
+      "areaServed": "BR"
+    });
+    document.head.appendChild(s);
+  })();
+
+  // ── theme-color ──
+  if (!document.querySelector('meta[name="theme-color"]')) {
+    var tc = document.createElement('meta');
+    tc.name = 'theme-color';
+    tc.content = '#060923';
+    document.head.appendChild(tc);
+  }
+
+  // ── HubSpot Tracking ──
+  (function() {
+    if (/localhost|127\.0\.0\.1/.test(window.location.hostname)) return;
+    var hs = document.createElement('script');
+    hs.type = 'text/javascript';
+    hs.id = 'hs-script-loader';
+    hs.async = true;
+    hs.defer = true;
+    hs.src = '//js.hs-scripts.com/44513728.js';
+    document.head.appendChild(hs);
+  })();
+
+  // ── Meta Pixel ──
+  (function() {
+    if (/localhost|127\.0\.0\.1/.test(window.location.hostname)) return;
+    !function(f,b,e,v,n,t,s){
+      if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)
+    }(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    window.fbq('init', '942501218790098');
+    window.fbq('track', 'PageView');
+    var noscript = document.createElement('noscript');
+    var img = document.createElement('img');
+    img.height = 1; img.width = 1; img.style.display = 'none';
+    img.src = 'https://www.facebook.com/tr?id=942501218790098&ev=PageView&noscript=1';
+    noscript.appendChild(img);
+    document.body && document.body.appendChild(noscript);
+  })();
+
+  // ── LinkedIn Insight Tag ──
+  (function() {
+    if (/localhost|127\.0\.0\.1/.test(window.location.hostname)) return;
+    window._linkedin_partner_id = '538990961';
+    window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+    window._linkedin_data_partner_ids.push(window._linkedin_partner_id);
+    (function(l) {
+      if (!l) {
+        window.lintrk = function(a, b) { window.lintrk.q.push([a, b]); };
+        window.lintrk.q = [];
+      }
+      var s = document.getElementsByTagName('script')[0];
+      var b = document.createElement('script');
+      b.type = 'text/javascript'; b.async = true;
+      b.src = 'https://snap.licdn.com/li.lms-analytics/insight.min.js';
+      s.parentNode.insertBefore(b, s);
+    })(window.lintrk);
+    var noscriptLi = document.createElement('noscript');
+    var imgLi = document.createElement('img');
+    imgLi.height = 1; imgLi.width = 1; imgLi.style.display = 'none';
+    imgLi.alt = '';
+    imgLi.src = 'https://px.ads.linkedin.com/collect/?pid=538990961&fmt=gif';
+    noscriptLi.appendChild(imgLi);
+    document.body && document.body.appendChild(noscriptLi);
+  })();
 })();
