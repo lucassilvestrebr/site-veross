@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ecossistema Comercial Veross B2B — ECOV</title>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.veross.com.br/solucoes/ecossistema-comercial.html">
+<meta property="og:title" content="Ecossistema Comercial Veross B2B — ECOV">
+<meta property="og:description" content="A operação comercial completa orquestrada pela Veross: método MHMA, stack de tecnologia, time de pré-vendas e gestão por indicadores.">
+<meta property="og:image" content="https://www.veross.com.br/img/hero/lucas-silvestre-tablet.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="ECOV: ecossistema comercial B2B operado pela Veross. Método MHMA, prospecção ativa, pré-vendas, CRM e reuniões qualificadas em outsourcing.">
+<link rel="icon" href="../favicon-light.ico" sizes="any">
+<link rel="icon" href="../favicon-dark.ico" sizes="any" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="../favicon-light.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../site.css">
+<link rel="stylesheet" href="pillar.css">
+<style>
+/* ── ENTREGAS ── */
+.entrega-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 48px; }
+.entrega-item { display: flex; align-items: flex-start; gap: 14px; padding: 20px 22px; background: var(--card); border: 1.5px solid var(--bd2); border-radius: 14px; transition: border-color .22s; }
+.entrega-item:hover { border-color: var(--bd); }
+.entrega-item.destaque { border-color: rgba(174,138,86,.28); background: rgba(174,138,86,.04); }
+.entrega-item.destaque:hover { border-color: var(--dou); }
+.entrega-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--dou); flex-shrink: 0; margin-top: 5px; }
+.entrega-item.destaque .entrega-dot { background: var(--dou); box-shadow: 0 0 0 3px rgba(174,138,86,.18); }
+.entrega-name { font-family: 'League Spartan', sans-serif; font-size: 14px; font-weight: 700; color: var(--azul); margin-bottom: 3px; line-height: 1.2; }
+.entrega-desc { font-size: 12.5px; font-weight: 300; color: var(--tx-m); line-height: 1.65; }
+.entrega-tag { display: inline-block; margin-bottom: 5px; font-family: 'DM Mono', monospace; font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--dou); }
+
+/* ── CRONOGRAMA ── */
+.crono-legend { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; flex-wrap: wrap; }
+.crono-legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--tx-m); }
+.crono-legend-dot { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+.crono-wrap { overflow-x: auto; margin-top: 40px; }
+.crono-table { min-width: 740px; border: 1px solid var(--bd2); border-radius: 14px; overflow: hidden; }
+.crono-h1 { display: grid; background: var(--azul); }
+.crono-h1-lbl { padding: 10px 16px; }
+.crono-h1-month { text-align: center; padding: 8px 0 4px; color: rgba(255,255,255,.55); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,.08); }
+.crono-h1-mo { display: flex; align-items: center; justify-content: center; padding: 10px 0; color: rgba(255,255,255,.35); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; }
+.crono-h2 { display: grid; background: rgba(4,7,25,.96); }
+.crono-h2-cell { text-align: center; padding: 4px 0 8px; color: rgba(255,255,255,.28); font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: .1em; }
+.crono-sec { background: rgba(174,138,86,.05); border-top: 1px solid var(--bd2); padding: 7px 16px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dou); }
+.crono-row { display: grid; border-top: 1px solid var(--bd2); align-items: center; background: var(--card); transition: background .15s; }
+.crono-row:hover { background: rgba(174,138,86,.025); }
+.crono-row.crono-row-dest { background: rgba(174,138,86,.03); }
+.crono-row.crono-row-dest:hover { background: rgba(174,138,86,.06); }
+.crono-lbl { padding: 10px 16px; font-size: 12px; color: var(--tx-m); line-height: 1.4; }
+.crono-lbl-dest { color: var(--azul); font-weight: 600; }
+.crono-lbl-dest::after { content: ' ★'; color: var(--dou); font-size: 9px; vertical-align: super; }
+.crono-cell { padding: 7px 3px; display: flex; align-items: center; }
+.crono-bar { width: 100%; height: 13px; border-radius: 4px; }
+.c-s { background: var(--dou); }
+.c-e { background: var(--azul); }
+.c-g { background: var(--tx-s); opacity: .55; }
+
+/* ── DIFERENCIAIS ── */
+.dif-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
+.dif-item { padding: 28px 24px; background: var(--card); border: 1.5px solid var(--bd2); border-radius: 14px; }
+.dif-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dou); margin-bottom: 12px; }
+.dif-title { font-family: 'League Spartan', sans-serif; font-size: 16px; font-weight: 700; color: var(--azul); margin-bottom: 8px; line-height: 1.2; }
+.dif-desc { font-size: 13px; font-weight: 300; color: var(--tx-m); line-height: 1.7; }
+
+@media (max-width: 1024px) { .dif-row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) {
+  .entrega-grid { grid-template-columns: 1fr; }
+  .dif-row { grid-template-columns: 1fr; }
+}
+</style>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FV8KJWQSPW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FV8KJWQSPW');</script>
+<script>(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y)})(window,document,"clarity","script","x0ds55qfbj");</script>
+</head>
+<body>
+<div class="page-top"></div>
+
+<!-- ═══ HERO ═══ -->
+<section class="ph" data-screen-label="ECOV Hero">
+  <div class="ph-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1440 540" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dte" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="rgba(174,138,86,0.07)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dte)"/>
+      <circle cx="220" cy="560" r="300" fill="none" stroke="rgba(174,138,86,.05)" stroke-width="70"/>
+      <circle cx="1300" cy="60" r="200" fill="none" stroke="rgba(174,138,86,.04)" stroke-width="1" stroke-dasharray="6 5"/>
+    </svg>
+  </div>
+  <div class="wrap ph-inner">
+    <div class="ph-bc fi">
+      <a href="../index.html">Veross</a><span class="ph-bc-sep">/</span>
+      <a href="../solucoes.html">Soluções</a><span class="ph-bc-sep">/</span>
+      <a href="operacao-comercial.html">Operação Comercial</a><span class="ph-bc-sep">/</span>
+      <span>ECOV</span>
+    </div>
+    <div class="ph-grid">
+      <div class="fi">
+        <div class="ph-badge"><span class="ph-badge-icon">⬢</span>Operação Comercial · ECOV</div>
+        <h1 class="fd">A estrutura comercial<br>completa, operada pela <em>Veross.</em></h1>
+        <p class="ph-sub">Método MHMA, stack de tecnologia, time de pré-vendas e gestão por indicadores — integrados em um único ecossistema que gera reuniões qualificadas de forma previsível e contínua.</p>
+        <div class="ph-actions">
+          <a href="../index.html#cta" class="btn-dou">Quero saber mais</a>
+          <a href="operacao-comercial.html" class="btn-ghost">Ver Operação Comercial</a>
+        </div>
+      </div>
+      <div class="ph-side fi" style="transition-delay:.1s">
+        <div class="ph-side-label">O que está incluído</div>
+        <ul class="ph-side-list">
+          <li>Método MHMA + stack de tecnologia</li>
+          <li>Time de pré-vendas estruturado</li>
+          <li>Prospecção outbound multicanal</li>
+          <li>Qualificação e reuniões qualificadas</li>
+          <li>CRM estruturado e gerenciado</li>
+          <li>Gestão por indicadores</li>
+          <li>Treinamento inicial e contínuo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ O QUE É / PARA QUEM É ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="intro-grid">
+      <div>
+        <div class="ey">O que é o ECOV</div>
+        <p class="intro-quote">Não é consultoria. É a sua operação comercial <em>rodando.</em></p>
+        <p class="bp" style="margin-top:24px">O ECOV é a solução de estruturação e gestão comercial de pré-vendas da Veross, focada em construir e operar a engrenagem comercial B2B de forma integrada. Conectamos estratégia, tecnologia, prospecção ativa, pré-vendas, CRM, qualificação de leads e gestão por indicadores — com a execução integralmente sob responsabilidade da Veross e participação ativa do cliente nas definições estratégicas e na condução das oportunidades geradas.</p>
+      </div>
+      <div>
+        <div class="pq-label">Para quem é</div>
+        <ul class="pq-list">
+          <li>Empresas B2B que querem terceirizar a estrutura comercial completa com previsibilidade</li>
+          <li>Negócios que precisam de método, tecnologia e execução integrados em um único parceiro</li>
+          <li>Operações que não têm pré-vendas estruturado e precisam construir essa capacidade</li>
+          <li>Empresas prontas para escalar com responsabilidade de execução na Veross</li>
+          <li>Times que querem gerar pipeline previsível orientado por dados, não por sorte</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIFERENCIAIS ═══ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">Os pilares do ecossistema</div>
+    <h2 class="fh sh">Método, tecnologia e execução<br>em um único <em>ecossistema.</em></h2>
+    <div class="dif-row">
+      <div class="dif-item">
+        <div class="dif-num">Pilar 01</div>
+        <div class="dif-title">Método MHMA</div>
+        <p class="dif-desc">A operação é estruturada sobre o método proprietário da Veross — do mapeamento do ICP à qualificação de oportunidades e gestão do funil.</p>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">Pilar 02</div>
+        <div class="dif-title">Stack de Tecnologia</div>
+        <p class="dif-desc">Ferramentas de prospecção, automação, CRM e dados integradas e configuradas pela Veross para operar com eficiência e rastreabilidade.</p>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">Pilar 03</div>
+        <div class="dif-title">Time de Pré-vendas</div>
+        <p class="dif-desc">Definição do perfil, treinamento inicial com método MHMA e desenvolvimento contínuo do profissional de pré-vendas que opera a frente comercial.</p>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">Pilar 04</div>
+        <div class="dif-title">Prospecção Ativa</div>
+        <p class="dif-desc">Cadências multicanal — LinkedIn, e-mail, WhatsApp — executadas de forma consistente com base no ICP e nas estratégias de abordagem definidas.</p>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">Pilar 05</div>
+        <div class="dif-title">Reuniões Qualificadas</div>
+        <p class="dif-desc">Qualificação ativa dos leads e entrega de reuniões com decisores, prontas para o time comercial conduzir e fechar.</p>
+      </div>
+      <div class="dif-item">
+        <div class="dif-num">Pilar 06</div>
+        <div class="dif-title">Gestão por Indicadores</div>
+        <p class="dif-desc">Acompanhamento de métricas, reporting periódico e gestão orientada por dados para sustentar e escalar a geração de pipeline.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ENTREGAS ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">O que entregamos</div>
+    <h2 class="fh sh">Da base técnica ao pipeline <em>previsível.</em></h2>
+    <p class="bp" style="max-width:560px">O ECOV inclui toda a operação de prospecção outbound, com camadas adicionais de pré-vendas, qualificação, CRM e treinamento — itens exclusivos marcados com destaque.</p>
+    <div class="entrega-grid">
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">ICP e mapeamento de público</div><div class="entrega-desc">Definição do perfil ideal de cliente e segmentos prioritários de abordagem.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Setup técnico</div><div class="entrega-desc">Configuração de domínio, DNS e e-mail corporativo com aquecimento de entregabilidade.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">Definição do perfil de pré-vendas</div><div class="entrega-desc">Construção do job description, perfil ideal e estrutura de atuação do profissional de SDR.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">Treinamento inicial do pré-vendas</div><div class="entrega-desc">Capacitação com método MHMA para operar a prospecção e qualificação de forma estruturada.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Criação de cadências multicanal</div><div class="entrega-desc">Sequências de contato estruturadas com timing, canais e abordagem definidos.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Produção de mensagens e scripts</div><div class="entrega-desc">Copies de abordagem para cada canal e etapa da cadência.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Extração e tratamento de leads</div><div class="entrega-desc">Geração e curadoria de base de contatos qualificados com base no ICP.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Ferramentas e automações</div><div class="entrega-desc">Configuração e operação das plataformas de prospecção, automação e dados.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Execução das prospecções</div><div class="entrega-desc">Operação das prospecções em e-mail, LinkedIn e WhatsApp conforme cadência definida.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">Qualificação e pré-venda ativa</div><div class="entrega-desc">Pré-venda para qualificar contatos, avançar leads no funil e preparar oportunidades para o time comercial.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">Reuniões qualificadas com decisores</div><div class="entrega-desc">Entrega de reuniões agendadas e qualificadas, prontas para o time comercial conduzir.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">CRM estruturado e gerenciado</div><div class="entrega-desc">Implantação e operação do CRM com pipeline, indicadores e rastreabilidade de oportunidades.</div></div>
+      </div>
+      <div class="entrega-item">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-name">Relatórios e gestão por indicadores</div><div class="entrega-desc">Reporting de performance e decisões orientadas pelos dados da operação comercial.</div></div>
+      </div>
+      <div class="entrega-item destaque">
+        <div class="entrega-dot"></div>
+        <div><div class="entrega-tag">Exclusivo ECOV</div><div class="entrega-name">Treinamento contínuo</div><div class="entrega-desc">Desenvolvimento recorrente do pré-vendas com acompanhamento, mentorias e atualização de método.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CRONOGRAMA ═══ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">Cronograma</div>
+    <h2 class="fh sh">Do onboarding à operação <em>contínua.</em></h2>
+    <p class="bp" style="max-width:560px">O ECOV segue as mesmas fases da operação VMND, com etapas adicionais de estruturação e treinamento do time de pré-vendas <span style="color:var(--dou)">★</span>.</p>
+    <div id="crono-ecov"></div>
+  </div>
+</section>
+
+<!-- ═══ COMO OPERAMOS ═══ -->
+<section class="sc sc-white">
+  <div class="wrap fi">
+    <div class="ey">Como operamos</div>
+    <h2 class="fh sh">Da estrutura ao resultado <em>mensurável.</em></h2>
+    <div class="proc-grid">
+      <div class="proc-item">
+        <div class="proc-step">Fase 01</div>
+        <div class="proc-title">Onboarding e Estruturação</div>
+        <p class="proc-desc">Análise do cliente, kick-off, setup técnico, aquecimento, definição do perfil de pré-vendas, treinamento inicial e Playbook comercial.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Fase 02</div>
+        <div class="proc-title">Pré-operação</div>
+        <p class="proc-desc">Extração e tratamento de leads, configuração de ferramentas, automações, CRM e setup do LinkedIn.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Fase 03</div>
+        <div class="proc-title">Operação Ativa</div>
+        <p class="proc-desc">Prospecção multicanal, qualificação pelo pré-vendas, testes A/B e ajustes contínuos de copy e cadência.</p>
+      </div>
+      <div class="proc-item">
+        <div class="proc-step">Fase 04</div>
+        <div class="proc-title">Gestão e Melhoria Contínua</div>
+        <p class="proc-desc">Reporting de indicadores, treinamento contínuo do pré-vendas, escala da operação e desenvolvimento de novas estratégias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ EXPLORAR ═══ -->
+<section class="sc sc-warm">
+  <div class="wrap fi">
+    <div class="ey">Continue explorando</div>
+    <h2 class="fh sh">Precisa só de prospecção <em>outbound?</em></h2>
+    <p class="bp" style="max-width:520px; margin-bottom:40px">O VMND foca na execução operacional da prospecção digital — sem a camada de pré-vendas e qualificação do ECOV.</p>
+    <div class="other-row" style="max-width:640px">
+      <a href="vmnd.html" class="other-card">
+        <div style="display:flex; align-items:center; gap:18px">
+          <span class="other-card-icon">◇</span>
+          <span>
+            <span class="other-card-name">Veross Mais Negócios Digitais</span>
+            <span class="other-card-sub">Prospecção outbound operada pela Veross</span>
+          </span>
+        </div>
+        <span class="other-card-arrow">→</span>
+      </a>
+      <a href="operacao-comercial.html" class="other-card">
+        <div style="display:flex; align-items:center; gap:18px">
+          <span class="other-card-icon">◇</span>
+          <span>
+            <span class="other-card-name">Operação Comercial</span>
+            <span class="other-card-sub">Todas as soluções desta frente</span>
+          </span>
+        </div>
+        <span class="other-card-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="pcta">
+  <div class="pcta-inner">
+    <div class="ey" style="justify-content:center; color:rgba(174,138,86,.4)">Próximo passo</div>
+    <h2 class="fd">Pronto para construir uma<br>operação comercial <em>previsível?</em></h2>
+    <p>No diagnóstico comercial gratuito avaliamos sua operação e mostramos como o ECOV pode estruturar sua geração de demanda.</p>
+    <div class="pcta-btns">
+      <a href="../index.html#cta" class="btn-dou">Quero meu diagnóstico gratuito</a>
+      <a href="../solucoes.html" class="btn-ghost">Ver todas as soluções</a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function () {
+  var COLS = ['S1','S2','S3','S4','2º','3º','4º','5º','Contínuo'];
+  var N = COLS.length;
+  var COL_W = '190px repeat(' + N + ', 1fr)';
+
+  var data = [
+    { section: '01 — Onboarding e Estruturação', rows: [
+      { label: 'Análise do cliente',                       cells: [1,0,0,0,0,0,0,0,0], dest: false },
+      { label: 'Kick-off',                                  cells: [1,0,0,0,0,0,0,0,0], dest: false },
+      { label: 'Setup técnico (domínio, e-mail, DNS)',      cells: [1,1,0,0,0,0,0,0,0], dest: false },
+      { label: 'Definição do perfil de pré-vendas',         cells: [1,0,0,0,0,0,0,0,0], dest: true  },
+      { label: 'Treinamento inicial do pré-vendas',         cells: [1,1,1,0,0,0,0,0,0], dest: true  },
+      { label: 'Aquecimento de e-mail',                     cells: [1,1,1,1,0,0,0,0,0], dest: false },
+      { label: 'Playbook comercial',                        cells: [1,1,1,1,1,0,0,0,0], dest: false },
+    ]},
+    { section: '02 — Pré-operação', rows: [
+      { label: 'Filtros e extração de leads',               cells: [0,1,2,2,2,2,2,2,2], dest: false },
+      { label: 'Tratamento da base de leads',               cells: [0,1,1,2,2,2,2,2,2], dest: false },
+      { label: 'Ferramentas, automações e CRM',             cells: [0,1,1,2,2,2,2,2,2], dest: false },
+      { label: 'Setup LinkedIn',                            cells: [0,1,2,2,2,2,2,2,2], dest: false },
+    ]},
+    { section: '03 — Operação Ativa', rows: [
+      { label: 'Início das prospecções',                    cells: [0,0,2,2,2,2,2,2,2], dest: false },
+      { label: 'Qualificação e pré-venda ativa',            cells: [0,0,2,2,2,2,2,2,2], dest: true  },
+      { label: 'Testes A/B de cadências',                   cells: [0,0,2,2,2,2,2,0,0], dest: false },
+      { label: 'Ajustes de copy e cadência',                cells: [0,0,0,3,3,3,3,3,3], dest: false },
+    ]},
+    { section: '04 — Gestão e Melhoria Contínua', rows: [
+      { label: 'Acompanhamento e reporting',                cells: [0,3,3,3,3,3,3,3,3], dest: false },
+      { label: 'Treinamento contínuo do pré-vendas',        cells: [0,0,0,3,3,3,3,3,3], dest: true  },
+      { label: 'Escala da operação',                        cells: [0,0,0,0,0,3,3,3,3], dest: false },
+      { label: 'Novas estratégias e canais',                cells: [0,0,0,0,0,0,3,3,3], dest: false },
+    ]},
+  ];
+
+  function bar(v) {
+    if (!v) return '';
+    var cls = v === 1 ? 'c-s' : v === 2 ? 'c-e' : 'c-g';
+    return '<div class="crono-bar ' + cls + '"></div>';
+  }
+
+  var html = '<div class="crono-legend">'
+    + '<div class="crono-legend-item"><div class="crono-legend-dot" style="background:var(--dou)"></div>Estruturação / setup</div>'
+    + '<div class="crono-legend-item"><div class="crono-legend-dot" style="background:var(--azul)"></div>Execução / operação</div>'
+    + '<div class="crono-legend-item"><div class="crono-legend-dot" style="background:var(--tx-s);opacity:.7"></div>Gestão / melhoria contínua</div>'
+    + '<div class="crono-legend-item" style="margin-left:8px"><span style="color:var(--dou);font-size:11px">★</span>&nbsp;<span>Exclusivo ECOV</span></div>'
+    + '</div>';
+
+  html += '<div class="crono-wrap"><div class="crono-table">';
+
+  html += '<div class="crono-h1" style="grid-template-columns:' + COL_W + '">'
+    + '<div class="crono-h1-lbl"></div>'
+    + '<div class="crono-h1-month" style="grid-column:2/6">1º mês</div>'
+    + '<div class="crono-h1-mo">2º</div>'
+    + '<div class="crono-h1-mo">3º</div>'
+    + '<div class="crono-h1-mo">4º</div>'
+    + '<div class="crono-h1-mo">5º</div>'
+    + '<div class="crono-h1-mo">Contínuo</div>'
+    + '</div>';
+
+  html += '<div class="crono-h2" style="grid-template-columns:' + COL_W + '"><div></div>'
+    + COLS.map(function(c){ return '<div class="crono-h2-cell">' + c + '</div>'; }).join('')
+    + '</div>';
+
+  data.forEach(function(sec) {
+    html += '<div class="crono-sec">' + sec.section + '</div>';
+    sec.rows.forEach(function(row) {
+      var rowCls = 'crono-row' + (row.dest ? ' crono-row-dest' : '');
+      var lblCls = 'crono-lbl' + (row.dest ? ' crono-lbl-dest' : '');
+      html += '<div class="' + rowCls + '" style="grid-template-columns:' + COL_W + '">'
+        + '<div class="' + lblCls + '">' + row.label + '</div>'
+        + row.cells.map(function(c){ return '<div class="crono-cell">' + bar(c) + '</div>'; }).join('')
+        + '</div>';
+    });
+  });
+
+  html += '</div></div>';
+  document.getElementById('crono-ecov').innerHTML = html;
+})();
+</script>
+
+<script src="../_nav.js"></script>
+</body>
+</html>
