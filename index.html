@@ -405,11 +405,11 @@ footer { background: var(--azul); padding: 56px 0 32px; }
 .cs-track-wrap { flex: 1; overflow: hidden; position: relative; }
 .cs-track-wrap::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to right, var(--azul), transparent); z-index: 2; pointer-events: none; }
 .cs-track-wrap::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 80px; background: linear-gradient(to left, var(--azul), transparent); z-index: 2; pointer-events: none; }
-.cs-track { display: flex; white-space: nowrap; animation: cs-scroll 34s linear infinite; }
+.cs-track { display: flex; white-space: nowrap; will-change: transform; cursor: grab; user-select: none; }
 .cs-item { display: inline-flex; align-items: center; padding: 0 32px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: .04em; color: rgba(255,255,255,.45); }
 .cs-item::after { content: ' ·'; color: rgba(174,138,86,.25); padding-left: 4px; }
 .cs-logo { height: 26px; width: auto; filter: brightness(0) invert(1); opacity: .55; display: block; }
-@keyframes cs-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.cs-track.cs-dragging { cursor: grabbing; }
 
 /* ── NÃO É COMPARE ── */
 .nao-compare { display: grid; grid-template-columns: 1fr 1fr; border: 1.5px solid var(--bd2); border-radius: var(--R); overflow: hidden; margin-top: 48px; }
@@ -519,7 +519,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
   "@type": "WebSite",
   "name": "Veross",
   "url": "https://www.veross.com.br",
-  "description": "A Veross estrutura a operação comercial de empresas B2B com método, tecnologia e execução — transformando vendas improvisadas em crescimento previsível e sustentável."
+  "description": "A Veross arquiteta ecossistemas comerciais B2B — integrando desenvolvimento humano, método e tecnologia para empresas que crescem com Receita, Recorrência, Rentabilidade e Replicabilidade."
 }
 </script>
 <!-- ── Analytics ── -->
@@ -539,6 +539,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
       <li><a href="sobre.html">A Veross</a></li>
       <li><a href="#metodo">Método</a></li>
       <li><a href="#cases">Cases</a></li>
+      <li><a href="blog.html">Blog</a></li>
       <li class="nav-has-drop">
         <a href="solucoes.html" class="nav-drop-trigger">Soluções <svg class="nav-caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <div class="nav-dropdown">
@@ -576,6 +577,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
   <a href="sobre.html" onclick="cm()">A Veross</a>
   <a href="#metodo" onclick="cm()">Método</a>
   <a href="#cases" onclick="cm()">Cases</a>
+  <a href="blog.html" onclick="cm()">Blog</a>
   <a href="solucoes.html" onclick="cm()">Soluções</a>
   <a href="solucoes/educacao-comercial.html" onclick="cm()" style="font-size:clamp(18px,4.5vw,28px)">↳ Educação Comercial</a>
   <a href="solucoes/tecnologia-comercial.html" onclick="cm()" style="font-size:clamp(18px,4.5vw,28px)">↳ Tecnologia Comercial</a>
@@ -609,7 +611,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
       <div class="hero-badge"><div class="hero-dot"></div>Arquitetura Comercial B2B</div>
       <p class="hero-tag">Estruturamos como empresas B2B vendem e replicam isso continuadamente.</p>
       <h1 class="fd hero-h1">Sua empresa<br>já vende.<br><em>O problema é que<br>ainda cresce no improviso.</em></h1>
-      <p class="hero-sub">A Veross estrutura a operação comercial de empresas B2B que dependem demais de indicação, esforço individual e processos pouco documentados — e transforma isso em uma operação previsível e sustentável.</p>
+      <p class="hero-sub">A Veross estrutura a operação comercial de empresas B2B que dependem demais de indicação, esforço individual e processos pouco documentados — e arquiteta uma operação comercial estruturada, gerenciável e replicável.</p>
       <div class="hero-ctas">
         <button class="btn-p" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Quero um diagnóstico gratuito</button>
       </div>
@@ -1178,7 +1180,7 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
       <div class="footer-logo" style="margin-bottom:20px">
         <img src="img/logos/logo-veross.svg" alt="Veross" height="52">
       </div>
-      <p class="fv2-desc">Estruturamos como empresas B2B vendem — com método, previsibilidade e resultados replicáveis.</p>
+      <p class="fv2-desc">Arquitetamos como empresas B2B vendem — com método, consistência e resultados replicáveis.</p>
       <div class="fv2-subscribe">
         <input type="email" placeholder="Seu melhor e-mail" class="fv2-email">
         <button class="fv2-sub-btn" onclick="goWhiteP(this)">White Paper</button>
@@ -1233,6 +1235,108 @@ hr.bc-hr { border: none; border-top: 1px solid var(--bd2); margin: 16px 0; }
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="image-slot.js"></script>
 <script>
+// ── CLIENTS MARQUEE — continuous + drag ──
+(function() {
+  var wrap  = document.querySelector('.cs-track-wrap');
+  var track = document.querySelector('.cs-track');
+  if (!track || !wrap) return;
+
+  var speed    = 0.45;
+  var pos      = 0;
+  var dragging = false;
+  var startX   = 0;
+  var startPos = 0;
+  var velX     = 0;
+  var lastX    = 0;
+  var lastT    = 0;
+
+  function half() { return track.scrollWidth / 2; }
+
+  function clamp(p) {
+    var h = half();
+    p = p % h;
+    if (p > 0) p -= h;
+    return p;
+  }
+
+  function tick() {
+    if (!dragging) {
+      pos -= speed;
+      if (pos <= -half()) pos += half();
+    }
+    track.style.transform = 'translateX(' + pos + 'px)';
+    requestAnimationFrame(tick);
+  }
+
+  // Mouse
+  wrap.addEventListener('mousedown', function(e) {
+    dragging = true;
+    startX   = e.clientX;
+    startPos = pos;
+    lastX    = e.clientX;
+    lastT    = Date.now();
+    velX     = 0;
+    track.classList.add('cs-dragging');
+    e.preventDefault();
+  });
+
+  window.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var now = Date.now();
+    velX    = (e.clientX - lastX) / Math.max(1, now - lastT);
+    lastX   = e.clientX;
+    lastT   = now;
+    pos     = clamp(startPos + (e.clientX - startX));
+  });
+
+  window.addEventListener('mouseup', function() {
+    if (!dragging) return;
+    dragging = false;
+    track.classList.remove('cs-dragging');
+    var v = velX * 14;
+    var steps = 0;
+    (function momentum() {
+      if (Math.abs(v) < 0.05 || steps++ > 60) return;
+      pos = clamp(pos - v);
+      v  *= 0.88;
+      if (!dragging) requestAnimationFrame(momentum);
+    })();
+  });
+
+  // Touch
+  wrap.addEventListener('touchstart', function(e) {
+    dragging = true;
+    startX   = e.touches[0].clientX;
+    startPos = pos;
+    lastX    = startX;
+    lastT    = Date.now();
+    velX     = 0;
+  }, { passive: true });
+
+  wrap.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    var now = Date.now();
+    velX    = (e.touches[0].clientX - lastX) / Math.max(1, now - lastT);
+    lastX   = e.touches[0].clientX;
+    lastT   = now;
+    pos     = clamp(startPos + (e.touches[0].clientX - startX));
+  }, { passive: true });
+
+  wrap.addEventListener('touchend', function() {
+    dragging = false;
+    var v = velX * 14;
+    var steps = 0;
+    (function momentum() {
+      if (Math.abs(v) < 0.05 || steps++ > 60) return;
+      pos = clamp(pos - v);
+      v  *= 0.88;
+      if (!dragging) requestAnimationFrame(momentum);
+    })();
+  });
+
+  requestAnimationFrame(tick);
+})();
+
 // ── NAV SCROLL ──
 const nav = document.getElementById('main-nav');
 window.addEventListener('scroll', () => {

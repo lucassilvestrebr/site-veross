@@ -379,13 +379,39 @@ function filterPosts(cat) {
   });
 }
 
-// Newsletter
+// Newsletter — HubSpot
 function subscribeNL() {
   var name  = document.getElementById('nlName').value.trim();
   var email = document.getElementById('nlEmail').value.trim();
   if (!email) { alert('Informe seu e-mail.'); return; }
-  var url = 'https://substack.com/@lucassilvestrebr';
-  window.open(url, '_blank');
+
+  var btn = document.querySelector('.blog-nl-btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  var fields = [
+    { objectTypeId: '0-1', name: 'email',     value: email },
+    { objectTypeId: '0-1', name: 'firstname',  value: name  }
+  ];
+
+  fetch('https://api.hsforms.com/submissions/v3/integration/submit/44513728/a725e3f4-98c5-45d2-bc96-737aac04470f', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      fields: fields,
+      context: { pageUri: window.location.href, pageName: document.title }
+    })
+  })
+  .then(function() {
+    btn.textContent = 'Inscrito! ✓';
+    document.getElementById('nlName').value  = '';
+    document.getElementById('nlEmail').value = '';
+  })
+  .catch(function() {
+    btn.disabled = false;
+    btn.textContent = 'Quero receber';
+    alert('Erro ao enviar. Tente novamente.');
+  });
 }
 </script>
 </body>
