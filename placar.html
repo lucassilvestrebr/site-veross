@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://www.veross.com.br/placar.html">
+<meta name="description" content="Placar de Negócios da Veross — números reais e atualizados sobre o impacto gerado em operações comerciais B2B.">
+<title>Placar de Negócios — Veross</title>
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.veross.com.br/placar.html">
+<meta property="og:title" content="Placar de Negócios — Veross">
+<meta property="og:description" content="Números reais sobre o impacto que a Veross gera em operações comerciais B2B.">
+<meta property="og:image" content="https://www.veross.com.br/img/hero/lucas-silvestre-tablet.png">
+<link rel="icon" href="favicon-light.ico" sizes="any">
+<link rel="icon" href="favicon-dark.ico" sizes="any" media="(prefers-color-scheme: dark)">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FV8KJWQSPW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FV8KJWQSPW');</script>
+<style>
+:root {
+  --azul:   #060923;
+  --dou:    #AE8A56;
+  --dou-lt: #C9A97A;
+  --amen:   #ECD7B4;
+  --plat:   #CDCDD0;
+  --branco: #FCFCFC;
+  --bg:     #FCFCFC;
+  --bg-w:   #F5EFE2;
+  --card:   #FFFFFF;
+  --tx:     #060923;
+  --tx-m:   #3C3020;
+  --tx-s:   #9A8C78;
+  --bd:     rgba(174,138,86,.22);
+  --bd2:    rgba(6,9,35,.08);
+  --R:      28px;
+  --r:      12px;
+  --nav-h:  84px;
+}
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { background: var(--azul); color: var(--tx); font-family: 'Mulish', sans-serif; font-weight: 400; line-height: 1.65; overflow-x: hidden; }
+
+/* ── TYPE ── */
+.fh { font-family: 'League Spartan', sans-serif; font-weight: 700; letter-spacing: -.02em; line-height: 1.1; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 52px; }
+.ey { display: inline-flex; align-items: center; gap: 8px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--dou); margin-bottom: 22px; }
+.ey::before { content: ''; width: 20px; height: 1px; background: var(--dou); opacity: .5; }
+.sh em { font-style: normal; color: var(--dou); }
+
+/* ── BUTTONS ── */
+.btn-p { display: inline-flex; align-items: center; justify-content: center; background: var(--azul); color: var(--branco); border: none; padding: 14px 28px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; text-decoration: none; white-space: nowrap; }
+.btn-p:hover { background: var(--dou); }
+
+/* ── NAV ── */
+#main-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(6,9,35,.88); backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,.07); transition: box-shadow .3s; }
+#main-nav.scrolled { box-shadow: 0 2px 24px rgba(0,0,0,.28); }
+.nav-i { max-width: 1120px; margin: 0 auto; padding: 0 52px; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.nav-logo { display: flex; align-items: center; text-decoration: none; }
+.nav-logo img { height: 72px; width: auto; display: block; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,.55); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--dou); }
+.nav-cta { background: var(--dou); color: var(--azul); border: none; padding: 10px 20px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; white-space: nowrap; }
+.nav-cta:hover { background: var(--dou-lt); }
+.ham { display: none; flex-direction: column; gap: 5px; width: 36px; height: 36px; background: transparent; border: 1px solid rgba(255,255,255,.15); border-radius: 8px; padding: 9px; cursor: pointer; }
+.ham span { display: block; height: 1.5px; background: var(--branco); border-radius: 2px; transition: transform .3s, opacity .3s; }
+.ham.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+.ham.open span:nth-child(2) { opacity: 0; }
+.ham.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+.mob { display: none; position: fixed; top: var(--nav-h); left: 0; right: 0; bottom: 0; background: rgba(6,9,35,.97); backdrop-filter: blur(24px); z-index: 900; flex-direction: column; align-items: center; justify-content: center; gap: 4px; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.mob.open { opacity: 1; pointer-events: all; }
+.mob a { font-family: 'League Spartan', sans-serif; font-size: clamp(28px,7vw,44px); font-weight: 800; color: rgba(255,255,255,.28); text-decoration: none; transition: color .2s; padding: 6px 0; }
+.mob a:hover { color: var(--dou); }
+.mob-cta { margin-top: 28px; background: var(--dou); color: var(--azul); border: none; padding: 14px 36px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+
+/* ── NAV DROPDOWN ── */
+.nav-has-drop { position: relative; }
+.nav-has-drop::after { content:''; position:absolute; top:100%; left:0; right:0; height:24px; }
+.nav-drop-trigger { display: inline-flex; align-items: center; gap: 5px; }
+.nav-caret { transition: transform .22s; flex-shrink: 0; }
+.nav-has-drop:hover .nav-caret { transform: rotate(180deg); }
+.nav-dropdown { position: absolute; top: calc(100% + 18px); left: 50%; transform: translateX(-50%) translateY(-6px); width: 310px; background: var(--branco); border: 1px solid var(--bd2); border-radius: 16px; padding: 8px; box-shadow: 0 12px 40px rgba(6,9,35,.12); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; }
+.nav-has-drop:hover .nav-dropdown { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+.nd-item { display: flex; align-items: center; gap: 12px; padding: 11px 13px; border-radius: 10px; text-decoration: none; transition: background .15s; }
+.nd-item:hover { background: rgba(174,138,86,.06); }
+.nd-icon { font-size: 16px; color: var(--dou); flex-shrink: 0; width: 28px; text-align: center; }
+.nd-item strong { display: block; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--azul); line-height: 1.2; }
+.nd-item em { display: block; font-style: normal; font-size: 11px; color: var(--tx-s); margin-top: 2px; }
+.nd-sep { border-top: 1px solid var(--bd2); margin: 6px 0; }
+.nd-all { display: block; text-align: center; padding: 9px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; color: var(--dou); text-decoration: none; border-radius: 8px; transition: background .15s; }
+.nd-all:hover { background: rgba(174,138,86,.06); }
+
+/* ── FADE IN ── */
+.fi { opacity: 0; transform: translateY(22px); transition: opacity .65s ease, transform .65s ease; }
+.fi.visible { opacity: 1; transform: none; }
+
+/* ── SECTIONS ── */
+.sc { padding: 88px 0; }
+.sc-dark { background: var(--azul); }
+
+/* ── PAGE HERO ── */
+.placar-hero { padding: calc(var(--nav-h) + 64px) 0 64px; background: var(--azul); }
+.placar-hero-inner { max-width: 1120px; margin: 0 auto; padding: 0 52px; }
+.placar-hero h1 { font-family: 'League Spartan', sans-serif; font-weight: 800; letter-spacing: -.025em; line-height: 1.05; font-size: clamp(36px,5vw,68px); color: var(--branco); margin-bottom: 18px; }
+.placar-hero h1 em { font-style: normal; color: var(--dou); }
+.placar-hero p { font-size: 15px; font-weight: 300; color: rgba(255,255,255,.42); line-height: 1.85; max-width: 520px; }
+.placar-divider { height: 1px; background: rgba(174,138,86,.12); max-width: 1120px; margin: 0 auto 64px; padding: 0 52px; }
+.placar-divider-line { height: 1px; background: rgba(174,138,86,.12); }
+
+/* ── DASHBOARD ── */
+.dash-sub-hdr { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: rgba(174,138,86,.45); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+.dash-sub-hdr::after { content: ''; flex: 1; height: 1px; background: rgba(174,138,86,.1); }
+.dash-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 12px; }
+.dc { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 14px; padding: 24px; display: flex; flex-direction: column; min-width: 0; }
+.dc-hero { grid-column: span 2; background: rgba(174,138,86,.07); border-color: rgba(174,138,86,.18); }
+.dc-curr { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: .1em; color: rgba(174,138,86,.55); margin-bottom: 4px; }
+.dc-n { font-family: 'League Spartan', sans-serif; font-weight: 800; color: var(--dou); line-height: 1; letter-spacing: -.025em; font-size: 34px; }
+.dc-hero .dc-n { font-size: clamp(28px,3.8vw,52px); }
+.dc-mid .dc-n { font-size: 40px; }
+.dc-lbl { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(174,138,86,.38); margin-top: 10px; }
+.dc-sub { font-size: 11px; font-weight: 300; color: rgba(255,255,255,.25); margin-top: 5px; line-height: 1.5; }
+.dc-n-pct { font-family: 'League Spartan', sans-serif; font-weight: 800; color: rgba(174,138,86,.45); font-size: 18px; line-height: 1.6; }
+.dc-seg-tabs-row { grid-column: span 4; display: flex; gap: 7px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,.06); }
+.dc-seg-tab { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(255,255,255,.1); color: rgba(255,255,255,.3); cursor: pointer; background: none; transition: background .2s, border-color .2s, color .2s; }
+.dc-seg-tab.on { background: var(--dou); border-color: var(--dou); color: var(--azul); font-weight: 700; }
+.dc-seg-val { display: none; }
+.dc-seg-val.active { display: block; }
+.dash-time { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07); border-radius: 14px; padding: 28px 32px; }
+.time-flex { display: flex; align-items: center; margin-top: 20px; }
+.time-point { display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.time-v { font-family: 'League Spartan', sans-serif; font-size: 24px; font-weight: 800; color: var(--dou); line-height: 1; white-space: nowrap; }
+.time-hero .time-v { font-size: 34px; }
+.time-l { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; color: rgba(174,138,86,.38); }
+.time-line { flex: 1; height: 1px; margin: 0 12px 16px; background: rgba(174,138,86,.25); }
+.dash-updated { margin-top: 20px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: rgba(174,138,86,.22); text-align: right; }
+
+/* ── FOOTER v2 ── */
+.fv2 { padding: 64px 52px 52px; max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start; }
+.fv2-desc { font-size: 13px; font-weight: 300; color: rgba(255,255,255,.35); line-height: 1.85; margin-bottom: 28px; max-width: 260px; }
+.fv2-subscribe { display: flex; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 100px; padding: 5px 5px 5px 18px; margin-bottom: 24px; max-width: 280px; }
+.fv2-email { background: transparent; border: none; outline: none; color: var(--branco); font-family: 'Mulish', sans-serif; font-size: 13px; flex: 1; min-width: 0; }
+.fv2-email::placeholder { color: rgba(255,255,255,.25); }
+.fv2-sub-btn { background: var(--dou); color: var(--azul); border: none; border-radius: 100px; padding: 9px 20px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; transition: background .2s; white-space: nowrap; }
+.fv2-sub-btn:hover { background: var(--dou-lt); }
+.fv2-social { display: flex; gap: 10px; }
+.fv2-soc { width: 36px; height: 36px; border-radius: 50%; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.4); text-decoration: none; transition: border-color .2s, color .2s; }
+.fv2-soc:hover { border-color: var(--dou); color: var(--dou); }
+.fv2-soc svg { width: 16px; height: 16px; }
+.fv2-links { display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; }
+.fv2-col { display: flex; flex-direction: column; gap: 10px; }
+.fv2-col-head { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--branco); letter-spacing: .03em; margin-bottom: 6px; }
+.fv2-col a { font-size: 13px; color: rgba(255,255,255,.38); text-decoration: none; transition: color .2s; line-height: 1.5; }
+.fv2-col a:hover { color: var(--dou); }
+.fv2-bottom { max-width: 1200px; margin: 0 auto; padding: 20px 52px 32px; border-top: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+.footer-logo { display: flex; align-items: center; margin-bottom: 14px; }
+.footer-logo img { height: 52px; filter: brightness(0) invert(1); }
+footer { background: var(--azul); border-top: 1px solid rgba(255,255,255,.06); }
+
+/* ── GRID 5-COL (segmentos) ── */
+.dash-grid-seg { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; margin-bottom: 12px; }
+.dash-grid-seg .dc-seg-tabs-row { grid-column: span 5; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .fv2 { grid-template-columns: 220px 1fr; gap: 48px; padding: 52px 32px 44px; }
+  .fv2-links { grid-template-columns: repeat(2,1fr); }
+  .fv2-bottom { padding: 20px 32px 28px; }
+  .dash-grid { grid-template-columns: repeat(2,1fr); }
+  .dc-hero { grid-column: span 2; }
+  .dc-seg-tabs-row { grid-column: span 2; flex-wrap: wrap; }
+  .dash-grid-seg { grid-template-columns: repeat(5,1fr); }
+  .dash-grid-seg .dc-seg-tabs-row { grid-column: span 5; }
+}
+@media (max-width: 768px) {
+  .wrap { padding: 0 20px; }
+  .nav-i { padding: 0 20px; }
+  .nav-links { display: none; }
+  .ham { display: flex; }
+  .fv2 { grid-template-columns: 1fr; gap: 40px; padding: 44px 20px 36px; }
+  .fv2-bottom { padding: 18px 20px 24px; }
+  .placar-hero-inner { padding: 0 20px; }
+  .placar-divider { padding: 0 20px; }
+  .dash-grid-seg { grid-template-columns: repeat(2,1fr); }
+  .dash-grid-seg .dc-seg-tabs-row { grid-column: span 2; flex-wrap: wrap; }
+}
+@media (max-width: 520px) {
+  .time-v { font-size: 16px; }
+  .time-hero .time-v { font-size: 22px; }
+  .dc-n { font-size: 26px; }
+  .dc-mid .dc-n { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── PAGE HERO ── -->
+<div class="placar-hero">
+  <div class="placar-hero-inner fi">
+    <div class="ey" style="color:var(--amen)">Transparência · Resultados</div>
+    <h1>Placar de<br><em>Negócios</em></h1>
+    <p>Números reais, atualizados, sobre o impacto que a Veross gera em operações comerciais B2B.</p>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<section class="sc sc-dark" id="dashboard" style="padding-top:0">
+  <div class="wrap fi">
+
+    <div class="dash-sub-hdr">Resultados gerados para clientes</div>
+
+    <div class="dash-grid">
+      <div class="dc dc-hero">
+        <div class="dc-curr">R$</div>
+        <div class="dc-n" data-count="93723032.77" data-fmt="brl2">93.723.032,77</div>
+        <div class="dc-lbl">Receita gerada para clientes</div>
+        <div class="dc-sub">Desde o início da operação</div>
+      </div>
+      <div class="dc dc-mid">
+        <div class="dc-n" data-count="697" data-fmt="int">697</div>
+        <div class="dc-lbl">Profissionais treinados</div>
+        <div class="dc-sub">SDRs, closers e gestores comerciais</div>
+      </div>
+      <div class="dc dc-mid">
+        <div class="dc-n" data-count="173" data-fmt="int">173</div>
+        <div class="dc-lbl">Empresas atendidas</div>
+        <div class="dc-sub">Operações B2B estruturadas</div>
+      </div>
+    </div>
+
+    <div class="dash-grid-seg">
+      <div class="dc-seg-tabs-row">
+        <button class="dc-seg-tab on" data-seg="tec">Tecnologia</button>
+        <button class="dc-seg-tab" data-seg="fin">Fin. Serv.</button>
+        <button class="dc-seg-tab" data-seg="mkt">Marketing</button>
+        <button class="dc-seg-tab" data-seg="out">Outros</button>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">LTV Médio</div>
+        <div class="dc-seg-val active" data-seg="tec"><div class="dc-curr">R$</div><div class="dc-n">1.397.772</div></div>
+        <div class="dc-seg-val" data-seg="fin"><div class="dc-curr">R$</div><div class="dc-n">3.293.447</div></div>
+        <div class="dc-seg-val" data-seg="mkt"><div class="dc-curr">R$</div><div class="dc-n">437.023</div></div>
+        <div class="dc-seg-val" data-seg="out"><div class="dc-curr">R$</div><div class="dc-n">237.998</div></div>
+        <div class="dc-sub" style="margin-top:auto;padding-top:10px">Lifetime Value por segmento</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Redução de CAC</div>
+        <div class="dc-seg-val active" data-seg="tec"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">38</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="fin"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">44</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="mkt"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">29</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="out"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">33</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-sub" style="margin-top:auto;padding-top:10px">Redução média após estruturação</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">ROI</div>
+        <div class="dc-seg-val active" data-seg="tec"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">7,2</div><div class="dc-n-pct">x</div></div></div>
+        <div class="dc-seg-val" data-seg="fin"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">8,4</div><div class="dc-n-pct">x</div></div></div>
+        <div class="dc-seg-val" data-seg="mkt"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">5,8</div><div class="dc-n-pct">x</div></div></div>
+        <div class="dc-seg-val" data-seg="out"><div style="display:flex;align-items:flex-end;gap:2px"><div class="dc-n">4,9</div><div class="dc-n-pct">x</div></div></div>
+        <div class="dc-sub" style="margin-top:auto;padding-top:10px">Por real investido na Veross</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Retenção</div>
+        <div class="dc-seg-val active" data-seg="tec"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">92,1</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="fin"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">95,4</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="mkt"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">91,8</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="out"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">93,8</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-sub" style="margin-top:auto;padding-top:10px">Média geral: 93,27%</div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Churn</div>
+        <div class="dc-seg-val active" data-seg="tec"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">11,2</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="fin"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">7,8</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="mkt"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">12,9</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-seg-val" data-seg="out"><div style="display:flex;align-items:flex-end;gap:3px"><div class="dc-n">7,2</div><div class="dc-n-pct">%</div></div></div>
+        <div class="dc-sub" style="margin-top:auto;padding-top:10px">Média geral: 9,77%</div>
+      </div>
+    </div>
+
+    <div class="dash-sub-hdr" style="margin-top:44px">Nossa operação</div>
+
+    <div class="dash-grid">
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Entrega de e-mail</div>
+        <div style="display:flex;align-items:flex-end;gap:3px">
+          <div class="dc-n" data-count="98.7" data-fmt="pct1">98,7</div>
+          <div class="dc-n-pct">%</div>
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Taxa de abertura</div>
+        <div style="display:flex;align-items:flex-end;gap:3px">
+          <div class="dc-n" data-count="77.32" data-fmt="pct2">77,32</div>
+          <div class="dc-n-pct">%</div>
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Taxa de resposta</div>
+        <div style="display:flex;align-items:flex-end;gap:3px">
+          <div class="dc-n" data-count="32.22" data-fmt="pct2">32,22</div>
+          <div class="dc-n-pct">%</div>
+        </div>
+      </div>
+      <div class="dc">
+        <div class="dc-lbl" style="margin-top:0;margin-bottom:12px">Taxa de conexão</div>
+        <div style="display:flex;align-items:flex-end;gap:3px">
+          <div class="dc-n" data-count="35.67" data-fmt="pct2">35,67</div>
+          <div class="dc-n-pct">%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-time">
+      <div class="dc-lbl" style="margin-top:0;margin-bottom:4px">Tempo para agendar uma reunião</div>
+      <div class="dc-sub" style="color:rgba(255,255,255,.22)">Histórico da nossa operação de prospecção ativa</div>
+      <div class="time-flex">
+        <div class="time-point">
+          <div class="time-v">15h 23min</div>
+          <div class="time-l">Menor tempo</div>
+        </div>
+        <div class="time-line"></div>
+        <div class="time-point time-hero">
+          <div class="time-v">17 dias</div>
+          <div class="time-l">Tempo médio</div>
+        </div>
+        <div class="time-line"></div>
+        <div class="time-point">
+          <div class="time-v">27 dias</div>
+          <div class="time-l">Maior tempo</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="dash-updated">● Dados atualizados em junho de 2026</p>
+  </div>
+</section>
+
+<!-- ── Nav + Footer + Analytics via _nav.js ── -->
+<script src="_nav.js"></script>
+
+<!-- ── Dashboard: Segment tabs + Count-up ── -->
+<script>
+(function() {
+  var tabs = document.querySelectorAll('.dc-seg-tab');
+  function switchSeg(seg) {
+    tabs.forEach(function(t) { t.classList.toggle('on', t.dataset.seg === seg); });
+    document.querySelectorAll('.dc-seg-val').forEach(function(el) {
+      el.classList.toggle('active', el.dataset.seg === seg);
+    });
+  }
+  tabs.forEach(function(t) { t.addEventListener('click', function() { switchSeg(t.dataset.seg); }); });
+
+  var fmts = {
+    int:  function(n) { return Math.round(n).toLocaleString('pt-BR'); },
+    brl2: function(n) { return n.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2}); },
+    pct1: function(n) { return n.toFixed(1).replace('.', ','); },
+    pct2: function(n) { return n.toFixed(2).replace('.', ','); }
+  };
+  function animCount(el, target, dur, fmt) {
+    var t0 = performance.now();
+    (function tick(now) {
+      var t = Math.min((now - t0) / dur, 1);
+      el.textContent = fmt(target * (1 - Math.pow(1 - t, 3)));
+      if (t < 1) requestAnimationFrame(tick);
+      else el.textContent = fmt(target);
+    })(t0);
+  }
+  var fired = false;
+  var obs = new IntersectionObserver(function(entries) {
+    if (fired) return;
+    if (!entries[0].isIntersecting) return;
+    fired = true;
+    document.querySelectorAll('[data-count]').forEach(function(el) {
+      animCount(el, parseFloat(el.dataset.count), 2000, fmts[el.dataset.fmt] || fmts.int);
+    });
+  }, {threshold: 0.05});
+  var dash = document.getElementById('dashboard');
+  if (dash) obs.observe(dash);
+})();
+</script>
+
+</body>
+</html>
