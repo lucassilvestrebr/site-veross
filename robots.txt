@@ -3,3 +3,4 @@ Allow: /
 Disallow: /uploads/
 
 Sitemap: https://www.veross.com.br/sitemap.xml
+Llms: https://www.veross.com.br/llms.txt
