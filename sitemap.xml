@@ -33,6 +33,22 @@
     <priority>0.70</priority>
   </url>
 
+  <!-- ── Blog ── -->
+  <url>
+    <loc>https://www.veross.com.br/blog.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- ── Artigos ── -->
+  <url>
+    <loc>https://www.veross.com.br/blog/o-que-e-arquitetura-comercial-b2b.html</loc>
+    <lastmod>2026-06-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.65</priority>
+  </url>
+
   <!-- ── Soluções (pilares) ── -->
   <url>
     <loc>https://www.veross.com.br/solucoes/educacao-comercial.html</loc>

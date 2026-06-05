@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="canonical" href="https://www.veross.com.br/blog.html">
+<meta name="robots" content="index, follow">
+<title>Blog — Veross · Arquitetura Comercial B2B</title>
+<meta name="description" content="Artigos, guias e análises sobre arquitetura comercial B2B, Método MHMA, prospecção outbound, tecnologia e operação de vendas. Por Lucas Silvestre e a equipe Veross.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.veross.com.br/blog.html">
+<meta property="og:title" content="Blog — Veross · Arquitetura Comercial B2B">
+<meta property="og:description" content="Artigos, guias e análises sobre arquitetura comercial B2B, Método MHMA, prospecção outbound, tecnologia e operação de vendas.">
+<meta property="og:image" content="https://www.veross.com.br/img/hero/lucas-silvestre-tablet.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog — Veross · Arquitetura Comercial B2B">
+<meta name="twitter:description" content="Artigos, guias e análises sobre arquitetura comercial B2B, Método MHMA, prospecção outbound, tecnologia e operação de vendas.">
+<link rel="icon" href="favicon-light.ico" sizes="any">
+<link rel="icon" href="favicon-dark.ico" sizes="any" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="favicon-light.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@300;400;500;600;700;800;900&family=Mulish:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog Veross — Arquitetura Comercial B2B",
+  "url": "https://www.veross.com.br/blog.html",
+  "description": "Artigos, guias e análises sobre arquitetura comercial B2B por Lucas Silvestre e a equipe Veross.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Veross",
+    "url": "https://www.veross.com.br",
+    "logo": "https://www.veross.com.br/img/logos/logo-veross.svg"
+  }
+}
+</script>
+
+<!-- Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FV8KJWQSPW"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-FV8KJWQSPW');</script>
+
+<style>
+.page-top { height: var(--nav-h); }
+
+/* ── HERO ── */
+.blog-hero { background: var(--azul); padding: 72px 0 80px; position: relative; overflow: hidden; }
+.blog-hero-deco { position: absolute; inset: 0; pointer-events: none; }
+.blog-hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: end; }
+.blog-hero-left {}
+.blog-hero-stat { display: flex; gap: 36px; margin-top: 36px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.08); }
+.bhs-item {}
+.bhs-n { font-family: 'League Spartan', sans-serif; font-size: 28px; font-weight: 800; color: var(--dou); line-height: 1; margin-bottom: 4px; }
+.bhs-l { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .1em; color: rgba(255,255,255,.28); text-transform: uppercase; }
+.blog-hero-right { text-align: right; }
+.blog-h1 { font-family: 'League Spartan', sans-serif; font-size: clamp(36px, 5vw, 64px); font-weight: 900; letter-spacing: -.03em; line-height: .95; color: var(--branco); margin-bottom: 20px; }
+.blog-h1 em { font-style: normal; color: var(--dou-lt); }
+.blog-hero-sub { font-size: 16px; font-weight: 300; color: rgba(255,255,255,.4); line-height: 1.8; max-width: 500px; }
+
+/* ── FILTERS ── */
+.blog-filters { background: var(--branco); border-bottom: 1px solid var(--bd2); position: sticky; top: var(--nav-h); z-index: 50; }
+.blog-filters-inner { max-width: 1120px; margin: 0 auto; padding: 0 52px; display: flex; align-items: center; gap: 6px; overflow-x: auto; height: 56px; scrollbar-width: none; }
+.blog-filters-inner::-webkit-scrollbar { display: none; }
+.bf-pill { display: inline-flex; align-items: center; padding: 6px 16px; border-radius: 100px; border: 1.5px solid var(--bd2); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--tx-s); cursor: pointer; transition: border-color .2s, color .2s, background .2s; white-space: nowrap; background: transparent; }
+.bf-pill:hover { border-color: var(--bd); color: var(--dou); }
+.bf-pill.active { background: var(--azul); border-color: var(--azul); color: var(--branco); }
+
+/* ── FEATURED ── */
+.blog-featured { padding: 72px 0 0; }
+.featured-card { display: grid; grid-template-columns: 1fr 420px; gap: 0; border: 1.5px solid var(--bd2); border-radius: var(--R); overflow: hidden; transition: box-shadow .3s, border-color .3s; text-decoration: none; }
+.featured-card:hover { border-color: var(--bd); box-shadow: 0 8px 40px rgba(174,138,86,.1); }
+.featured-body { padding: 52px 48px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; }
+.featured-top {}
+.featured-tag { display: inline-flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--dou); margin-bottom: 16px; }
+.featured-tag::before { content: '◎'; font-size: 8px; }
+.featured-label { display: inline-flex; align-items: center; gap: 8px; background: rgba(174,138,86,.06); border: 1px solid rgba(174,138,86,.18); border-radius: 100px; padding: 4px 12px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .12em; text-transform: uppercase; color: var(--dou); margin-bottom: 20px; }
+.featured-h2 { font-family: 'League Spartan', sans-serif; font-size: clamp(22px, 2.6vw, 34px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; color: var(--azul); margin-bottom: 14px; }
+.featured-h2 em { font-style: normal; color: var(--dou); }
+.featured-excerpt { font-size: 15px; font-weight: 300; color: var(--tx-m); line-height: 1.8; }
+.featured-meta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.featured-author { display: flex; align-items: center; gap: 10px; }
+.featured-author-photo { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; border: 1.5px solid var(--bd); flex-shrink: 0; }
+.featured-author-photo img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.featured-author-name { font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; color: var(--azul); }
+.featured-author-role { font-size: 11px; color: var(--tx-s); }
+.featured-info { display: flex; align-items: center; gap: 10px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx-s); letter-spacing: .04em; margin-left: auto; }
+.featured-info-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--bd); }
+.featured-read { display: inline-flex; align-items: center; gap: 6px; font-family: 'League Spartan', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--dou); }
+.featured-read::after { content: '→'; }
+
+.featured-visual { background: var(--azul); position: relative; overflow: hidden; min-height: 340px; display: flex; align-items: flex-end; }
+.featured-visual-deco { position: absolute; inset: 0; }
+.featured-visual-content { position: relative; z-index: 1; padding: 32px; width: 100%; }
+.featured-visual-quote { font-family: 'League Spartan', sans-serif; font-size: 18px; font-weight: 700; color: var(--branco); line-height: 1.3; border-left: 3px solid var(--dou); padding-left: 18px; margin-bottom: 16px; }
+.featured-visual-quote em { font-style: normal; color: var(--dou-lt); }
+.featured-visual-src { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: rgba(174,138,86,.45); }
+
+/* ── GRID ── */
+.blog-grid-section { padding: 56px 0 88px; }
+.blog-grid-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 36px; }
+.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* Article card */
+.art-card { border: 1.5px solid var(--bd2); border-radius: 20px; overflow: hidden; text-decoration: none; transition: border-color .2s, box-shadow .2s; display: flex; flex-direction: column; }
+.art-card:hover { border-color: var(--bd); box-shadow: 0 4px 24px rgba(174,138,86,.08); }
+.art-card-body { padding: 28px 26px; flex: 1; display: flex; flex-direction: column; gap: 10px; }
+.art-card-cat { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .14em; text-transform: uppercase; color: var(--dou); }
+.art-card-title { font-family: 'League Spartan', sans-serif; font-size: 16px; font-weight: 700; color: var(--azul); line-height: 1.3; }
+.art-card-excerpt { font-size: 13px; font-weight: 300; color: var(--tx-m); line-height: 1.7; }
+.art-card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 16px; border-top: 1px solid var(--bd2); }
+.art-card-meta { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--tx-s); letter-spacing: .04em; }
+.art-card-arrow { font-family: 'League Spartan', sans-serif; font-size: 11px; font-weight: 700; color: var(--dou); letter-spacing: .05em; }
+
+/* Soon card */
+.art-card-soon { opacity: .45; pointer-events: none; }
+.art-card-soon .art-card-cat { color: var(--tx-s); }
+.soon-badge { display: inline-flex; align-items: center; gap: 5px; background: var(--bg-w); border: 1px solid var(--bd2); border-radius: 100px; padding: 3px 10px; font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; color: var(--tx-s); }
+
+/* ── NEWSLETTER ── */
+.blog-nl { background: var(--azul); border-radius: var(--R); padding: 56px 52px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin-top: 16px; }
+.blog-nl-left {}
+.blog-nl-ey { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: rgba(174,138,86,.45); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.blog-nl-ey::before { content: ''; width: 20px; height: 1px; background: rgba(174,138,86,.35); }
+.blog-nl-h2 { font-family: 'League Spartan', sans-serif; font-size: clamp(24px, 3vw, 38px); font-weight: 800; letter-spacing: -.02em; line-height: 1.1; color: var(--branco); margin-bottom: 12px; }
+.blog-nl-h2 em { font-style: normal; color: var(--dou-lt); }
+.blog-nl-sub { font-size: 14px; font-weight: 300; color: rgba(255,255,255,.35); line-height: 1.8; }
+.blog-nl-right {}
+.blog-nl-form { display: flex; flex-direction: column; gap: 10px; }
+.blog-nl-input { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r); padding: 14px 18px; color: var(--branco); font-family: 'Mulish', sans-serif; font-size: 14px; outline: none; transition: border-color .2s; width: 100%; }
+.blog-nl-input::placeholder { color: rgba(255,255,255,.2); }
+.blog-nl-input:focus { border-color: rgba(174,138,86,.55); }
+.blog-nl-btn { background: var(--dou); color: var(--azul); border: none; padding: 14px; border-radius: 100px; font-family: 'League Spartan', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; transition: background .2s; }
+.blog-nl-btn:hover { background: var(--dou-lt); }
+.blog-nl-note { font-family: 'DM Mono', monospace; font-size: 10px; color: rgba(255,255,255,.18); text-align: center; letter-spacing: .04em; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1024px) {
+  .blog-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .blog-hero-right { text-align: left; }
+  .featured-card { grid-template-columns: 1fr; }
+  .featured-visual { min-height: 220px; }
+  .blog-grid { grid-template-columns: repeat(2, 1fr); }
+  .blog-nl { grid-template-columns: 1fr; gap: 32px; }
+  .blog-filters-inner { padding: 0 32px; }
+}
+@media (max-width: 768px) {
+  .blog-hero-stat { gap: 24px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-nl { padding: 40px 28px; }
+  .featured-body { padding: 32px 28px; }
+  .blog-filters-inner { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<div class="page-top"></div>
+
+<!-- ══ HERO ══ -->
+<header class="blog-hero">
+  <div class="blog-hero-deco">
+    <svg width="100%" height="100%" viewBox="0 0 1440 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs><pattern id="dt" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="rgba(174,138,86,0.09)"/></pattern></defs>
+      <rect width="100%" height="100%" fill="url(#dt)"/>
+      <g stroke="rgba(174,138,86,.12)" stroke-width="1" fill="none">
+        <line x1="800" y1="0" x2="1440" y2="380"/><line x1="1100" y1="0" x2="750" y2="500"/>
+        <line x1="1200" y1="100" x2="900" y2="500"/>
+      </g>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="blog-hero-inner fi">
+      <div class="blog-hero-left">
+        <div class="ey" style="color:rgba(174,138,86,.55)">Conteúdo Veross</div>
+        <h1 class="blog-h1">Arquitetura.<br><em>Na prática.</em></h1>
+        <p class="blog-hero-sub">Artigos, guias e análises sobre como estruturar operações comerciais B2B com método, tecnologia e execução — por Lucas Silvestre e a equipe Veross.</p>
+        <div class="blog-hero-stat">
+          <div class="bhs-item">
+            <div class="bhs-n">+4M</div>
+            <div class="bhs-l">prospecções analisadas</div>
+          </div>
+          <div class="bhs-item">
+            <div class="bhs-n">123+</div>
+            <div class="bhs-l">empresas estruturadas</div>
+          </div>
+          <div class="bhs-item">
+            <div class="bhs-n">20+</div>
+            <div class="bhs-l">anos de experiência B2B</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ══ FILTERS ══ -->
+<div class="blog-filters">
+  <div class="blog-filters-inner">
+    <button class="bf-pill active" onclick="filterPosts('todos')">Todos</button>
+    <button class="bf-pill" onclick="filterPosts('arquitetura')">Arquitetura Comercial</button>
+    <button class="bf-pill" onclick="filterPosts('metodo')">Método MHMA</button>
+    <button class="bf-pill" onclick="filterPosts('prospeccao')">Prospecção B2B</button>
+    <button class="bf-pill" onclick="filterPosts('tecnologia')">Tecnologia</button>
+    <button class="bf-pill" onclick="filterPosts('operacao')">Operação</button>
+    <button class="bf-pill" onclick="filterPosts('gestao')">Gestão Comercial</button>
+  </div>
+</div>
+
+<!-- ══ FEATURED ══ -->
+<section class="blog-featured">
+  <div class="wrap fi">
+    <div class="ey">Em destaque</div>
+    <a href="blog/o-que-e-arquitetura-comercial-b2b.html" class="featured-card">
+      <div class="featured-body">
+        <div class="featured-top">
+          <div class="featured-label">◎ Arquitetura Comercial</div>
+          <h2 class="featured-h2">O que é <em>Arquitetura Comercial B2B</em> — e por que sua empresa precisa de uma</h2>
+          <p class="featured-excerpt">Enquanto o mercado empilha táticas, as empresas que crescem com consistência constroem algo mais sólido: uma arquitetura. Entenda o conceito, o Método MHMA, o sistema 2EOGM e os 4Rs.</p>
+        </div>
+        <div class="featured-meta">
+          <div class="featured-author">
+            <div class="featured-author-photo">
+              <img src="img/hero/lucas-silvestre-tablet.png" alt="Lucas Silvestre" loading="lazy">
+            </div>
+            <div>
+              <div class="featured-author-name">Lucas Silvestre</div>
+              <div class="featured-author-role">Fundador &amp; CEO · Veross</div>
+            </div>
+          </div>
+          <div class="featured-info">
+            <span>4 jun. 2026</span>
+            <span class="featured-info-sep"></span>
+            <span>8 min</span>
+          </div>
+          <div class="featured-read">Ler artigo</div>
+        </div>
+      </div>
+      <div class="featured-visual">
+        <div class="featured-visual-deco">
+          <svg width="100%" height="100%" viewBox="0 0 420 340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs><pattern id="dv" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1.2" fill="rgba(174,138,86,0.12)"/></pattern></defs>
+            <rect width="100%" height="100%" fill="url(#dv)"/>
+            <g stroke="rgba(174,138,86,.2)" stroke-width="1" fill="none">
+              <line x1="0" y1="100" x2="420" y2="240"/>
+              <line x1="0" y1="200" x2="420" y2="80"/>
+              <circle cx="210" cy="170" r="60" stroke-dasharray="6 4" opacity=".4"/>
+            </g>
+            <g fill="rgba(174,138,86,.15)" stroke="rgba(174,138,86,.35)" stroke-width="1">
+              <rect x="60" y="80" width="60" height="8" rx="4"/>
+              <rect x="60" y="100" width="100" height="8" rx="4"/>
+              <rect x="60" y="120" width="80" height="8" rx="4"/>
+            </g>
+            <text x="210" y="178" text-anchor="middle" font-family="'DM Mono', monospace" font-size="11" fill="rgba(174,138,86,.6)" letter-spacing="2">ARQUITETURA</text>
+          </svg>
+        </div>
+        <div class="featured-visual-content">
+          <div class="featured-visual-quote">Vender mais resolve o mês. Estruturar como vender melhor é o que sustenta uma empresa <em>de verdade.</em></div>
+          <div class="featured-visual-src">Lucas Silvestre · Veross</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ══ GRID ══ -->
+<section class="blog-grid-section">
+  <div class="wrap">
+    <div class="blog-grid-header fi">
+      <div class="ey">Todos os artigos</div>
+    </div>
+    <div class="blog-grid">
+
+      <!-- Artigo publicado -->
+      <a href="blog/o-que-e-arquitetura-comercial-b2b.html" class="art-card fi" data-cat="arquitetura">
+        <div class="art-card-body">
+          <div class="art-card-cat">Arquitetura Comercial</div>
+          <div class="art-card-title">O que é Arquitetura Comercial B2B — e por que sua empresa precisa de uma</div>
+          <p class="art-card-excerpt">Do improviso à estrutura: o conceito, o Método MHMA, o sistema 2EOGM e os 4Rs explicados em profundidade.</p>
+          <div class="art-card-footer">
+            <div class="art-card-meta">4 jun. 2026 · 8 min</div>
+            <div class="art-card-arrow">Ler →</div>
+          </div>
+        </div>
+      </a>
+
+      <!-- Em breve -->
+      <div class="art-card art-card-soon fi" data-cat="metodo">
+        <div class="art-card-body">
+          <div class="art-card-cat">Método MHMA</div>
+          <div class="art-card-title">Mentalidade, Habilidades, Método e Ação: os 4 pilares da transformação comercial B2B</div>
+          <p class="art-card-excerpt">O Método MHMA explicado de dentro para fora — e como aplicar cada pilar na sua operação.</p>
+          <div class="art-card-footer">
+            <div class="soon-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card art-card-soon fi" data-cat="prospeccao">
+        <div class="art-card-body">
+          <div class="art-card-cat">Prospecção B2B</div>
+          <div class="art-card-title">Como estruturar uma operação de pré-vendas B2B do zero com o sistema 2EOGM</div>
+          <p class="art-card-excerpt">Passo a passo para sair do improviso e montar um processo de prospecção que funciona sem depender de um herói.</p>
+          <div class="art-card-footer">
+            <div class="soon-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card art-card-soon fi" data-cat="arquitetura">
+        <div class="art-card-body">
+          <div class="art-card-cat">Os 4Rs</div>
+          <div class="art-card-title">Por que Receita, Recorrência, Rentabilidade e Replicabilidade devem guiar toda estratégia comercial</div>
+          <p class="art-card-excerpt">Os 4Rs não são métricas — são o destino de uma arquitetura comercial bem construída. Entenda a ordem e o porquê.</p>
+          <div class="art-card-footer">
+            <div class="soon-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card art-card-soon fi" data-cat="tecnologia">
+        <div class="art-card-body">
+          <div class="art-card-cat">Tecnologia Comercial</div>
+          <div class="art-card-title">Stack comercial B2B: quais ferramentas usar e em qual ordem implantar</div>
+          <p class="art-card-excerpt">CRM, Sales Engagement, telefonia e IA — como montar um stack que serve à operação e não o contrário.</p>
+          <div class="art-card-footer">
+            <div class="soon-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="art-card art-card-soon fi" data-cat="gestao">
+        <div class="art-card-body">
+          <div class="art-card-cat">Gestão Comercial</div>
+          <div class="art-card-title">Como estruturar rituais de gestão comercial que o time realmente segue</div>
+          <p class="art-card-excerpt">Pipeline review, forecast e 1:1 — como fazer reuniões comerciais que geram decisão e não apenas atualização de status.</p>
+          <div class="art-card-footer">
+            <div class="soon-badge">Em breve</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Newsletter -->
+    <div class="blog-nl fi" style="transition-delay:.15s">
+      <div class="blog-nl-left">
+        <div class="blog-nl-ey">Newsletter Veross</div>
+        <h2 class="blog-nl-h2">Arquitetura comercial<br><em>toda semana.</em></h2>
+        <p class="blog-nl-sub">Insights práticos sobre operação B2B, prospecção, tecnologia e método — diretamente no seu e-mail. Sem enrolação.</p>
+      </div>
+      <div class="blog-nl-right">
+        <div class="blog-nl-form">
+          <input type="text" placeholder="Seu nome" class="blog-nl-input" id="nlName">
+          <input type="email" placeholder="Seu melhor e-mail" class="blog-nl-input" id="nlEmail">
+          <button class="blog-nl-btn" onclick="subscribeNL()">Quero receber</button>
+          <p class="blog-nl-note">Sem spam. Cancele quando quiser.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="_nav.js"></script>
+<script>
+// Filter pills
+function filterPosts(cat) {
+  document.querySelectorAll('.bf-pill').forEach(function(p) { p.classList.remove('active'); });
+  event.target.classList.add('active');
+  document.querySelectorAll('.art-card').forEach(function(card) {
+    if (cat === 'todos' || card.dataset.cat === cat) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+// Newsletter
+function subscribeNL() {
+  var name  = document.getElementById('nlName').value.trim();
+  var email = document.getElementById('nlEmail').value.trim();
+  if (!email) { alert('Informe seu e-mail.'); return; }
+  var url = 'https://substack.com/@lucassilvestrebr';
+  window.open(url, '_blank');
+}
+</script>
+</body>
+</html>
