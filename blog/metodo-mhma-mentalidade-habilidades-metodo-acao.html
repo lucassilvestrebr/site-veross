@@ -114,7 +114,7 @@
 /* ── BODY ── */
 .art-body { min-width: 0; }
 
-.art-toc { display: none; background: var(--bg-w); border: 1.5px solid var(--bd); border-radius: 16px; padding: 22px 26px; margin-bottom: 48px; }
+.art-toc { background: var(--bg-w); border: 1.5px solid var(--bd); border-radius: 16px; padding: 22px 26px; margin-bottom: 48px; }
 .art-toc-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--dou); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
 .art-toc-label::before { content: ''; width: 16px; height: 1px; background: var(--dou); opacity: .5; }
 .art-toc ol { list-style: none; counter-reset: toc; display: flex; flex-direction: column; gap: 8px; }
@@ -198,7 +198,6 @@
 
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
-  .art-toc { display: block; }
   .art-layout { grid-template-columns: 1fr; padding: 52px 32px; gap: 0; }
   .art-sidebar { position: static; margin-top: 48px; }
   .sb-toc { display: none; }
@@ -271,20 +270,7 @@
   <!-- CONTEÚDO -->
   <article class="art-body">
 
-    <nav class="art-toc" aria-label="Índice do artigo">
-      <div class="art-toc-label">Índice</div>
-      <ol>
-<li><a href="#mentalidade">Mentalidade</a></li>
-<li><a href="#habilidades">Habilidades</a></li>
-<li><a href="#metodo">Método: arquitetura operacional</a></li>
-<li><a href="#eeogm">EEOGM ou 2EOGM</a></li>
-<li><a href="#cece">C.E.C.E.</a></li>
-<li><a href="#dez-publicos">Os 10 públicos</a></li>
-<li><a href="#acao">Ação</a></li>
-<li><a href="#ciclo">O ciclo do MHMA</a></li>
-<li><a href="#aplicacao">Aplicação na operação comercial</a></li>
-</ol>
-    </nav>
+    
 
     <div class="art-text">
 
