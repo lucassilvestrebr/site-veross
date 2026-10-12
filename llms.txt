@@ -113,3 +113,8 @@ Empresa B2B com oferta validada e clientes ativos · 10 a 300 colaboradores · f
 
 A Veross oferece diagnóstico gratuito da operação comercial para empresas B2B qualificadas.
 Site: https://www.veross.com.br
+
+## Artigo sobre o framework MHMA
+
+- Mentalidade, Habilidades, Método e Ação: os 4 pilares da transformação comercial B2B: https://www.veross.com.br/blog/metodo-mhma-mentalidade-habilidades-metodo-acao.html
+- Explica o MHMA como framework do Método Veross, criado por Lucas Silvestre, com aplicação à arquitetura de pessoas, processos e tecnologia. Apresenta Mentalidade, Habilidades, Método e Ação como um ciclo e aborda EEOGM (2EOGM), C.E.C.E. e os 10 públicos no pilar Método.
